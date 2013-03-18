@@ -3,10 +3,15 @@ Team Two HTML Editor
 
 For this project you will develop a simple editor for HTML files.
 
-Basic Design can be found on: Google Drive Share for Team
+Basic Design can be found at
 
+https://docs.google.com/a/g.rit.edu/folder/d/0B8jL3Yp2lslxcDRPbFhCZzE3Zzg/edit
+
+
+Important Dates
+---------------
 Upcoming Due dates:
-    Week 3 - Thurs: Questions
+   * Week 3 - Thurs: Questions
 
 
 Building
