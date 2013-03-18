@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor;
-import java.util.logging.* ;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
+
+import javax.swing.*;
 
 /**
  * Hello world!
@@ -8,9 +10,16 @@ import java.util.logging.* ;
 public class App
 {
     public static void main( String[] args ){
-        System.out.println( "Hello World!" );
         System.out.println( "Starting System" );
 
 
+
+
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                JFrame j = new EditorFrame();
+                j.setVisible(true);
+            }
+        });
     }
 }
