@@ -14,6 +14,7 @@
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mainClass>TeamTwoHTMLEditor.App</mainClass>
+		<jarName>HTMLEditor</jarName>
 	</properties>
 
 	<repositories>
@@ -72,7 +73,7 @@
 			<plugin>
 				<artifactId>maven-assembly-plugin</artifactId>
 				<configuration>
-					<finalName>DisplayExample</finalName>
+					<finalName>${jarName}</finalName>
 					<appendAssemblyId>false</appendAssemblyId>
 					<archive>
 						<manifest>
