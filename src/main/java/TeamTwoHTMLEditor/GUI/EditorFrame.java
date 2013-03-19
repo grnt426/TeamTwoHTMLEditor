@@ -5,6 +5,7 @@ import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 
 /**
@@ -23,21 +24,21 @@ public class EditorFrame extends JFrame {
     }
 
     // Getter method for the singleto
-    public static EditorFrame getInstance(){
+    public static EditorFrame getInstance() {
         return instance;
     }
 
 
-    public EditorFrame(){
+    public EditorFrame() {
         initComponents();
         this.setLocationRelativeTo(null);
 
     }
 
-    private void initComponents(){
+    private void initComponents() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("IntelliHTML - An HTML Editor from T2");
-        setBounds(new Rectangle(0,0,900,930));
+        setBounds(new Rectangle(0, 0, 900, 930));
         setName("EditorFrame");
         setResizable(true);
         setLayout(new BorderLayout());
@@ -49,7 +50,7 @@ public class EditorFrame extends JFrame {
 
 
         JMenuBar menuBar;
-        JMenu menuFile, menuEdit, menuAbout ;
+        JMenu menuFile, menuEdit, menuAbout;
         JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
 
         //Create the menu bar.
@@ -65,17 +66,46 @@ public class EditorFrame extends JFrame {
         menuFile.getAccessibleContext().setAccessibleDescription("This menu allows you to do all of the file handling.");
 
 
-            //Adding File MenuItems
+        //Adding File MenuItems
         newMenuItem = new JMenuItem("New", KeyEvent.VK_N);
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
-        saveAsMenuItem= new JMenuItem("Save As", KeyEvent.VK_A);
+        saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
 
-            //Adding Shortcuts to MenuItems
+        //Adding Shortcuts to MenuItems
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+
+        //Adding listeners
+        newMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                newMenuItemActionPerformed(e);
+            }
+        });
+
+        openMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                openMenuItemActionPerformed(e);
+            }
+        });
+
+        saveMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveMenuItemActionPerformed(e);
+            }
+        });
+
+        saveAsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveAsMenuItemActionPerformed(e);
+            }
+        });
 
         menuFile.add(newMenuItem);
         menuFile.add(openMenuItem);
@@ -87,17 +117,15 @@ public class EditorFrame extends JFrame {
         // BUILD FILE ************************************END****************************//
 
 
-
-
         //Build the second menu - Edit   ************** BEGIN ************************** //
         menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
-            //Addging Edit MenuItems
+        //Addging Edit MenuItems
         copyMenuItem = new JMenuItem("Copy", KeyEvent.VK_C);
         pasteMenuItem = new JMenuItem("Paste", KeyEvent.VK_V);
 
-            //Shotcuts
+        //Shotcuts
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
 
@@ -108,11 +136,10 @@ public class EditorFrame extends JFrame {
         // BUILD EDIT **************************************END**************************//
 
 
-
         //Build the third menu - About ************** BEGIN ************************** //
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
-            // Adding About MenuItems
+        // Adding About MenuItems
         aboutUsMenuItem = new JMenuItem("About the Authors");
         helpMenuItem = new JMenuItem("Help");
 
@@ -124,10 +151,30 @@ public class EditorFrame extends JFrame {
         // BUILD EDIT **************************************END**************************//
 
         setJMenuBar(menuBar);
-        add( editorPane , BorderLayout.CENTER );
-        add( tabPane, BorderLayout.NORTH) ;
-
-
+        add(editorPane, BorderLayout.CENTER);
+        add(tabPane, BorderLayout.NORTH);
     }
 
+
+
+
+    //What to do when they  click New in File Menu
+    private void newMenuItemActionPerformed(ActionEvent e) {
+        System.out.println("YOLO");
+    }
+    //What to do when they click Open in File Menu
+    private void openMenuItemActionPerformed(ActionEvent e) {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    //What to do when they click Save in File Menu
+    private void saveMenuItemActionPerformed(ActionEvent e) {
+    }
+
+    //What to do when they click Save As in File Menu
+    private void saveAsMenuItemActionPerformed(ActionEvent e) {
+    }
+
+
 }
+
