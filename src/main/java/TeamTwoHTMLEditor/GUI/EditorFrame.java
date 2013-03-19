@@ -22,6 +22,7 @@ public class EditorFrame extends JFrame {
         instance = new EditorFrame();
     }
 
+    // Getter method for the singleto
     public static EditorFrame getInstance(){
         return instance;
     }
