@@ -188,6 +188,7 @@ public class EditorFrame extends JFrame {
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
         System.out.println("YOLO");
+        System.out.println("IMA commit");
     }
 
     //What to do when they click Open in File Menu
