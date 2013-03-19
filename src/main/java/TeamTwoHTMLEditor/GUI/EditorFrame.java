@@ -51,7 +51,7 @@ public class EditorFrame extends JFrame {
 
         JMenuBar menuBar;
         JMenu menuFile, menuEdit, menuAbout;
-        JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+        JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
 
         //Create the menu bar.
         menuBar = new JMenuBar();
@@ -65,18 +65,19 @@ public class EditorFrame extends JFrame {
         menuFile.setMnemonic(KeyEvent.VK_F);
         menuFile.getAccessibleContext().setAccessibleDescription("This menu allows you to do all of the file handling.");
 
-
         //Adding File MenuItems
         newMenuItem = new JMenuItem("New", KeyEvent.VK_N);
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
         saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
+        quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
         //Adding Shortcuts to MenuItems
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+        quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
         //Adding listeners
         newMenuItem.addActionListener(new ActionListener() {
@@ -107,10 +108,18 @@ public class EditorFrame extends JFrame {
             }
         });
 
+        quitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                quitMenuItemActionPerformed(e);
+            }
+        });
+
         menuFile.add(newMenuItem);
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
         menuFile.add(saveAsMenuItem);
+        menuFile.add(quitMenuItem);
 
         menuBar.add(menuFile);
 
@@ -168,8 +177,10 @@ public class EditorFrame extends JFrame {
         setJMenuBar(menuBar);
         add(editorPane, BorderLayout.CENTER);
         add(tabPane, BorderLayout.NORTH);
-    }
 
+        //tabPane.insertTab("New" + (tabPane.getTabCount()+1), null, editorPane, "TAB", tabPane.getTabCount()+1 );
+
+    }
 
 
     // ********************** Action Performed for File > X *****************************//
@@ -190,6 +201,12 @@ public class EditorFrame extends JFrame {
     //What to do when they click Save As in File Menu
     private void saveAsMenuItemActionPerformed(ActionEvent e) {
     }
+
+    //What to do when they click on Quit in File Menu
+    private void quitMenuItemActionPerformed(ActionEvent e) {
+        this.dispose();
+        System.out.println("Shutting Down System");
+    }
     // ******************************************** END ********************************//
 
 
@@ -200,6 +217,14 @@ public class EditorFrame extends JFrame {
 
     private void pasteMenuItemActionPerformed(ActionEvent e) {
     }
+    //******************************** END *******************************************//
+
+
+
+
+    //********************** Action Performed for About > X *****************************//
+    //*********************************************** END 8******************************//
+
 
 
 
