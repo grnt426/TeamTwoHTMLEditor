@@ -121,13 +121,28 @@ public class EditorFrame extends JFrame {
         menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
-        //Addging Edit MenuItems
+        //Adding Edit MenuItems
         copyMenuItem = new JMenuItem("Copy", KeyEvent.VK_C);
         pasteMenuItem = new JMenuItem("Paste", KeyEvent.VK_V);
 
         //Shotcuts
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+
+        //Listeners for Menu Items
+        copyMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                copyMenuItemActionPerformed(e);
+            }
+        });
+
+        pasteMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                pasteMenuItemActionPerformed(e);
+            }
+        });
 
         menuEdit.add(copyMenuItem);
         menuEdit.add(pasteMenuItem);
@@ -157,11 +172,12 @@ public class EditorFrame extends JFrame {
 
 
 
-
+    // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
         System.out.println("YOLO");
     }
+
     //What to do when they click Open in File Menu
     private void openMenuItemActionPerformed(ActionEvent e) {
         //To change body of created methods use File | Settings | File Templates.
@@ -174,6 +190,18 @@ public class EditorFrame extends JFrame {
     //What to do when they click Save As in File Menu
     private void saveAsMenuItemActionPerformed(ActionEvent e) {
     }
+    // ******************************************** END ********************************//
+
+
+    //********************** Action Performed for Edit > X *****************************//
+    //What to do when copy or paste
+    private void copyMenuItemActionPerformed(ActionEvent e) {
+    }
+
+    private void pasteMenuItemActionPerformed(ActionEvent e) {
+    }
+
+
 
 
 }
