@@ -73,6 +73,9 @@ public class EditorFrame extends JFrame {
         saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
+        //Setting icons
+        //newMenuItem.setIcon(new ImageIcon("/icons/New.ico");
+
         //Adding Shortcuts to MenuItems
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
