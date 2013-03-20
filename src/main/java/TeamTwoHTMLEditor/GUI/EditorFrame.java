@@ -18,12 +18,13 @@ import java.awt.event.KeyEvent;
 
 public class EditorFrame extends JFrame {
     private static EditorFrame instance;
+    protected JFileChooser fc;
 
     static {
         instance = new EditorFrame();
     }
 
-    // Getter method for the singleto
+    // Getter method for the singleton
     public static EditorFrame getInstance() {
         return instance;
     }
@@ -31,7 +32,8 @@ public class EditorFrame extends JFrame {
 
     public EditorFrame() {
         initComponents();
-        this.setLocationRelativeTo(null);
+        fc = new JFileChooser();
+
 
     }
 
@@ -41,6 +43,7 @@ public class EditorFrame extends JFrame {
         setBounds(new Rectangle(0, 0, 500, 530));
         setName("EditorFrame");
         setResizable(true);
+        this.setLocationRelativeTo(null);
 
         setLayout(new BorderLayout());
 
@@ -179,11 +182,10 @@ public class EditorFrame extends JFrame {
         // BUILD EDIT **************************************END**************************//
 
         setJMenuBar(menuBar);
-        add(editorPane, BorderLayout.CENTER);
-        add(tabPane, BorderLayout.NORTH);
-
+        //add(editorPane, BorderLayout.CENTER);
+        tabPane.addTab("File1", editorPane);
+        add(tabPane, BorderLayout.CENTER);
         //tabPane.insertTab("New" + (tabPane.getTabCount()+1), null, editorPane, "TAB", tabPane.getTabCount()+1 );
-
     }
 
 
@@ -196,15 +198,20 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click Open in File Menu
     private void openMenuItemActionPerformed(ActionEvent e) {
-        //To change body of created methods use File | Settings | File Templates.
+        System.out.println("Openning Open File Chooser");
+        fc.showOpenDialog(this);
     }
 
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
+        System.out.println("Openning Save File Chooser");
+        fc.showSaveDialog(this);
     }
 
     //What to do when they click Save As in File Menu
     private void saveAsMenuItemActionPerformed(ActionEvent e) {
+        System.out.println("Openning Save File Chooser");
+        fc.showSaveDialog(this);
     }
 
     //What to do when they click on Quit in File Menu
@@ -225,13 +232,8 @@ public class EditorFrame extends JFrame {
     //******************************** END *******************************************//
 
 
-
-
     //********************** Action Performed for About > X *****************************//
     //*********************************************** END 8******************************//
-
-
-
 
 
 }
