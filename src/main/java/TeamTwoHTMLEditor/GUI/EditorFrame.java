@@ -193,6 +193,8 @@ public class EditorFrame extends JFrame {
         editorPane = new JEditorPane();
         editorPane.setContentType("text/html");
         editorPane.setEditorKit(new HTMLEditorKit());
+        //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
+        editorPane.setContentType("text/html");
         tabPane.addTab("File" + Integer.toString(newFileCount), editorPane);
         newFileCount++;
     }
