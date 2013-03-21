@@ -19,6 +19,10 @@ import java.awt.event.KeyEvent;
 public class EditorFrame extends JFrame {
     private static EditorFrame instance;
     protected JFileChooser fc;
+    private int newFileCount = 1;
+    private int filesOpen = 0;
+    JTabbedPane tabPane;
+    JEditorPane editorPane;
 
     static {
         instance = new EditorFrame();
@@ -47,11 +51,7 @@ public class EditorFrame extends JFrame {
 
         setLayout(new BorderLayout());
 
-        JTabbedPane tabPane = new JTabbedPane();
-        JEditorPane editorPane = new JEditorPane();
-        editorPane.setContentType("text/html");
-        editorPane.setEditorKit(new HTMLEditorKit());
-
+        tabPane = new JTabbedPane();
 
         JMenuBar menuBar;
         JMenu menuFile, menuEdit, menuAbout;
@@ -182,10 +182,7 @@ public class EditorFrame extends JFrame {
         // BUILD EDIT **************************************END**************************//
 
         setJMenuBar(menuBar);
-        //add(editorPane, BorderLayout.CENTER);
-        tabPane.addTab("File1", editorPane);
         add(tabPane, BorderLayout.CENTER);
-        //tabPane.insertTab("New" + (tabPane.getTabCount()+1), null, editorPane, "TAB", tabPane.getTabCount()+1 );
     }
 
 
@@ -193,7 +190,11 @@ public class EditorFrame extends JFrame {
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
         System.out.println("YOLO");
-        System.out.println("IMA commit");
+        editorPane = new JEditorPane();
+        editorPane.setContentType("text/html");
+        editorPane.setEditorKit(new HTMLEditorKit());
+        tabPane.addTab("File" + Integer.toString(newFileCount), editorPane);
+        newFileCount++;
     }
 
     //What to do when they click Open in File Menu
@@ -216,6 +217,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
+        //Check if all files are saved and safe
         this.dispose();
         System.out.println("Shutting Down System");
     }
@@ -225,6 +227,7 @@ public class EditorFrame extends JFrame {
     //********************** Action Performed for Edit > X *****************************//
     //What to do when copy or paste
     private void copyMenuItemActionPerformed(ActionEvent e) {
+        //Grab current file eddited
     }
 
     private void pasteMenuItemActionPerformed(ActionEvent e) {
