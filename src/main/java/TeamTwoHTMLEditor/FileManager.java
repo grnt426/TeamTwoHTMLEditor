@@ -7,24 +7,25 @@ package TeamTwoHTMLEditor;
  * Time: 10:00 AM
  * This is the model for the editor
  */
-public class Editor {
+public class FileManager {
     private int numOpenFiles, numUnsavedFiles;
     private boolean savePending;
-    private static Editor instance;
+
+    private static FileManager instance;
 
     static {
-        instance = new Editor();
+        instance = new FileManager();
     }
 
-    public static Editor getInstance() {
+    public static FileManager getInstance() {
         return instance;
     }
 
     /**
-     * Constructor for the Editor Class.
+     * Constructor for the FileManager Class.
      * Should be a singleton
      */
-    public Editor() {
+    public FileManager() {
 
     }
 

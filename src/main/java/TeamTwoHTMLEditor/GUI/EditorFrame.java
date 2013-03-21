@@ -43,7 +43,7 @@ public class EditorFrame extends JFrame {
 
     private void initComponents() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-        setTitle("IntelliHTML - An HTML Editor from T2");
+        setTitle("IntelliHTML - An HTML FileManager from T2");
         setBounds(new Rectangle(0, 0, 500, 530));
         setName("EditorFrame");
         setResizable(true);
