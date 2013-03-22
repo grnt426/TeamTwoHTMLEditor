@@ -10,7 +10,7 @@ import java.util.ArrayList;
  * This is the model for the editor
  */
 public class FileManager {
-    private static ArrayList<HTMLFile> HTMLFileArray;
+    private ArrayList<HTMLFile> HTMLFileArray;
     private static int numOpenFiles;
     private boolean savePending;
 
@@ -24,7 +24,7 @@ public class FileManager {
     /**
      *
      */
-    public static void createNewFile(String filename) {
+    public void createNewFile(String filename) {
         HTMLFile x = new HTMLFile(filename);
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
@@ -34,14 +34,14 @@ public class FileManager {
     /**
      *
      */
-    public static void openFile() {
+    public void openFile() {
 
     }
 
     /**
      *
      */
-    public static void saveFile() {
+    public void saveFile() {
 
     }
 
@@ -49,7 +49,7 @@ public class FileManager {
     /**
      * @return
      */
-    public static boolean canQuit() {
+    public boolean canQuit() {
         for (int i = 0; i < HTMLFileArray.size(); i++) {
             if (HTMLFileArray.get(i).needToSave) {
                 return true;
@@ -62,8 +62,13 @@ public class FileManager {
         return numOpenFiles;
     }
 
-    public static void shutdown() {
-        if (canQuit()) {
+    public void shutdown() {
+        // if ! saved
+        ///do you want to save your files?
+        ///
+
+        //else close everything
+        if (!canQuit()) {
 
         }
     }

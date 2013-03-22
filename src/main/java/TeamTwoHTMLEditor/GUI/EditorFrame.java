@@ -52,6 +52,7 @@ public class EditorFrame extends JFrame {
 
         tabPane = new JTabbedPane();
 
+
         JMenuBar menuBar;
         JMenu menuFile, menuEdit, menuInsert, menuAbout;
         JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
@@ -237,6 +238,7 @@ public class EditorFrame extends JFrame {
         editorPane.setContentType("text/html");
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
         tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
+        tabPane.setTabComponentAt(newFileCount - 1, new CloseTabButton(tabPane));
         newFileCount++;
     }
 
