@@ -15,7 +15,7 @@ public class FileManager {
     private boolean savePending;
 
     public FileManager() {
-        HTMLFileArray = new ArrayList<>();
+        HTMLFileArray = new ArrayList<HTMLFile>();
         numOpenFiles = HTMLFileArray.size();
         savePending = false;
     }
