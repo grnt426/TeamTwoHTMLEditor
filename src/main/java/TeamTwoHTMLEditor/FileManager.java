@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor;
 
+import java.util.ArrayList;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Kocsen
@@ -8,26 +10,29 @@ package TeamTwoHTMLEditor;
  * This is the model for the editor
  */
 public class FileManager {
+    private ArrayList<HTMLFile> HTMLFileArray;
     private int numOpenFiles, numUnsavedFiles;
     private boolean savePending;
 
-    private static FileManager instance;
-
-    static {
-        instance = new FileManager();
-    }
-
-    public static FileManager getInstance() {
-        return instance;
-    }
-
-    /**
-     * Constructor for the FileManager Class.
-     * Should be a singleton
-     */
-    public FileManager() {
+    public void FileManager() {
+        HTMLFileArray = new ArrayList<>();
+        numOpenFiles = HTMLFileArray.size();
+        numUnsavedFiles = 0;
+        savePending = false;
 
     }
 
 
+    public boolean canQuit() {
+        for (int i = 0; i < HTMLFileArray.size(); i++) {
+            if (HTMLFileArray.get(i).needToSave) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public int getNumOpenFiles() {
+        return numOpenFiles;
+    }
 }

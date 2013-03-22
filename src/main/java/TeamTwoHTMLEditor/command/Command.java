@@ -1,14 +1,15 @@
-package TeamTwoHTMLEditor;
+package TeamTwoHTMLEditor.command;
 
 /**
  * Created with IntelliJ IDEA.
  * User: Kocsen
  * Date: 3/21/13
- * Time: 2:31 PM
+ * Time: 9:37 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HTMLFile {
-    boolean needToSave;
+public interface Command {
+
+    void execute();
 
 
 }
