@@ -54,8 +54,14 @@ public class EditorFrame extends JFrame {
         tabPane = new JTabbedPane();
 
         JMenuBar menuBar;
-        JMenu menuFile, menuEdit, menuAbout;
+        JMenu menuFile, menuEdit, menuInsert, menuAbout;
         JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+
+        //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
+        JMenuItem insertHeaderMenuItem, insertTableMenuItem;
+        JMenuItem boldMenuItem, italicsMenuItem;
+        JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
+        JMenu fontEmphasisMenu, insertListMenu;
 
         //Create the menu bar.
         menuBar = new JMenuBar();
@@ -64,29 +70,28 @@ public class EditorFrame extends JFrame {
         menuFile = new JMenu("File");
         menuEdit = new JMenu("Edit");
         menuAbout = new JMenu("About");
+        menuInsert = new JMenu("Insert");
+
 
         //Build the first menu - File    ************** BEGIN ************************** //
         menuFile.setMnemonic(KeyEvent.VK_F);
         menuFile.getAccessibleContext().setAccessibleDescription("This menu allows you to do all of the file handling.");
 
-        //Adding File MenuItems
+        ///Adding File MenuItems
         newMenuItem = new JMenuItem("New", KeyEvent.VK_N);
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
         saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
-        //Setting icons
-        //newMenuItem.setIcon(new ImageIcon("/icons/New.ico");
-
-        //Adding Shortcuts to MenuItems
+        ///Adding Shortcuts to MenuItems
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         //saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
-        //Adding listeners
+        ///Adding listeners
         newMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -137,15 +142,15 @@ public class EditorFrame extends JFrame {
         menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
-        //Adding Edit MenuItems
+        ///Adding Edit MenuItems
         copyMenuItem = new JMenuItem("Copy", KeyEvent.VK_C);
         pasteMenuItem = new JMenuItem("Paste", KeyEvent.VK_V);
 
-        //Shotcuts
+        ///Shortcuts
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
 
-        //Listeners for Menu Items
+        ///Listeners for Menu Items
         copyMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -166,6 +171,41 @@ public class EditorFrame extends JFrame {
         menuBar.add(menuEdit);
         // BUILD EDIT **************************************END**************************//
 
+
+        //Build the Insert Menu *********************** BEGIN ************************ //
+
+        menuInsert.setMnemonic(KeyEvent.VK_I);
+        menuInsert.getAccessibleContext().setAccessibleDescription("Allows you to insert HTML tags");
+
+        /// Adding MenuItems
+        insertHeaderMenuItem = new JMenuItem("Header", KeyEvent.VK_H);
+        insertTableMenuItem = new JMenuItem("Table", KeyEvent.VK_T);
+
+        /// Adding submenus and menu items
+        fontEmphasisMenu = new JMenu("Font Emphasis");
+        boldMenuItem = new JMenuItem("Bold", KeyEvent.VK_B);
+        italicsMenuItem = new JMenuItem("Italics", KeyEvent.VK_I);
+        fontEmphasisMenu.add(boldMenuItem);
+        fontEmphasisMenu.add(italicsMenuItem);
+
+        insertListMenu = new JMenu("List");
+        insertNumberList = new JMenuItem("Number List");
+        insertDictionaryList = new JMenuItem("Dictionary List");
+        insertBulletList = new JMenuItem("Bullet List");
+        insertListMenu.add(insertNumberList);
+        insertListMenu.add(insertDictionaryList);
+        insertListMenu.add(insertBulletList);
+
+        menuInsert.add(insertHeaderMenuItem);
+        menuInsert.add(insertTableMenuItem);
+        menuInsert.add(fontEmphasisMenu);
+        menuInsert.add(insertListMenu);
+
+        /// Handling events
+
+
+        menuBar.add(menuInsert);
+        // ********************************** END ************************************//
 
         //Build the third menu - About ************** BEGIN ************************** //
         menuAbout.setMnemonic(KeyEvent.VK_A);
@@ -195,7 +235,8 @@ public class EditorFrame extends JFrame {
         editorPane.setEditorKit(new HTMLEditorKit());
         //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
         editorPane.setContentType("text/html");
-        tabPane.addTab("File" + Integer.toString(newFileCount), editorPane);
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
         newFileCount++;
     }
 
