@@ -1,5 +1,6 @@
 package TeamTwoHTMLEditor;
 
+import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -34,8 +35,11 @@ public class FileManager {
     /**
      *
      */
-    public void openFile() {
-
+    public void openFile(File f) {
+        HTMLFile x = new HTMLFile(f.getName());
+        HTMLFileArray.add(x);
+        numOpenFiles = HTMLFileArray.size();
+        System.out.println("Opened a file with the name: " + f.getName() + "\nTotal files: " + Integer.toString(numOpenFiles));
     }
 
     /**
