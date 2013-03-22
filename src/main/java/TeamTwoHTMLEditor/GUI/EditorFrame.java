@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.GUI;
 
-
+import TeamTwoHTMLEditor.command.CloseTabCommand;
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.FileManager;
 import TeamTwoHTMLEditor.command.NewFileCommand;
@@ -301,8 +301,11 @@ public class EditorFrame extends JFrame {
 	private void closeTabMenuItemActionPerformed(ActionEvent e){
 		System.out.println("Closing tab");
 		if (newFileCount > 1){
-			tabPane.remove(tabPane.getSelectedIndex());
+			int index = tabPane.getSelectedIndex();
+			tabPane.remove(index);
 			newFileCount--;
+
+			new CloseTabCommand(index).execute(commandDistributor);
 		}
 	}
 

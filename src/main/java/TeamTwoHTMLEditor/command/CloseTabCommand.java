@@ -12,15 +12,15 @@ import java.io.File;
  */
 public class CloseTabCommand implements Command{
 
-	private File f;
+	private int index;
 
-	public CloseTabCommand(File f){
-		this.f = f;
+	public CloseTabCommand(int index){
+		this.index = index;
 	}
 
 	@Override
 	public void execute(CommandDistributor c) {
-		//c.getFileManager().
+		c.getFileManager().closeFile(index);
 	}
 
 }

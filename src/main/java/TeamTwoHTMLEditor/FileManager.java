@@ -46,6 +46,14 @@ public class FileManager {
         p.setText(contents);
     }
 
+	public void closeFile(int index) {
+		if (HTMLFileArray.get(index).isNeedToSave()){
+
+		}
+		HTMLFileArray.remove(index);
+		numOpenFiles--;
+	}
+
     /**
      *
      */
