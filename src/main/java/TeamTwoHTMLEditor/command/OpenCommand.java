@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 
+import javax.swing.*;
 import java.io.File;
 
 /**
@@ -14,16 +15,18 @@ import java.io.File;
 public class OpenCommand implements Command {
     private String filename;
     private File f;
+    private JEditorPane pane;
 
-    public OpenCommand(File openFile) {
+    public OpenCommand(File openFile, JEditorPane p) {
         f = openFile;
         filename = f.getName();
+        pane = p;
     }
 
     @Override
     public void execute(CommandDistributor c) {
 
-        c.getFileManager().openFile(f);
+        c.getFileManager().openFile(f, pane);
     }
 
 }
