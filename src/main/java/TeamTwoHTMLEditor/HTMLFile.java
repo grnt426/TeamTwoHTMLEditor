@@ -51,7 +51,13 @@ public class HTMLFile{
 		}
 	}
 
+	public void saveFile(String newContent){
+		setFileContents(newContent);
+		saveFile();
+	}
+
 	public void saveFile(){
+		needToSave = false;
 		try{
 			// BufferedWriter will automatically clear the contents of the
 			// file for us.
@@ -81,5 +87,10 @@ public class HTMLFile{
 
 	public boolean isNeedToSave(){
 		return needToSave;
+	}
+
+	public void setFileContents(String fileContents){
+		needToSave = true;
+		this.fileContents = new StringBuilder(fileContents);
 	}
 }
