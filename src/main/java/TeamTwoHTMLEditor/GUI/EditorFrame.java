@@ -233,8 +233,7 @@ public class EditorFrame extends JFrame {
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
         //System.out.println("YOLO");
-        NewFileCommand x = new NewFileCommand("File" + Integer.toString(newFileCount));
-        x.execute();
+        new NewFileCommand("File" + Integer.toString(newFileCount)).execute();
 
         editorPane = new JEditorPane();
         editorPane.setContentType("text/html");
