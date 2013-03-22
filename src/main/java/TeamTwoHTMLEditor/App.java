@@ -27,6 +27,7 @@ public class App {
 
 
         } else if (args.length == 0) { // Launch GUI normally with blank screen
+            FileManager fileManager = new FileManager();
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     JFrame j = new EditorFrame();

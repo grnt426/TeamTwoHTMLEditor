@@ -9,6 +9,16 @@ package TeamTwoHTMLEditor;
  */
 public class HTMLFile {
     boolean needToSave;
+    String filename;
+
+    public HTMLFile(String name) {
+        filename = name;
+        needToSave = false;
+    }
+
+    public String getName() {
+        return filename;
+    }
 
 
 }

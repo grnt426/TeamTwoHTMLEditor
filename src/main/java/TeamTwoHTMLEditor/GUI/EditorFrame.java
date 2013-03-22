@@ -1,6 +1,9 @@
 package TeamTwoHTMLEditor.GUI;
 
 
+import TeamTwoHTMLEditor.command.NewFileCommand;
+import sun.security.tools.KeyTool;
+
 import javax.swing.*;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
@@ -229,7 +232,10 @@ public class EditorFrame extends JFrame {
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("YOLO");
+        //System.out.println("YOLO");
+        NewFileCommand x = new NewFileCommand("File" + Integer.toString(newFileCount));
+        x.execute();
+
         editorPane = new JEditorPane();
         editorPane.setContentType("text/html");
         editorPane.setEditorKit(new HTMLEditorKit());
