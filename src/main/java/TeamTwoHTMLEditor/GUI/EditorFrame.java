@@ -290,9 +290,10 @@ public class EditorFrame extends JFrame {
 
 	private void closeTabMenuItemActionPerformed(ActionEvent e){
 		System.out.println("Closing tab");
-		tabPane.remove(tabPane.getSelectedIndex());
-		newFileCount--;
-		if (newFileCount < 0) newFileCount = 0;
+		if (newFileCount > 1){
+			tabPane.remove(tabPane.getSelectedIndex());
+			newFileCount--;
+		}
 	}
 
     //What to do when they click on Quit in File Menu
