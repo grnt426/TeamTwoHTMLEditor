@@ -228,7 +228,12 @@ public class EditorFrame extends JFrame {
 
         menuAbout.add(aboutUsMenuItem);
         menuAbout.add(helpMenuItem);
-
+        aboutUsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("We are the best EVER!");
+            }
+        });
 
         menuBar.add(menuAbout);
         // BUILD EDIT **************************************END**************************//
@@ -285,7 +290,10 @@ public class EditorFrame extends JFrame {
 
 	private void closeTabMenuItemActionPerformed(ActionEvent e){
 		System.out.println("Closing tab");
-		tabPane.remove(tabPane.getSelectedIndex());
+		if (newFileCount > 1){
+			tabPane.remove(tabPane.getSelectedIndex());
+			newFileCount--;
+		}
 	}
 
     //What to do when they click on Quit in File Menu
