@@ -291,8 +291,28 @@ public class EditorFrame extends JFrame {
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
         //Check if all files are saved and safe
-        this.dispose();
-        System.out.println("Shutting Down System");
+
+        //this.dispose();
+        try {
+            //Show a Confirmation Dialog.
+            int reply = JOptionPane.showConfirmDialog (this,
+                    "Are you really want to exit From HTML Editor?",
+                    "Exit Windows", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+            //Check the User Selection.
+            if (reply == JOptionPane.YES_OPTION) {
+                this.setVisible (false);	//Hide the Frame.
+                this.dispose();            	//Free the System Resources.
+                System.exit (0);        //Close the Application.
+            }
+            else if (reply == JOptionPane.NO_OPTION) {
+                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            }
+        }
+        catch (Exception E) {}
+        finally {
+            System.out.println("Shutting Down System");
+        }
+
     }
     // ******************************************** END ********************************//
 

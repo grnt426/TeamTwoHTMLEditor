@@ -9,5 +9,4 @@ package TeamTwoHTMLEditor.GUI;
  */
 public class QuitDialog {
 
-
 }
