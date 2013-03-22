@@ -2,6 +2,8 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 
+import java.io.File;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Kocsen
@@ -10,8 +12,16 @@ import TeamTwoHTMLEditor.CommandDistributor;
  * To change this template use File | Settings | File Templates.
  */
 public class SaveCommand implements Command {
+    private String filename
+    private File f;
+
+    public SaveCommand(File saveFile) {
+        f = saveFile;
+        filename = f.getName();
+    }
+
     @Override
     public void execute(CommandDistributor c) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        c.getFileManager().saveFile(f);
     }
 }

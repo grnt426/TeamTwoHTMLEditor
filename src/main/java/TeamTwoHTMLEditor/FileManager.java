@@ -45,8 +45,8 @@ public class FileManager {
     /**
      *
      */
-    public void saveFile() {
-
+    public void saveFile(File f) {
+         //now you need to save the file!
     }
 
 

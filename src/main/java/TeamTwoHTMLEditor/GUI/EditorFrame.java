@@ -226,7 +226,12 @@ public class EditorFrame extends JFrame {
 
         menuAbout.add(aboutUsMenuItem);
         menuAbout.add(helpMenuItem);
-
+        aboutUsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("We are the best EVER!");
+            }
+        });
 
         menuBar.add(menuAbout);
         // BUILD EDIT **************************************END**************************//
