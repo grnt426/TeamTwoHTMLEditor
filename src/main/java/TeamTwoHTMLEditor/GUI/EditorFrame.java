@@ -92,6 +92,7 @@ public class EditorFrame extends JFrame {
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         //saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
         ///Adding listeners
@@ -141,6 +142,7 @@ public class EditorFrame extends JFrame {
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
         menuFile.add(saveAsMenuItem);
+		menuFile.add(closeTabMenuItem);
         menuFile.add(quitMenuItem);
 
         menuBar.add(menuFile);
@@ -288,14 +290,34 @@ public class EditorFrame extends JFrame {
 
 	private void closeTabMenuItemActionPerformed(ActionEvent e){
 		System.out.println("Closing tab");
-
+		tabPane.remove(tabPane.getSelectedIndex());
 	}
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
         //Check if all files are saved and safe
-        this.dispose();
-        System.out.println("Shutting Down System");
+
+        //this.dispose();
+        try {
+            //Show a Confirmation Dialog.
+            int reply = JOptionPane.showConfirmDialog (this,
+                    "Are you really want to exit From HTML Editor?",
+                    "Exit Windows", JOptionPane.YES_NO_OPTION, JOptionPane.PLAIN_MESSAGE);
+            //Check the User Selection.
+            if (reply == JOptionPane.YES_OPTION) {
+                this.setVisible (false);	//Hide the Frame.
+                this.dispose();            	//Free the System Resources.
+                System.exit (0);        //Close the Application.
+            }
+            else if (reply == JOptionPane.NO_OPTION) {
+                setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
+            }
+        }
+        catch (Exception E) {}
+        finally {
+            System.out.println("Shutting Down System");
+        }
+
     }
     // ******************************************** END ********************************//
 
