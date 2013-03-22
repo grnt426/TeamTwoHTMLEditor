@@ -92,6 +92,7 @@ public class EditorFrame extends JFrame {
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         //saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+		closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
         ///Adding listeners
@@ -141,6 +142,7 @@ public class EditorFrame extends JFrame {
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
         menuFile.add(saveAsMenuItem);
+		menuFile.add(closeTabMenuItem);
         menuFile.add(quitMenuItem);
 
         menuBar.add(menuFile);
