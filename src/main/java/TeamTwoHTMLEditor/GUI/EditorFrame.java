@@ -256,7 +256,7 @@ public class EditorFrame extends JFrame {
         //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
         editorPane.setContentType("text/html");
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
-        tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
+        tabPane.addTab(f.getName(), editorScrollPane);
         newFileCount++;
     }
 
