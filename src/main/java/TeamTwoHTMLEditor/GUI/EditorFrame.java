@@ -4,6 +4,7 @@ package TeamTwoHTMLEditor.GUI;
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.FileManager;
 import TeamTwoHTMLEditor.command.NewFileCommand;
+import TeamTwoHTMLEditor.command.OpenCommand;
 import sun.security.tools.KeyTool;
 
 import javax.swing.*;
@@ -13,6 +14,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -244,9 +246,20 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click Open in File Menu
     private void openMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("Openning Open File Chooser");
+        System.out.println("Opening Open File Chooser");
 
         fc.showOpenDialog(this);
+        File f = fc.getSelectedFile();
+        new OpenCommand(f).execute(commandDistributor);
+
+        editorPane = new JEditorPane();
+        editorPane.setContentType("text/html");
+        editorPane.setEditorKit(new HTMLEditorKit());
+        //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
+        editorPane.setContentType("text/html");
+        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
+        newFileCount++;
     }
 
     //What to do when they click Save in File Menu
