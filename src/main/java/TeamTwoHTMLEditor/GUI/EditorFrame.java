@@ -262,13 +262,13 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("Openning Save File Chooser");
+        System.out.println("Opening Save File Chooser");
         fc.showSaveDialog(this);
     }
 
     //What to do when they click Save As in File Menu
     private void saveAsMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("Openning Save File Chooser");
+        System.out.println("Opening Save File Chooser");
         fc.showSaveDialog(this);
     }
 
