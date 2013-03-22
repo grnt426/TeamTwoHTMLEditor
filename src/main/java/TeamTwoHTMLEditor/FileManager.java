@@ -47,11 +47,8 @@ public class FileManager {
     }
 
 	public void closeFile(int index) {
-		if (HTMLFileArray.get(index).isNeedToSave()){
-
-		}
 		HTMLFileArray.remove(index);
-		numOpenFiles--;
+		numOpenFiles = HTMLFileArray.size();
 	}
 
     /**
@@ -73,6 +70,13 @@ public class FileManager {
         }
         return false;
     }
+
+	public boolean canQuit(int index){
+		if (HTMLFileArray.get(index).isNeedToSave()){
+			return true;
+		}
+		return false;
+	}
 
     public int getNumOpenFiles() {
         return numOpenFiles;
