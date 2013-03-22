@@ -12,7 +12,7 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class SaveCommand implements Command {
-    private String filename
+    private String filename;
     private File f;
 
     public SaveCommand(File saveFile) {
