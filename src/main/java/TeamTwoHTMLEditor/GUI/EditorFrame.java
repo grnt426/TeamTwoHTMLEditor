@@ -89,7 +89,7 @@ public class EditorFrame extends JFrame {
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
         saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
-		closeTabMenuItem = new JMenuItem("Close Tab", KeyEvent.VK_W);
+        closeTabMenuItem = new JMenuItem("Close Tab", KeyEvent.VK_W);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
         ///Adding Shortcuts to MenuItems
@@ -97,7 +97,7 @@ public class EditorFrame extends JFrame {
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         //saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
-		closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
+        closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
         ///Adding listeners
@@ -129,12 +129,12 @@ public class EditorFrame extends JFrame {
             }
         });
 
-		closeTabMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeTabMenuItemActionPerformed(e);
-			}
-		});
+        closeTabMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeTabMenuItemActionPerformed(e);
+            }
+        });
 
         quitMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -147,7 +147,7 @@ public class EditorFrame extends JFrame {
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
         menuFile.add(saveAsMenuItem);
-		menuFile.add(closeTabMenuItem);
+        menuFile.add(closeTabMenuItem);
         menuFile.add(quitMenuItem);
 
         menuBar.add(menuFile);
@@ -298,28 +298,25 @@ public class EditorFrame extends JFrame {
         fc.showSaveDialog(this);
     }
 
-	private void closeTabMenuItemActionPerformed(ActionEvent e){
-		System.out.println("Closing tab");
-		if (newFileCount > 1){
-			int index = tabPane.getSelectedIndex();
-			tabPane.remove(index);
-			newFileCount--;
+    private void closeTabMenuItemActionPerformed(ActionEvent e) {
+        System.out.println("Closing tab");
+        if (newFileCount > 1) {
+            int index = tabPane.getSelectedIndex();
+            tabPane.remove(index);
+            newFileCount--;
 
-			new CloseTabCommand(index).execute(commandDistributor);
-		}
-	}
+            new CloseTabCommand(index).execute(commandDistributor);
+        }
+    }
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
-        if (commandDistributor.getFileManager().canQuit()){
-
+        if (commandDistributor.getFileManager().canQuit()) {
             this.dispose();
             System.out.println("Shutting Down System");
+        } else {
+            JOptionPane.showMessageDialog(this, "Please save all your files before exiting");
         }
-        else{
-            quitDialog.setVisible(true);
-        }
-
 
 
         //Check if all files are saved and safe
