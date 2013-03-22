@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
+import TeamTwoHTMLEditor.CommandDistributor;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Kocsen
@@ -9,7 +11,7 @@ package TeamTwoHTMLEditor.command;
  */
 public class OpenCommand implements Command {
     @Override
-    public void execute() {
+    public void execute(CommandDistributor c) {
         //To change body of implemented methods use File | Settings | File Templates.
     }
 }

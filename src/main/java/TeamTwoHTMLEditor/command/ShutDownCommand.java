@@ -6,20 +6,18 @@ import TeamTwoHTMLEditor.FileManager;
 /**
  * Created with IntelliJ IDEA.
  * User: Kocsen
- * Date: 3/21/13
- * Time: 10:41 PM
+ * Date: 3/22/13
+ * Time: 2:16 PM
  */
-public class NewFileCommand implements Command {
+public class ShutDownCommand implements Command {
 
-    private String filename;
 
-    public NewFileCommand(String s) {
-        filename = s;
+    private ShutDownCommand() {
+
     }
 
     @Override
     public void execute(CommandDistributor c) {
-
-        c.getFileManager().createNewFile(filename);
+        FileManager.shutdown();
     }
 }

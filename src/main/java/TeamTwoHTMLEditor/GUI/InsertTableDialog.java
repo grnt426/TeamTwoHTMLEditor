@@ -10,4 +10,6 @@ import javax.swing.*;
  * JDialog displayed to insert a Table
  */
 public class InsertTableDialog extends JDialog {
+
+
 }

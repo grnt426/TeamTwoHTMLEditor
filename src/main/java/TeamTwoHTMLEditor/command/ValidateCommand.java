@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
+import TeamTwoHTMLEditor.CommandDistributor;
+
 /**
  * Created with IntelliJ IDEA.
  * User: Kocsen
@@ -11,10 +13,10 @@ public class ValidateCommand implements Command {
     // if the parser finishes then its all ok, but if it doesent find what it wants (fails) then itll throw
     // an exception and then catching it will imply a fail in the parsing of the file.
 
+
     @Override
-    public void execute() {
-        //To change body of implemented methods use File | Settings | File Templates.
+    public void execute(CommandDistributor c) {
+
+
     }
-
-
 }

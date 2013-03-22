@@ -49,7 +49,7 @@ public class FileManager {
     /**
      * @return
      */
-    public boolean canQuit() {
+    public static boolean canQuit() {
         for (int i = 0; i < HTMLFileArray.size(); i++) {
             if (HTMLFileArray.get(i).needToSave) {
                 return true;
@@ -60,5 +60,11 @@ public class FileManager {
 
     public int getNumOpenFiles() {
         return numOpenFiles;
+    }
+
+    public static void shutdown() {
+        if (canQuit()) {
+
+        }
     }
 }

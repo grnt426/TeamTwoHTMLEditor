@@ -1,10 +1,13 @@
 package TeamTwoHTMLEditor.GUI;
 
 
+import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.FileManager;
 import TeamTwoHTMLEditor.command.NewFileCommand;
 import sun.security.tools.KeyTool;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -16,30 +19,23 @@ import java.awt.event.KeyEvent;
  * User: Kocsen Chung
  * Date: 3/17/13
  * Time: 7:48 PM
- * This is the main frame for the editor.  Whill be the class that launches (invokes) only once.
+ * This is the main frame for the editor.  Will be the class that launches (invokes) only once.
  */
 
 public class EditorFrame extends JFrame {
-    private static EditorFrame instance;
+    private CommandDistributor commandDistributor;
     protected JFileChooser fc;
     private int newFileCount = 1;
     private int filesOpen = 0;
     JTabbedPane tabPane;
     JEditorPane editorPane;
 
-    static {
-        instance = new EditorFrame();
-    }
 
-    // Getter method for the singleton
-    public static EditorFrame getInstance() {
-        return instance;
-    }
-
-
-    public EditorFrame() {
+    public EditorFrame(CommandDistributor cdis) {
         initComponents();
+        commandDistributor = cdis;
         fc = new JFileChooser();
+        fc.setFileFilter(new FileNameExtensionFilter("HTML Document", "html", "htm"));
 
 
     }
@@ -232,8 +228,7 @@ public class EditorFrame extends JFrame {
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
-        //System.out.println("YOLO");
-        new NewFileCommand("File" + Integer.toString(newFileCount)).execute();
+        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
 
         editorPane = new JEditorPane();
         editorPane.setContentType("text/html");
@@ -248,6 +243,7 @@ public class EditorFrame extends JFrame {
     //What to do when they click Open in File Menu
     private void openMenuItemActionPerformed(ActionEvent e) {
         System.out.println("Openning Open File Chooser");
+
         fc.showOpenDialog(this);
     }
 
