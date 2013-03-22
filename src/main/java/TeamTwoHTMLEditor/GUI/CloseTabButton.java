@@ -15,8 +15,9 @@ import java.awt.event.ActionListener;
 public class CloseTabButton extends JButton implements ActionListener {
 
     public CloseTabButton() {
-        int size = 20;
+        int size = 17;
         setPreferredSize(new Dimension(size, size));
+
 
     }
 
