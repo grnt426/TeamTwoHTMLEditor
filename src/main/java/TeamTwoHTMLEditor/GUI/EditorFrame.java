@@ -285,7 +285,7 @@ public class EditorFrame extends JFrame {
 
 	private void closeTabMenuItemActionPerformed(ActionEvent e){
 		System.out.println("Closing tab");
-
+		tabPane.remove(tabPane.getSelectedIndex());
 	}
 
     //What to do when they click on Quit in File Menu
