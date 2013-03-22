@@ -57,7 +57,7 @@ public class EditorFrame extends JFrame {
 
         JMenuBar menuBar;
         JMenu menuFile, menuEdit, menuInsert, menuAbout;
-        JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+        JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
 
         //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
         JMenuItem insertHeaderMenuItem, insertTableMenuItem;
@@ -84,6 +84,7 @@ public class EditorFrame extends JFrame {
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
         saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
+		closeTabMenuItem = new JMenuItem("Close Tab", KeyEvent.VK_W);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
         ///Adding Shortcuts to MenuItems
@@ -121,6 +122,13 @@ public class EditorFrame extends JFrame {
                 saveAsMenuItemActionPerformed(e);
             }
         });
+
+		closeTabMenuItem.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeTabMenuItemActionPerformed(e);
+			}
+		});
 
         quitMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -240,7 +248,6 @@ public class EditorFrame extends JFrame {
         editorPane.setContentType("text/html");
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
         tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
-        tabPane.setTabComponentAt(newFileCount - 1, new CloseTabButton(tabPane));
         newFileCount++;
     }
 
@@ -273,6 +280,11 @@ public class EditorFrame extends JFrame {
         System.out.println("Opening Save File Chooser");
         fc.showSaveDialog(this);
     }
+
+	private void closeTabMenuItemActionPerformed(ActionEvent e){
+		System.out.println("Closing tab");
+
+	}
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
