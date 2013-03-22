@@ -5,6 +5,7 @@ import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.FileManager;
 import TeamTwoHTMLEditor.command.NewFileCommand;
 import TeamTwoHTMLEditor.command.OpenCommand;
+import TeamTwoHTMLEditor.command.SaveCommand;
 import sun.security.tools.KeyTool;
 
 import javax.swing.*;
@@ -232,7 +233,12 @@ public class EditorFrame extends JFrame {
 
         menuAbout.add(aboutUsMenuItem);
         menuAbout.add(helpMenuItem);
-
+        aboutUsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.out.println("We are the best EVER!");
+            }
+        });
 
         menuBar.add(menuAbout);
         // BUILD EDIT **************************************END**************************//
@@ -263,7 +269,6 @@ public class EditorFrame extends JFrame {
 
         fc.showOpenDialog(this);
         File f = fc.getSelectedFile();
-        new OpenCommand(f).execute(commandDistributor);
 
         editorPane = new JEditorPane();
         editorPane.setContentType("text/html");
@@ -273,12 +278,18 @@ public class EditorFrame extends JFrame {
         JScrollPane editorScrollPane = new JScrollPane(editorPane);
         tabPane.addTab(f.getName(), editorScrollPane);
         newFileCount++;
+
+        new OpenCommand(f, editorPane).execute(commandDistributor);
     }
 
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
         System.out.println("Opening Save File Chooser");
         fc.showSaveDialog(this);
+
+        File f = fc.getSelectedFile();
+        new SaveCommand(f).execute(commandDistributor);
+        System.out.println(f.getName());
     }
 
     //What to do when they click Save As in File Menu
@@ -289,7 +300,10 @@ public class EditorFrame extends JFrame {
 
 	private void closeTabMenuItemActionPerformed(ActionEvent e){
 		System.out.println("Closing tab");
-
+		if (newFileCount > 1){
+			tabPane.remove(tabPane.getSelectedIndex());
+			newFileCount--;
+		}
 	}
 
     //What to do when they click on Quit in File Menu
@@ -316,7 +330,7 @@ public class EditorFrame extends JFrame {
     //********************** Action Performed for Edit > X *****************************//
     //What to do when copy or paste
     private void copyMenuItemActionPerformed(ActionEvent e) {
-        //Grab current file eddited
+        //Grab current file edited
     }
 
     private void pasteMenuItemActionPerformed(ActionEvent e) {

@@ -1,5 +1,6 @@
 package TeamTwoHTMLEditor;
 
+import javax.swing.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -35,18 +36,21 @@ public class FileManager {
     /**
      *
      */
-    public void openFile(File f) {
-        HTMLFile x = new HTMLFile(f.getName());
+    public void openFile(File f, JEditorPane p) {
+        HTMLFile x = new HTMLFile(f.getPath());
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
         System.out.println("Opened a file with the name: " + f.getName() + "\nTotal files: " + Integer.toString(numOpenFiles));
+        String contents = x.getFileContents();
+        System.out.println(contents);
+        p.setText(contents);
     }
 
     /**
      *
      */
-    public void saveFile() {
-
+    public void saveFile(File f) {
+         //now you need to save the file!
     }
 
 
@@ -55,7 +59,7 @@ public class FileManager {
      */
     public boolean canQuit() {
         for (int i = 0; i < HTMLFileArray.size(); i++) {
-            if (HTMLFileArray.get(i).needToSave) {
+            if (HTMLFileArray.get(i).isNeedToSave()) {
                 return true;
             }
         }
