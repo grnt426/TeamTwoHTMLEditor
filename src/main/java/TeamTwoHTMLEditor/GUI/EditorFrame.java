@@ -5,6 +5,7 @@ import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.FileManager;
 import TeamTwoHTMLEditor.command.NewFileCommand;
 import TeamTwoHTMLEditor.command.OpenCommand;
+import TeamTwoHTMLEditor.command.CloseTabCommand;
 import sun.security.tools.KeyTool;
 
 import javax.swing.*;
@@ -293,6 +294,8 @@ public class EditorFrame extends JFrame {
 		if (newFileCount > 1){
 			tabPane.remove(tabPane.getSelectedIndex());
 			newFileCount--;
+			File f = fc.getSelectedFile();
+			new CloseTabCommand(f).execute(commandDistributor);
 		}
 	}
 
