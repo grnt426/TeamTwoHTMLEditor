@@ -1,0 +1,2 @@
+I am a file
+I have been read in correctly if both lines appear.

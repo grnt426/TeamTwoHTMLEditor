@@ -55,7 +55,7 @@ public class FileManager {
      */
     public boolean canQuit() {
         for (int i = 0; i < HTMLFileArray.size(); i++) {
-            if (HTMLFileArray.get(i).needToSave) {
+            if (HTMLFileArray.get(i).isNeedToSave()) {
                 return true;
             }
         }
