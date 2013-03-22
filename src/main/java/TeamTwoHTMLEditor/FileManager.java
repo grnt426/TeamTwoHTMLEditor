@@ -1,6 +1,5 @@
 package TeamTwoHTMLEditor;
 
-import java.io.File;
 import java.util.ArrayList;
 
 /**
@@ -11,7 +10,7 @@ import java.util.ArrayList;
  * This is the model for the editor
  */
 public class FileManager {
-    private static ArrayList<HTMLFile> HTMLFileArray;   //This is a list of currently open files
+    private ArrayList<HTMLFile> HTMLFileArray;
     private static int numOpenFiles;
     private boolean savePending;
 
@@ -25,7 +24,7 @@ public class FileManager {
     /**
      *
      */
-    public static void createNewFile(String filename) {
+    public void createNewFile(String filename) {
         HTMLFile x = new HTMLFile(filename);
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
@@ -35,19 +34,14 @@ public class FileManager {
     /**
      *
      */
-    public static void openFile(File f) {
-        //Right now I've got the correct file (f), I just need to be able to add it's content to the HTML File
-        //which isn't done yet, so I'm gonna go ahead and push
-        HTMLFile x = new HTMLFile(f.getName());
-        HTMLFileArray.add(x);
-        numOpenFiles = HTMLFileArray.size();
-        System.out.println("File was opened with name: " + f.getName() + "\nTotal files: " + Integer.toString(numOpenFiles));
+    public void openFile() {
+
     }
 
     /**
      *
      */
-    public static void saveFile() {
+    public void saveFile() {
 
     }
 
@@ -55,7 +49,7 @@ public class FileManager {
     /**
      * @return
      */
-    public static boolean canQuit() {
+    public boolean canQuit() {
         for (int i = 0; i < HTMLFileArray.size(); i++) {
             if (HTMLFileArray.get(i).needToSave) {
                 return true;
@@ -68,8 +62,13 @@ public class FileManager {
         return numOpenFiles;
     }
 
-    public static void shutdown() {
-        if (canQuit()) {
+    public void shutdown() {
+        // if ! saved
+        ///do you want to save your files?
+        ///
+
+        //else close everything
+        if (!canQuit()) {
 
         }
     }

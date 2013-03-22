@@ -18,6 +18,6 @@ public class ShutDownCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
-        FileManager.shutdown();
+        c.getFileManager().shutdown();
     }
 }

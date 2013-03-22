@@ -14,22 +14,23 @@ import java.awt.event.ActionListener;
  */
 public class CloseTabButton extends JButton implements ActionListener {
 
-	private JTabbedPane pane;
+    private JTabbedPane pane;
 
     public CloseTabButton(JTabbedPane pane) {
-		this.pane = pane;
+        this.pane = pane;
         int size = 17;
         setPreferredSize(new Dimension(size, size));
-		setContentAreaFilled(false);
+        setContentAreaFilled(false);
 
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
+        System.out.println("YOLO");
         int i = pane.indexOfTabComponent(CloseTabButton.this);
-		if (i != -1){
-			pane.remove(i);
-		}
+        if (i != -1) {
+            pane.remove(i);
+        }
     }
 
 
