@@ -13,13 +13,12 @@ import java.io.File;
  * To change this template use File | Settings | File Templates.
  */
 public class OpenCommand implements Command {
-    private String filename;
     private File f;
     private JEditorPane pane;
 
     public OpenCommand(File openFile, JEditorPane p) {
         f = openFile;
-        filename = f.getName();
+        String filename = f.getName();
         pane = p;
     }
 

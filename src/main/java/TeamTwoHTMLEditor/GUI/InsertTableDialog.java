@@ -9,7 +9,7 @@ import javax.swing.*;
  * Time: 9:13 PM
  * JDialog displayed to insert a Table
  */
-public class InsertTableDialog extends JDialog {
+class InsertTableDialog extends JDialog {
 
 
 }

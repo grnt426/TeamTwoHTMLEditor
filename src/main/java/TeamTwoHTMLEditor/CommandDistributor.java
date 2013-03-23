@@ -8,7 +8,7 @@ package TeamTwoHTMLEditor;
  * To change this template use File | Settings | File Templates.
  */
 public class CommandDistributor {
-    FileManager fileManager;
+    private FileManager fileManager;
 
 
     public CommandDistributor(FileManager fManager) {

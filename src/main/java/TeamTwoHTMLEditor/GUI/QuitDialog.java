@@ -9,7 +9,7 @@ import javax.swing.*;
  * Time: 12:12 PM
  * To change this template use File | Settings | File Templates.
  */
-public class QuitDialog extends JDialog {
+class QuitDialog extends JDialog {
 
 
 

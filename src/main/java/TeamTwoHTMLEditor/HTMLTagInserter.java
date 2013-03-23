@@ -7,6 +7,6 @@ package TeamTwoHTMLEditor;
  * Time: 2:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class HTMLTagInserter {
+class HTMLTagInserter {
 
 }

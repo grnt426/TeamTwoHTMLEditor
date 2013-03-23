@@ -26,11 +26,11 @@ import java.io.File;
 public class EditorFrame extends JFrame {
     private CommandDistributor commandDistributor;
     private QuitDialog quitDialog;
-    protected JFileChooser fc;
+    private JFileChooser fc;
     private int newFileCount = 1;
     private int filesOpen = 0;
-    JTabbedPane tabPane;
-    JEditorPane editorPane;
+    private JTabbedPane tabPane;
+    private JEditorPane editorPane;
 
 
     public EditorFrame(CommandDistributor cdis) {

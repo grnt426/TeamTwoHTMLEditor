@@ -14,12 +14,12 @@ import java.util.ArrayList;
 public class FileManager {
     private ArrayList<HTMLFile> HTMLFileArray;
     private static int numOpenFiles;
-    private boolean savePending;
+    //private boolean savePending;
 
     public FileManager() {
         HTMLFileArray = new ArrayList<HTMLFile>();
         numOpenFiles = HTMLFileArray.size();
-        savePending = false;
+        //savePending = false;
     }
 
 
@@ -64,8 +64,8 @@ public class FileManager {
      * @return
      */
     public boolean canQuit() {
-        for (int i = 0; i < HTMLFileArray.size(); i++) {
-            if (HTMLFileArray.get(i).isNeedToSave()) {
+        for (HTMLFile aHTMLFileArray : HTMLFileArray) {
+            if (aHTMLFileArray.isNeedToSave()) {
                 return true;
             }
         }
@@ -73,10 +73,7 @@ public class FileManager {
     }
 
     public boolean canQuit(int index) {
-        if (HTMLFileArray.get(index).isNeedToSave()) {
-            return true;
-        }
-        return false;
+        return HTMLFileArray.get(index).isNeedToSave();
     }
 
     public int getNumOpenFiles() {

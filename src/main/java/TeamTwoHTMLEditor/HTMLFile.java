@@ -7,7 +7,7 @@ import java.util.Scanner;
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 2:31 PM To
  * change this template use File | Settings | File Templates.
  */
-public class HTMLFile{
+class HTMLFile{
 	private boolean needToSave;
 	private String filename;
 	private BufferedWriter writer;
@@ -24,7 +24,7 @@ public class HTMLFile{
 		return filename;
 	}
 
-	public void loadFile(){
+	void loadFile(){
 
 		// We want to read in the whole file, so we need to recreate the Scanner
 		// instance each time to reset the read-head to the start of the file.
@@ -56,7 +56,7 @@ public class HTMLFile{
 		saveFile();
 	}
 
-	public void saveFile(){
+	void saveFile(){
 		needToSave = false;
 		try{
 			// BufferedWriter will automatically clear the contents of the
@@ -89,7 +89,7 @@ public class HTMLFile{
 		return needToSave;
 	}
 
-	public void setFileContents(String fileContents){
+	void setFileContents(String fileContents){
 		needToSave = true;
 		this.fileContents = new StringBuilder(fileContents);
 	}
