@@ -1,7 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
-import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,17 +9,17 @@ import java.io.File;
  * Time: 5:30 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CloseTabCommand implements Command{
+public class CloseTabCommand implements Command {
 
-	private int index;
+    private int index;
 
-	public CloseTabCommand(int index){
-		this.index = index;
-	}
+    public CloseTabCommand(int index) {
+        this.index = index;
+    }
 
-	@Override
-	public void execute(CommandDistributor c) {
-		c.getFileManager().closeFile(index);
-	}
+    @Override
+    public void execute(CommandDistributor c) {
+        c.getFileManager().closeFile(index);
+    }
 
 }

@@ -43,7 +43,7 @@ public class HTMLFile{
 		catch(FileNotFoundException e){
 			// TODO: Report error to user?
 			//e.printStackTrace();
-			System.out.print("YOLO: NEW FILE");
+			//System.out.print("YOLO: NEW FILE");
 		}
 		finally{
 			if(reader != null)
