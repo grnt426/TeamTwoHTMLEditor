@@ -18,13 +18,11 @@ public class OpenCommand implements Command {
 
     public OpenCommand(File openFile, JTextArea p) {
         f = openFile;
-        String filename = f.getName();
         pane = p;
     }
 
     @Override
     public void execute(CommandDistributor c) {
-
         c.getFileManager().openFile(f, pane);
     }
 

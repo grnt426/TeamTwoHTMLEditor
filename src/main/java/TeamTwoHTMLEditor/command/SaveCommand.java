@@ -6,11 +6,7 @@ import javax.swing.*;
 import java.io.File;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Kocsen
- * Date: 3/21/13
- * Time: 9:39 PM
- * To change this template use File | Settings | File Templates.
+ * Handles delegating the task of saving.
  */
 public class SaveCommand implements Command {
     private String filename;
