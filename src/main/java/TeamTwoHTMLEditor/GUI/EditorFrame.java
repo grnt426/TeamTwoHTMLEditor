@@ -33,7 +33,6 @@ public class EditorFrame extends JFrame {
     private int newFileCount = 1;
     private int filesOpen = 0;
     private JTabbedPane tabPane;
-    private JTextArea editorPane;
 	private int activePane = 0;
 	private ArrayList<JTextArea> editorPanes;
 
@@ -286,7 +285,7 @@ public class EditorFrame extends JFrame {
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
 
-        new OpenCommand(f, pane).execute(commandDistributor);
+        new OpenCommand(f, pane, this).execute(commandDistributor);
     }
 
 	//What to do when a tab is selected
@@ -302,7 +301,7 @@ public class EditorFrame extends JFrame {
 
         File f = fc.getSelectedFile();
 		JTextArea pane = getActivePane();
-        new SaveCommand(f, pane).execute(commandDistributor);
+        new SaveCommand(this, f, pane).execute(commandDistributor);
         System.out.println(f.getName());
     }
 

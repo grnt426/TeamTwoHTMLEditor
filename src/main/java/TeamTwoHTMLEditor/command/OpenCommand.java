@@ -15,15 +15,18 @@ import java.io.File;
 public class OpenCommand implements Command {
     private File f;
     private JTextArea pane;
+	private final JFrame parent;
 
-    public OpenCommand(File openFile, JTextArea p) {
+	public OpenCommand(File openFile, JTextArea p, JFrame parent) {
         f = openFile;
         pane = p;
+		this.parent = parent;
     }
 
     @Override
     public void execute(CommandDistributor c) {
         c.getFileManager().openFile(f, pane);
+		new ValidateCommand(pane, f.getPath(), parent).execute(c);
     }
 
 }
