@@ -285,7 +285,7 @@ public class EditorFrame extends JFrame {
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
 
-        new OpenCommand(f, pane).execute(commandDistributor);
+        new OpenCommand(f, pane, this).execute(commandDistributor);
     }
 
 	//What to do when a tab is selected
