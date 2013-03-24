@@ -11,7 +11,7 @@ import TeamTwoHTMLEditor.CommandDistributor;
  */
 public class CloseTabCommand implements Command {
 
-    private int index;
+    private final int index;
 
     public CloseTabCommand(int index) {
         this.index = index;
