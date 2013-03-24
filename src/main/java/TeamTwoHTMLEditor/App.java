@@ -50,7 +50,7 @@ public class App {
 
 
         } else { // Display error message
-            System.err.println("Invalid Number of Arguments");
+            System.err.println("Invalid Number of Arguments\nUsage: App [file_to_open]");
         }
 
     }

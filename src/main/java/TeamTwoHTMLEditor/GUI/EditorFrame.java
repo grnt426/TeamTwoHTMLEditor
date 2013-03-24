@@ -283,7 +283,8 @@ public class EditorFrame extends JFrame {
         fc.showSaveDialog(this);
 
         File f = fc.getSelectedFile();
-        new SaveCommand(f).execute(commandDistributor);
+		JTextArea pane = editorPane;
+        new SaveCommand(f, pane).execute(commandDistributor);
         System.out.println(f.getName());
     }
 
@@ -353,6 +354,5 @@ public class EditorFrame extends JFrame {
     public JTextArea getPane() {
         return editorPane;
     }
-
 }
 

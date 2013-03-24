@@ -14,10 +14,15 @@ class HTMLFile{
 	private Scanner reader;
 	private StringBuilder fileContents;
 
-	public HTMLFile(String name){
-		filename = name;
+	public HTMLFile(String path){
+		this(path, true);
+	}
+
+	public HTMLFile(String path, boolean loadFile){
+		filename = path;
 		needToSave = false;
-		loadFile();
+		if(loadFile)
+			loadFile();
 	}
 
 	public String getName(){

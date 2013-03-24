@@ -16,7 +16,5 @@ public class ValidateCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
-
-
     }
 }

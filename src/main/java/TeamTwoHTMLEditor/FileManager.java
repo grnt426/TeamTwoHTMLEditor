@@ -55,8 +55,9 @@ public class FileManager {
     /**
      *
      */
-    public void saveFile(File f) {
-        //now you need to save the file!
+    public void saveFile(File f, String contents) {
+        HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
+		fileToSave.saveFile(contents);
     }
 
 
