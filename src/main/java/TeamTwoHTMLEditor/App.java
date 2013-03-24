@@ -1,7 +1,6 @@
 package TeamTwoHTMLEditor;
 
 import TeamTwoHTMLEditor.GUI.EditorFrame;
-import TeamTwoHTMLEditor.command.OpenCommand;
 
 import javax.swing.*;
 import java.io.File;

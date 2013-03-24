@@ -40,16 +40,16 @@ public class FileManager {
         HTMLFile x = new HTMLFile(f.getPath());
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
-        System.out.println("Opened a file with the name: " + f.getName() + "\nTotal files: " + Integer.toString(numOpenFiles));
+        System.out.println("Opened a file with the name: " + f.getName());
         String contents = x.getFileContents();
         System.out.println(contents);
         p.setText(contents);
     }
 
     public void closeFile(int index) {
+        System.out.println("Closing a file with the name: " + HTMLFileArray.get(index).getName());
         HTMLFileArray.remove(index);
         numOpenFiles = HTMLFileArray.size();
-        System.out.println("Total files: " + Integer.toString(numOpenFiles));
     }
 
     /**
@@ -57,7 +57,7 @@ public class FileManager {
      */
     public void saveFile(File f, String contents) {
         HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
-		fileToSave.saveFile(contents);
+        fileToSave.saveFile(contents);
     }
 
 
@@ -83,6 +83,21 @@ public class FileManager {
 
     public void shutdown() {
         if (!canQuit()) {
+
+        }
+    }
+
+    public void printStatus() {
+        System.out.println("**** File Manager Status *****");
+        System.out.println("Total number of files open: " + Integer.toString(HTMLFileArray.size()));
+        System.out.println("File List:");
+        for (HTMLFile aFile : HTMLFileArray) {
+            System.out.println("\t" + aFile.getName());
+            if (aFile.isNeedToSave()) {
+                System.out.println("\t\tSAVED");
+            } else {
+                System.out.println("\t\tNEEDS SAVE");
+            }
 
         }
     }

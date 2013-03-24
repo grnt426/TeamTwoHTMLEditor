@@ -10,7 +10,6 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
-import javax.swing.text.html.HTMLEditorKit;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -34,8 +33,8 @@ public class EditorFrame extends JFrame {
     private int filesOpen = 0;
     private JTabbedPane tabPane;
     private JTextArea editorPane;
-	private int activePane = 0;
-	private ArrayList<JTextArea> editorPanes;
+    private int activePane = 0;
+    private ArrayList<JTextArea> editorPanes;
 
 
     public EditorFrame(CommandDistributor cdis) {
@@ -43,13 +42,13 @@ public class EditorFrame extends JFrame {
         commandDistributor = cdis;
         fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("HTML Document", "html", "htm"));
-		editorPanes = new ArrayList<JTextArea>();
+        editorPanes = new ArrayList<JTextArea>();
 
     }
 
 
     private void initComponents() {
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("IntelliHTML - An HTML FileManager from T2");
         setBounds(new Rectangle(0, 0, 500, 530));
         setName("EditorFrame");
@@ -62,13 +61,13 @@ public class EditorFrame extends JFrame {
         quitDialog.setVisible(false);
 
         tabPane = new JTabbedPane();
-		tabPane.addChangeListener(new ChangeListener(){
-			@Override
-			public void stateChanged(ChangeEvent e){
-				System.out.println("HDSHFDSJ");
-				changeTabFocus(e);
-			}
-		});
+        tabPane.addChangeListener(new ChangeListener() {
+            @Override
+            public void stateChanged(ChangeEvent e) {
+                System.out.println("HDSHFDSJ");
+                changeTabFocus(e);
+            }
+        });
 
         JMenuBar menuBar;
         JMenu menuFile, menuEdit, menuInsert, menuAbout;
@@ -267,7 +266,7 @@ public class EditorFrame extends JFrame {
 
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(
-				"File" + Integer.toString(newFileCount), editorScrollPane);
+                "File" + Integer.toString(newFileCount), editorScrollPane);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
     }
@@ -289,11 +288,11 @@ public class EditorFrame extends JFrame {
         new OpenCommand(f, pane).execute(commandDistributor);
     }
 
-	//What to do when a tab is selected
-	private void changeTabFocus(ChangeEvent e) {
-		System.out.println("Switching Tab Focus");
-		activePane = tabPane.getSelectedIndex();
-	}
+    //What to do when a tab is selected
+    private void changeTabFocus(ChangeEvent e) {
+        System.out.println("Switching Tab Focus");
+        activePane = tabPane.getSelectedIndex();
+    }
 
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
@@ -301,7 +300,7 @@ public class EditorFrame extends JFrame {
         fc.showSaveDialog(this);
 
         File f = fc.getSelectedFile();
-		JTextArea pane = getActivePane();
+        JTextArea pane = getActivePane();
         new SaveCommand(f, pane).execute(commandDistributor);
         System.out.println(f.getName());
     }
@@ -315,13 +314,14 @@ public class EditorFrame extends JFrame {
     private void closeTabMenuItemActionPerformed(ActionEvent e) {
         System.out.println("Closing tab and file");
         if (newFileCount > 1) {
-			int index = activePane;
+            int index = activePane;
             tabPane.remove(index);
-			editorPanes.remove(index);
+            editorPanes.remove(index);
             newFileCount--;
 
             new CloseTabCommand(index).execute(commandDistributor);
         }
+        commandDistributor.getFileManager().printStatus();
     }
 
     //What to do when they click on Quit in File Menu
@@ -332,12 +332,9 @@ public class EditorFrame extends JFrame {
             System.out.println("Shutting Down System");
         } else {
             JOptionPane.showMessageDialog(this, "Please Save all your files ");
+            commandDistributor.getFileManager().printStatus();
         }
 
-
-        //Check if all files are saved and safe
-
-        //this.dispose();
 
     }
     // ******************************************** END ********************************//
@@ -360,9 +357,9 @@ public class EditorFrame extends JFrame {
 
     private JTextArea setupPane() {
         JTextArea newEditorPane = new JTextArea();
-		newEditorPane.setLineWrap(true);
-		newEditorPane.setTabSize(4);
-		editorPanes.add(newEditorPane);
+        newEditorPane.setLineWrap(true);
+        newEditorPane.setTabSize(4);
+        editorPanes.add(newEditorPane);
 
         //editorPane.setContentType("text/html");
         //editorPane.setEditorKit(new HTMLEditorKit());
