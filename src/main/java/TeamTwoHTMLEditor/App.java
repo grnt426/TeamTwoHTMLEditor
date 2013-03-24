@@ -1,8 +1,10 @@
 package TeamTwoHTMLEditor;
 
 import TeamTwoHTMLEditor.GUI.EditorFrame;
+import TeamTwoHTMLEditor.command.OpenCommand;
 
 import javax.swing.*;
+import java.io.File;
 
 /**
  * Hello world!
@@ -24,20 +26,21 @@ public class App {
             e.printStackTrace();
         }
 
-        if (args.length == 1) { // Oepn the file given as argument
+        if (args.length == 1) { // Open the file given as argument
             String filename = args[0];
-            System.out.println("Opening Editor with filename: " + filename);
+            final File f = new File(filename);
+            System.out.println("Launching Editor with filename: " + filename);
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     JFrame j = new EditorFrame(distributor);
                     j.setVisible(true);
+
                 }
             });
-            //dis
-
 
 
         } else if (args.length == 0) { // Launch GUI normally with blank screen
+            System.out.println("Launching Editor");
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     JFrame j = new EditorFrame(distributor);
@@ -49,9 +52,6 @@ public class App {
         } else { // Display error message
             System.err.println("Invalid Number of Arguments");
         }
-
-
-        System.out.println("Starting System");
 
     }
 }

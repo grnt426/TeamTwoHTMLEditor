@@ -81,11 +81,6 @@ public class FileManager {
     }
 
     public void shutdown() {
-        // if ! saved
-        ///do you want to save your files?
-        ///
-
-        //else close everything
         if (!canQuit()) {
 
         }

@@ -42,6 +42,7 @@ public class EditorFrame extends JFrame {
 
     }
 
+
     private void initComponents() {
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         setTitle("IntelliHTML - An HTML FileManager from T2");
@@ -346,6 +347,10 @@ public class EditorFrame extends JFrame {
         //editorPane.setContentType("text/html");
         //editorPane.setEditorKit(new HTMLEditorKit());
         //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
+        return editorPane;
+    }
+
+    public JTextArea getPane() {
         return editorPane;
     }
 
