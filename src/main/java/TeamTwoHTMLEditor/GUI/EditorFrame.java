@@ -255,6 +255,7 @@ public class EditorFrame extends JFrame {
 
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
+        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
     }
 
@@ -269,6 +270,7 @@ public class EditorFrame extends JFrame {
 
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(f.getName(), editorScrollPane);
+        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
 
         new OpenCommand(f, pane).execute(commandDistributor);
@@ -308,7 +310,7 @@ public class EditorFrame extends JFrame {
             this.dispose();
             System.out.println("Shutting Down System");
         } else {
-            quitDialog.setVisible(true);
+            JOptionPane.showMessageDialog(this, "Please Save all your files ");
         }
 
 
@@ -338,6 +340,7 @@ public class EditorFrame extends JFrame {
     private JTextArea setupPane() {
         editorPane = new JTextArea();
         editorPane.setLineWrap(true);
+        editorPane.setTabSize(4);
 
 
         //editorPane.setContentType("text/html");
