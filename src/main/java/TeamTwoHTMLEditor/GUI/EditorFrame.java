@@ -30,7 +30,7 @@ public class EditorFrame extends JFrame {
     private int newFileCount = 1;
     private int filesOpen = 0;
     private JTabbedPane tabPane;
-    private JEditorPane editorPane;
+    private JTextArea editorPane;
 
 
     public EditorFrame(CommandDistributor cdis) {
@@ -251,12 +251,9 @@ public class EditorFrame extends JFrame {
     private void newMenuItemActionPerformed(ActionEvent e) {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
 
-        editorPane = new JEditorPane();
-        editorPane.setContentType("text/html");
-        editorPane.setEditorKit(new HTMLEditorKit());
-        //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
-        editorPane.setContentType("text/html");
-        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        JTextArea pane = setupPane();
+
+        JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab("File" + Integer.toString(newFileCount), editorScrollPane);
         newFileCount++;
     }
@@ -268,16 +265,13 @@ public class EditorFrame extends JFrame {
         fc.showOpenDialog(this);
         File f = fc.getSelectedFile();
 
-        editorPane = new JEditorPane();
-        editorPane.setContentType("text/html");
-        editorPane.setEditorKit(new HTMLEditorKit());
-        //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
-        editorPane.setContentType("text/html");
-        JScrollPane editorScrollPane = new JScrollPane(editorPane);
+        JTextArea pane = setupPane();
+
+        JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(f.getName(), editorScrollPane);
         newFileCount++;
 
-        new OpenCommand(f, editorPane).execute(commandDistributor);
+        new OpenCommand(f, pane).execute(commandDistributor);
     }
 
     //What to do when they click Save in File Menu
@@ -340,6 +334,17 @@ public class EditorFrame extends JFrame {
     //********************** Action Performed for About > X *****************************//
     //*********************************************** END 8******************************//
 
+
+    private JTextArea setupPane() {
+        editorPane = new JTextArea();
+        editorPane.setLineWrap(true);
+
+
+        //editorPane.setContentType("text/html");
+        //editorPane.setEditorKit(new HTMLEditorKit());
+        //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
+        return editorPane;
+    }
 
 }
 

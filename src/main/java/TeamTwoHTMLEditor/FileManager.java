@@ -36,7 +36,7 @@ public class FileManager {
     /**
      *
      */
-    public void openFile(File f, JEditorPane p) {
+    public void openFile(File f, JTextArea p) {
         HTMLFile x = new HTMLFile(f.getPath());
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();

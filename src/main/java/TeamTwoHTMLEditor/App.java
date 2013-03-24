@@ -9,6 +9,8 @@ import javax.swing.*;
  */
 public class App {
     public static void main(String[] args) {
+        final CommandDistributor distributor = new CommandDistributor(new FileManager());
+
         // Sets the default look and feel of the UI given OS
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -24,10 +26,18 @@ public class App {
 
         if (args.length == 1) { // Oepn the file given as argument
             String filename = args[0];
+            System.out.println("Opening Editor with filename: " + filename);
+            java.awt.EventQueue.invokeLater(new Runnable() {
+                public void run() {
+                    JFrame j = new EditorFrame(distributor);
+                    j.setVisible(true);
+                }
+            });
+            //dis
+
 
 
         } else if (args.length == 0) { // Launch GUI normally with blank screen
-            final CommandDistributor distributor = new CommandDistributor(new FileManager());
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
                     JFrame j = new EditorFrame(distributor);

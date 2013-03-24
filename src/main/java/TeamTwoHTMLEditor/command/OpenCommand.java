@@ -14,9 +14,9 @@ import java.io.File;
  */
 public class OpenCommand implements Command {
     private File f;
-    private JEditorPane pane;
+    private JTextArea pane;
 
-    public OpenCommand(File openFile, JEditorPane p) {
+    public OpenCommand(File openFile, JTextArea p) {
         f = openFile;
         String filename = f.getName();
         pane = p;
