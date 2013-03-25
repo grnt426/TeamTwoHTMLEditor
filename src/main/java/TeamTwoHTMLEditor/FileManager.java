@@ -67,6 +67,7 @@ public class FileManager {
      * @return
      */
     public boolean canQuit() {
+        if(HTMLFileArray.isEmpty()){ return true; }
         for (HTMLFile aHTMLFileArray : HTMLFileArray) {
             if (aHTMLFileArray.isNeedToSave()) {
                 return true;
@@ -84,9 +85,7 @@ public class FileManager {
     }
 
     public void shutdown() {
-        if (!canQuit()) {
 
-        }
     }
 
     public void printStatus() {
@@ -102,5 +101,6 @@ public class FileManager {
             }
 
         }
+        System.out.println("******************************");
     }
 }

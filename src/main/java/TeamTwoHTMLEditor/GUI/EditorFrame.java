@@ -330,7 +330,6 @@ public class EditorFrame extends JFrame {
     private void quitMenuItemActionPerformed(ActionEvent e) {
         commandDistributor.getFileManager().printStatus();
         if (commandDistributor.getFileManager().canQuit()) {
-
             this.dispose();
             System.out.println("Shutting Down System");
         } else {
