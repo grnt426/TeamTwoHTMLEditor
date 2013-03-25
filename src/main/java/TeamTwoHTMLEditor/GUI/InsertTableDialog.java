@@ -163,6 +163,7 @@ class InsertTableDialog extends JDialog {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
+
     private javax.swing.JPanel jPanel2;
     private javax.swing.JSpinner rowSpinner;
 
