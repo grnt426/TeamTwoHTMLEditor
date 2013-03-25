@@ -34,8 +34,10 @@ public class EditorFrame extends JFrame {
     private ArrayList<JTextArea> editorPanes;
 
     private JMenuBar menuBar;
-    private JMenu menuFile, menuEdit, menuInsert, menuAbout;
+    private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JCheckBoxMenuItem toggleWordWrapMenuItem;
+
 
     //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
     private JMenuItem insertHeaderMenuItem, insertTableMenuItem;
@@ -73,6 +75,11 @@ public class EditorFrame extends JFrame {
             public void stateChanged(ChangeEvent e) {
                 System.out.println("State Change");
                 changeTabFocus(e);
+                if (tabPane.getTabCount() <= 0) {
+                    closeTabMenuItem.setEnabled(false);
+                } else {
+                    closeTabMenuItem.setEnabled(true);
+                }
             }
         });
 
@@ -84,6 +91,7 @@ public class EditorFrame extends JFrame {
         menuEdit = new JMenu("Edit");
         menuAbout = new JMenu("About");
         menuInsert = new JMenu("Insert");
+        menuOptions = new JMenu("Options");
 
 
         //Build the first menu - File    ************** BEGIN ************************** //
@@ -282,7 +290,24 @@ public class EditorFrame extends JFrame {
         menuBar.add(menuInsert);
         // ********************************** END ************************************//
 
-        //Build the third menu - About ************** BEGIN ************************** //
+        //Build the third menu - Options *****************BEGIN********************//
+        menuOptions.setMnemonic(KeyEvent.VK_O);
+
+        ///Adding menuItem
+        toggleWordWrapMenuItem = new JCheckBoxMenuItem("Wrap Text", true);
+        toggleWordWrapMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleWordWrapActionPerformed(e);
+            }
+        });
+
+        menuOptions.add(toggleWordWrapMenuItem);
+        menuBar.add(menuOptions);
+        // ********************************** END ************************************//
+
+
+        //Build the fourth menu - About ************** BEGIN ************************** //
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
         // Adding About MenuItems
@@ -303,6 +328,9 @@ public class EditorFrame extends JFrame {
 
         setJMenuBar(menuBar);
         add(tabPane, BorderLayout.CENTER);
+        if (tabPane.getTabCount() <= 0) {
+            closeTabMenuItem.setEnabled(false);
+        }
     }
 
     // ********************** Action Performed for File > X *****************************//
@@ -438,9 +466,18 @@ public class EditorFrame extends JFrame {
 
     //******************************** END *******************************************//
 
+    //******************************* Action Perfoemd for Option > X *****************//
+    private void toggleWordWrapActionPerformed(ActionEvent e) {
+        for (JTextArea textArea : editorPanes) {
+            textArea.setLineWrap(toggleWordWrapMenuItem.getState());
+        }
+    }
+    //******************************** END *******************************************//
+
+
     private JTextArea setupPane() {
         JTextArea newEditorPane = new JTextArea();
-        newEditorPane.setLineWrap(true);
+        newEditorPane.setLineWrap(toggleWordWrapMenuItem.getState());
         newEditorPane.setTabSize(4);
         editorPanes.add(newEditorPane);
 

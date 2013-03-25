@@ -52,7 +52,7 @@ public class FileManager {
      */
     public boolean closeFile(int index) {
         System.out.println("Closing a file with the name: " + HTMLFileArray.get(index).getName());
-        if (HTMLFileArray.get(index).isNeedToSave()) {
+        if (canQuit(index)) {
             return false;
         } else {
             HTMLFileArray.remove(index);

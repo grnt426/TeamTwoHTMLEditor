@@ -24,7 +24,7 @@ public class CloseTabCommand implements Command {
     @Override
     public void execute(CommandDistributor c) {
         if (c.getFileManager().closeFile(index)) {
-            System.out.println("Tab # " + index + "may close");
+            System.out.println("Tab # " + (index + 1) + " may close");
         } else {
             JOptionPane.showMessageDialog(parent, "Please save the file before exiting");
         }
