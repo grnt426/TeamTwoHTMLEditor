@@ -8,10 +8,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -78,9 +75,11 @@ public class EditorFrame extends JFrame {
                 if (tabPane.getTabCount() <= 0) {
                     closeTabMenuItem.setEnabled(false);
                     saveMenuItem.setEnabled(false);
+                    validateMenuItem.setEnabled(false);
                 } else {
                     closeTabMenuItem.setEnabled(true);
                     saveMenuItem.setEnabled(true);
+                    validateMenuItem.setEnabled(true);
                 }
             }
         });
@@ -158,6 +157,13 @@ public class EditorFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 quitMenuItemActionPerformed(e);
+            }
+        });
+
+        addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                quitMenuItemActionPerformed(null);
             }
         });
 
@@ -335,6 +341,7 @@ public class EditorFrame extends JFrame {
         if (tabPane.getTabCount() <= 0) {
             closeTabMenuItem.setEnabled(false);
             saveMenuItem.setEnabled(false);
+            validateMenuItem.setEnabled(false);
         }
     }
 
@@ -357,17 +364,22 @@ public class EditorFrame extends JFrame {
     private void openMenuItemActionPerformed(ActionEvent e) {
         System.out.println("Opening Open File Chooser");
 
-        fc.showOpenDialog(this);
-        File f = fc.getSelectedFile();
+        int status = fc.showOpenDialog(this);
+        if (status == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
 
-        JTextArea pane = setupPane();
+            JTextArea pane = setupPane();
 
-        JScrollPane editorScrollPane = new JScrollPane(pane);
-        tabPane.addTab(f.getName(), editorScrollPane);
-        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-        newFileCount++;
+            JScrollPane editorScrollPane = new JScrollPane(pane);
+            tabPane.addTab(f.getName(), editorScrollPane);
+            tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
+            newFileCount++;
 
-        new OpenCommand(f, pane, this).execute(commandDistributor);
+            new OpenCommand(f, pane, this).execute(commandDistributor);
+
+        }
+
+
     }
 
     public void openFileWithoutFileChooser(File f) {
@@ -389,15 +401,15 @@ public class EditorFrame extends JFrame {
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
         System.out.println("Opening Save File Chooser");
-        fc.showSaveDialog(this);
+        int status = fc.showSaveDialog(this);
+        if (status == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
 
-        File f = fc.getSelectedFile();
+            JTextArea pane = getActivePane();
+            new SaveCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
 
-        JTextArea pane = getActivePane();
-        new SaveCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
-        //System.out.println(f.getName());
-
-        tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
+            tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
+        }
 
     }
 
@@ -406,30 +418,30 @@ public class EditorFrame extends JFrame {
         new ValidateCommand(editorPanes.get(activePane), tabPane.getTitleAt(activePane), this).execute(commandDistributor);
     }
 
+
     private void closeTabMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("Closing tab and file");
-        if (newFileCount > 1) {
+        int index = activePane;
+        new CloseTabCommand(index, this).execute(commandDistributor);
+
+    }
+
+    public void closeTab() {
+        if (newFileCount >= 1) {
             int index = activePane;
             tabPane.remove(index);
             editorPanes.remove(index);
             newFileCount--;
-
-            new CloseTabCommand(index, this).execute(commandDistributor);
+        } else {
+            System.err.println("Fatal error closing tab");
         }
     }
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
-        commandDistributor.getFileManager().printStatus();
-        if (commandDistributor.getFileManager().canQuit()) {
-            this.dispose();
-            System.out.println("Shutting Down System");
-        } else {
-            JOptionPane.showMessageDialog(this, "Please Save all your files ");
-
-        }
-
+        new ShutDownCommand(this).execute(commandDistributor);
     }
+
+
     // ******************************************** END ********************************//
 
 

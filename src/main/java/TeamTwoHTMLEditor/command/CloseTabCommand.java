@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
 
@@ -14,9 +15,9 @@ import javax.swing.*;
 public class CloseTabCommand implements Command {
 
     private final int index;
-    private final JFrame parent;
+    private final EditorFrame parent;
 
-    public CloseTabCommand(int index, JFrame p) {
+    public CloseTabCommand(int index, EditorFrame p) {
         this.index = index;
         parent = p;
     }
@@ -25,6 +26,7 @@ public class CloseTabCommand implements Command {
     public void execute(CommandDistributor c) {
         if (c.getFileManager().closeFile(index)) {
             System.out.println("Tab # " + (index + 1) + " may close");
+            parent.closeTab();
         } else {
             JOptionPane.showMessageDialog(parent, "Please save the file before exiting");
         }

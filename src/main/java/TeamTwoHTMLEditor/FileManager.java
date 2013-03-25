@@ -96,9 +96,6 @@ public class FileManager {
         return numOpenFiles;
     }
 
-    public void shutdown() {
-
-    }
 
     public void printStatus() {
         System.out.println("**** File Manager Status *****");

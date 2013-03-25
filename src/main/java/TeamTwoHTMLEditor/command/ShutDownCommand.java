@@ -2,6 +2,9 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.FileManager;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
+
+import javax.swing.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -10,14 +13,21 @@ import TeamTwoHTMLEditor.FileManager;
  * Time: 2:16 PM
  */
 public class ShutDownCommand implements Command {
+    EditorFrame eFrame;
 
-
-    private ShutDownCommand() {
+    public ShutDownCommand(EditorFrame frame) {
+        eFrame = frame;
 
     }
 
     @Override
     public void execute(CommandDistributor c) {
-        c.getFileManager().shutdown();
+        if (c.getFileManager().canQuit()) {
+            eFrame.dispose();
+            System.out.println("Shutting Down System");
+        } else {
+            JOptionPane.showMessageDialog(eFrame, "Please Save all your files ");
+
+        }
     }
 }
