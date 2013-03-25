@@ -33,6 +33,16 @@ public class EditorFrame extends JFrame {
     private int activePane = 0;
     private ArrayList<JTextArea> editorPanes;
 
+    JMenuBar menuBar;
+    JMenu menuFile, menuEdit, menuInsert, menuAbout;
+    JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+
+    //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
+    JMenuItem insertHeaderMenuItem, insertTableMenuItem;
+    JMenuItem boldMenuItem, italicsMenuItem;
+    JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
+    JMenu fontEmphasisMenu, insertListMenu;
+
 
     public EditorFrame(CommandDistributor cdis) {
         initComponents();
@@ -65,16 +75,6 @@ public class EditorFrame extends JFrame {
                 changeTabFocus(e);
             }
         });
-
-        JMenuBar menuBar;
-        JMenu menuFile, menuEdit, menuInsert, menuAbout;
-        JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
-
-        //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
-        JMenuItem insertHeaderMenuItem, insertTableMenuItem;
-        JMenuItem boldMenuItem, italicsMenuItem;
-        JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
-        JMenu fontEmphasisMenu, insertListMenu;
 
         //Create the menu bar.
         menuBar = new JMenuBar();
@@ -246,7 +246,7 @@ public class EditorFrame extends JFrame {
         italicsMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                fontEmphasisACtionPerformed(e);
+                fontEmphasisActionPerformed(e);
             }
         });
 
@@ -411,21 +411,28 @@ public class EditorFrame extends JFrame {
         x.setVisible(true);
     }
 
-    private void insertListActionPerformed(ActionEvent e) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
-
-    private void fontEmphasisACtionPerformed(ActionEvent e) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
-
-    private void fontEmphasisActionPerformed(ActionEvent e) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
-
     private void insertHeaderActionPerformed(ActionEvent e) {
         //To change body of created methods use File | Settings | File Templates.
     }
+
+    private void insertListActionPerformed(ActionEvent e) {
+        if (e.getSource() == insertNumberList) {
+            //TODO if numberList
+        } else if (e.getSource() == insertBulletList) {
+            //TODO if bulletList
+        } else if (e.getSource() == insertDictionaryList) {
+            //TODO if dictionaryList
+        }
+    }
+
+    private void fontEmphasisActionPerformed(ActionEvent e) {
+        if (e.getSource() == boldMenuItem) {
+            //TODO if bold
+        } else if (e.getSource() == italicsMenuItem) {
+            //TODO if italics
+        }
+    }
+
 
     //******************************** END *******************************************//
 
@@ -435,25 +442,25 @@ public class EditorFrame extends JFrame {
         newEditorPane.setTabSize(4);
         editorPanes.add(newEditorPane);
 
-		// Attach a keylistener to allow for auto-indentation
-		newEditorPane.addKeyListener(new KeyListener(){
-			@Override
-			public void keyTyped(KeyEvent e){
-			}
+        // Attach a keylistener to allow for auto-indentation
+        newEditorPane.addKeyListener(new KeyListener() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+            }
 
-			@Override
-			public void keyPressed(KeyEvent e){
-			}
+            @Override
+            public void keyPressed(KeyEvent e) {
+            }
 
-			@Override
-			public void keyReleased(KeyEvent e){
-				int keyCode = e.getKeyCode();
-				System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
-				if(keyCode == KeyEvent.VK_ENTER){
-					new AutoIndentCommand(getActivePane()).execute(commandDistributor);
-				}
-			}
-		});
+            @Override
+            public void keyReleased(KeyEvent e) {
+                int keyCode = e.getKeyCode();
+                System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
+                if (keyCode == KeyEvent.VK_ENTER) {
+                    new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+                }
+            }
+        });
 
         //editorPane.setContentType("text/html");
         //editorPane.setEditorKit(new HTMLEditorKit());
