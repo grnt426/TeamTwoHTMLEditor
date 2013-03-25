@@ -60,7 +60,7 @@ class HTMLFile {
     }
 
     void saveFile() {
-        needToSave = false;
+        this.needToSave = false;
         System.out.println("SAVED FILE: " + filename);
         try {
             // BufferedWriter will automatically clear the contents of the
@@ -93,5 +93,9 @@ class HTMLFile {
     void setFileContents(String fileContents) {
         needToSave = true;
         this.fileContents = new StringBuilder(fileContents);
+    }
+
+    public void setSave(boolean b) {
+        this.needToSave = b;
     }
 }
