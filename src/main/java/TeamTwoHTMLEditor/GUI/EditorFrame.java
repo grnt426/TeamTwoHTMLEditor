@@ -299,9 +299,12 @@ public class EditorFrame extends JFrame {
         fc.showSaveDialog(this);
 
         File f = fc.getSelectedFile();
+
         JTextArea pane = getActivePane();
         new SaveCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
         //System.out.println(f.getName());
+
+        tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
 
     }
 
@@ -325,13 +328,14 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
+        commandDistributor.getFileManager().printStatus();
         if (commandDistributor.getFileManager().canQuit()) {
 
             this.dispose();
             System.out.println("Shutting Down System");
         } else {
             JOptionPane.showMessageDialog(this, "Please Save all your files ");
-            commandDistributor.getFileManager().printStatus();
+
         }
 
 

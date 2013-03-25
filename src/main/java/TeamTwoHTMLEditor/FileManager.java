@@ -59,6 +59,7 @@ public class FileManager {
         HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
         fileToSave.saveFile(contents);
         HTMLFileArray.get(indexOfFile).setSave(true);
+        //HTMLFileArray.set(indexOfFile, fileToSave);
     }
 
 
