@@ -46,10 +46,20 @@ public class FileManager {
         p.setText(contents);
     }
 
-    public void closeFile(int index) {
+    /**
+     * @param index
+     * @return true if the file modified the file (closed), false otherwise
+     */
+    public boolean closeFile(int index) {
         System.out.println("Closing a file with the name: " + HTMLFileArray.get(index).getName());
-        HTMLFileArray.remove(index);
-        numOpenFiles = HTMLFileArray.size();
+        if (HTMLFileArray.get(index).isNeedToSave()) {
+            return false;
+        } else {
+            HTMLFileArray.remove(index);
+            numOpenFiles = HTMLFileArray.size();
+            return true;
+        }
+
     }
 
     /**
@@ -67,7 +77,9 @@ public class FileManager {
      * @return
      */
     public boolean canQuit() {
-        if(HTMLFileArray.isEmpty()){ return true; }
+        if (HTMLFileArray.isEmpty()) {
+            return true;
+        }
         for (HTMLFile aHTMLFileArray : HTMLFileArray) {
             if (aHTMLFileArray.isNeedToSave()) {
                 return true;

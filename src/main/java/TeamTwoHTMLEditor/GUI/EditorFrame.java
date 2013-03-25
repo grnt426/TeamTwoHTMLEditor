@@ -33,15 +33,15 @@ public class EditorFrame extends JFrame {
     private int activePane = 0;
     private ArrayList<JTextArea> editorPanes;
 
-    JMenuBar menuBar;
-    JMenu menuFile, menuEdit, menuInsert, menuAbout;
-    JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JMenuBar menuBar;
+    private JMenu menuFile, menuEdit, menuInsert, menuAbout;
+    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
 
     //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
-    JMenuItem insertHeaderMenuItem, insertTableMenuItem;
-    JMenuItem boldMenuItem, italicsMenuItem;
-    JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
-    JMenu fontEmphasisMenu, insertListMenu;
+    private JMenuItem insertHeaderMenuItem, insertTableMenuItem;
+    private JMenuItem boldMenuItem, italicsMenuItem;
+    private JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
+    private JMenu fontEmphasisMenu, insertListMenu;
 
 
     public EditorFrame(CommandDistributor cdis) {
@@ -371,7 +371,7 @@ public class EditorFrame extends JFrame {
             editorPanes.remove(index);
             newFileCount--;
 
-            new CloseTabCommand(index).execute(commandDistributor);
+            new CloseTabCommand(index, this).execute(commandDistributor);
         }
     }
 
@@ -450,6 +450,7 @@ public class EditorFrame extends JFrame {
         newEditorPane.setTabSize(4);
         editorPanes.add(newEditorPane);
 
+
         // Attach a keylistener to allow for auto-indentation
         newEditorPane.addKeyListener(new KeyListener() {
             @Override
@@ -463,7 +464,7 @@ public class EditorFrame extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
+                //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {
                     new AutoIndentCommand(getActivePane()).execute(commandDistributor);
                 }
