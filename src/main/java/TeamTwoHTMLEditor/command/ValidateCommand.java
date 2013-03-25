@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandDispatcher;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -30,7 +30,7 @@ public class ValidateCommand implements Command{
 
 
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDispatcher c){
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		dbf.setIgnoringElementContentWhitespace(true);
 		dbf.setIgnoringComments(true);

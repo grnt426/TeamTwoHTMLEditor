@@ -10,7 +10,7 @@ import java.io.File;
  */
 public class App {
     public static void main(String[] args) {
-        final CommandDistributor distributor = new CommandDistributor(new FileManager());
+        final CommandDispatcher distributor = new CommandDispatcher(new FileManager());
 
         // Sets the default look and feel of the UI given OS
         try {

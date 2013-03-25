@@ -1,7 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDistributor;
-import TeamTwoHTMLEditor.FileManager;
+import TeamTwoHTMLEditor.CommandDispatcher;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
@@ -21,7 +20,7 @@ public class ShutDownCommand implements Command {
     }
 
     @Override
-    public void execute(CommandDistributor c) {
+    public void execute(CommandDispatcher c) {
         if (c.getFileManager().canQuit()) {
             eFrame.dispose();
             System.out.println("Shutting Down System");
