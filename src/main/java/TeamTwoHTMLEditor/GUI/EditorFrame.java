@@ -103,7 +103,7 @@ public class EditorFrame extends JFrame {
         newMenuItem = new JMenuItem("New", KeyEvent.VK_N);
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
-        //saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
+        saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
         validateMenuItem = new JMenuItem("Validate", KeyEvent.VK_V);
         closeTabMenuItem = new JMenuItem("Close Tab", KeyEvent.VK_W);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
@@ -112,7 +112,7 @@ public class EditorFrame extends JFrame {
         newMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_N, ActionEvent.CTRL_MASK));
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
-        //saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+        saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
         validateMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.ALT_MASK));
         closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
@@ -136,6 +136,13 @@ public class EditorFrame extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
                 saveMenuItemActionPerformed(e);
+            }
+        });
+
+        saveAsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                saveAsMenuItemActionPerformed(e);
             }
         });
 
@@ -413,6 +420,11 @@ public class EditorFrame extends JFrame {
 
     }
 
+
+    private void saveAsMenuItemActionPerformed(ActionEvent e) {
+
+    }
+
     //What to do when clicking Validate in File Menu
     private void validateActionPerformed(ActionEvent e) {
         new ValidateCommand(editorPanes.get(activePane), tabPane.getTitleAt(activePane), this).execute(commandDistributor);
@@ -440,7 +452,6 @@ public class EditorFrame extends JFrame {
     private void quitMenuItemActionPerformed(ActionEvent e) {
         new ShutDownCommand(this).execute(commandDistributor);
     }
-
 
     // ******************************************** END ********************************//
 
