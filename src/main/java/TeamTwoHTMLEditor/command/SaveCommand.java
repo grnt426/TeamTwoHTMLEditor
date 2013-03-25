@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
 import java.io.File;
@@ -10,14 +11,12 @@ import java.io.File;
  */
 public class SaveCommand implements Command {
     private String filename;
-    private File f;
+
     private JTextArea pane;
-    private JFrame parent;
+    private EditorFrame parent;
     private int index;
 
-    public SaveCommand(JFrame editorFrame, File saveFile, JTextArea pane, int i) {
-        f = saveFile;
-        filename = f.getName();
+    public SaveCommand(EditorFrame editorFrame, JTextArea pane, int i) {
         this.pane = pane;
         parent = editorFrame;
         index = i;
@@ -26,7 +25,8 @@ public class SaveCommand implements Command {
     @Override
     public void execute(CommandDistributor c) {
         String contents = pane.getText();
-        c.getFileManager().saveFile(f, contents, index);
-        new ValidateCommand(pane, f.getPath(), parent).execute(c);
+        String path = c.getFileManager().getPathAt(index);
+        c.getFileManager().quickSaveFile(path, contents, index);
+        new ValidateCommand(pane, path, parent).execute(c);
     }
 }

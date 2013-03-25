@@ -14,12 +14,10 @@ import java.util.ArrayList;
 public class FileManager {
     private ArrayList<HTMLFile> HTMLFileArray;
     private static int numOpenFiles;
-    //private boolean savePending;
 
     public FileManager() {
         HTMLFileArray = new ArrayList<HTMLFile>();
         numOpenFiles = HTMLFileArray.size();
-        //savePending = false;
     }
 
 
@@ -38,6 +36,7 @@ public class FileManager {
      */
     public void openFile(File f, JTextArea p) {
         HTMLFile x = new HTMLFile(f.getPath());
+        x.setNeedSaveAs(false);
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
         System.out.println("Opened a file with the name: " + f.getName());
@@ -69,7 +68,15 @@ public class FileManager {
         HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
         fileToSave.saveFile(contents);
         HTMLFileArray.get(indexOfFile).setSave(true);
-        //HTMLFileArray.set(indexOfFile, fileToSave);
+        HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
+    }
+
+    public void quickSaveFile(String path, String contents, int indexOfFile) {
+        System.out.println("Quick Saved file: " + path);
+        HTMLFile fileToSave = new HTMLFile(path, false);
+        fileToSave.saveFile(contents);
+        HTMLFileArray.get(indexOfFile).setSave(true);
+        HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
     }
 
 
@@ -111,5 +118,13 @@ public class FileManager {
 
         }
         System.out.println("******************************");
+    }
+
+    public boolean needsSaveAsDialog(int index) {
+        return HTMLFileArray.get(index).getNeedSaveAs();
+    }
+
+    public String getPathAt(int index) {
+        return HTMLFileArray.get(index).getFilename();
     }
 }

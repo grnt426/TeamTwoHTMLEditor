@@ -8,7 +8,7 @@ import java.util.Scanner;
  * change this template use File | Settings | File Templates.
  */
 class HTMLFile {
-    private boolean needToSave;
+    private boolean needToSave, needSaveAs;
     private String filename;
     private BufferedWriter writer;
     private Scanner reader;
@@ -21,6 +21,7 @@ class HTMLFile {
     public HTMLFile(String path, boolean loadFile) {
         filename = path;
         needToSave = false;
+        needSaveAs = true;
         if (loadFile)
             loadFile();
     }
@@ -97,5 +98,20 @@ class HTMLFile {
 
     public void setSave(boolean b) {
         this.needToSave = b;
+    }
+
+    public void setNeedSaveAs(boolean b) {
+        this.needSaveAs = b;
+    }
+
+    public boolean getNeedSaveAs() {
+        return needSaveAs;
+    }
+
+    /**
+     * @return the String of the path of the filename
+     */
+    public String getFilename() {
+        return filename;
     }
 }

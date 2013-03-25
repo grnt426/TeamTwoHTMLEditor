@@ -407,21 +407,27 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("Opening Save File Chooser");
-        int status = fc.showSaveDialog(this);
-        if (status == JFileChooser.APPROVE_OPTION) {
-            File f = fc.getSelectedFile();
-
-            JTextArea pane = getActivePane();
-            new SaveCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
-
-            tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
+        int i = tabPane.getSelectedIndex();
+        if (!commandDistributor.getFileManager().needsSaveAsDialog(i)) {
+            new SaveCommand(this, editorPanes.get(i), i);
+        } else {
+            saveAsMenuItemActionPerformed(null);
         }
 
     }
 
 
     private void saveAsMenuItemActionPerformed(ActionEvent e) {
+        System.out.println("Opening Save File Chooser");
+        int status = fc.showSaveDialog(this);
+        if (status == JFileChooser.APPROVE_OPTION) {
+            File f = fc.getSelectedFile();
+
+            JTextArea pane = getActivePane();
+            new SaveAsCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
+
+            tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
+        }
 
     }
 

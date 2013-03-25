@@ -1,6 +1,10 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
+
+import javax.swing.*;
+import java.io.File;
 
 /**
  * Created with IntelliJ IDEA.
@@ -9,14 +13,25 @@ import TeamTwoHTMLEditor.CommandDistributor;
  * Time: 3:38 PM
  * To change this template use File | Settings | File Templates.
  */
-class SaveAsCommand implements Command {
+public class SaveAsCommand implements Command {
+    private String filename;
+    private File f;
+    private JTextArea pane;
+    private EditorFrame parent;
+    private int index;
 
-    public SaveAsCommand() {
-
+    public SaveAsCommand(EditorFrame editorFrame, File saveFile, JTextArea pane, int i) {
+        f = saveFile;
+        filename = f.getName();
+        this.pane = pane;
+        parent = editorFrame;
+        index = i;
     }
 
     @Override
     public void execute(CommandDistributor c) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        String contents = pane.getText();
+        c.getFileManager().saveFile(f, contents, index);
+        new ValidateCommand(pane, f.getPath(), parent).execute(c);
     }
 }
