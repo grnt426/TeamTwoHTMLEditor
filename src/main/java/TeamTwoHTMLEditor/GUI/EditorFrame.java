@@ -1,10 +1,7 @@
 package TeamTwoHTMLEditor.GUI;
 
 import TeamTwoHTMLEditor.CommandDistributor;
-import TeamTwoHTMLEditor.command.CloseTabCommand;
-import TeamTwoHTMLEditor.command.NewFileCommand;
-import TeamTwoHTMLEditor.command.OpenCommand;
-import TeamTwoHTMLEditor.command.SaveCommand;
+import TeamTwoHTMLEditor.command.*;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -14,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -366,6 +364,26 @@ public class EditorFrame extends JFrame {
         newEditorPane.setLineWrap(true);
         newEditorPane.setTabSize(4);
         editorPanes.add(newEditorPane);
+
+		// Attach a keylistener to allow for auto-indentation
+		newEditorPane.addKeyListener(new KeyListener(){
+			@Override
+			public void keyTyped(KeyEvent e){
+			}
+
+			@Override
+			public void keyPressed(KeyEvent e){
+			}
+
+			@Override
+			public void keyReleased(KeyEvent e){
+				int keyCode = e.getKeyCode();
+				System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
+				if(keyCode == KeyEvent.VK_ENTER){
+					new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+				}
+			}
+		});
 
         //editorPane.setContentType("text/html");
         //editorPane.setEditorKit(new HTMLEditorKit());
