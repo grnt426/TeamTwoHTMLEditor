@@ -206,6 +206,22 @@ public class EditorFrame extends JFrame {
         insertHeaderMenuItem = new JMenuItem("Header", KeyEvent.VK_H);
         insertTableMenuItem = new JMenuItem("Table", KeyEvent.VK_T);
 
+        //// Adding action listeners for MenuItems above
+        insertHeaderMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertHeaderActionPerformed(e);
+            }
+        });
+
+        insertTableMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertTableActionPerformed(e);
+            }
+        });
+
+
         /// Adding submenus and menu items
         fontEmphasisMenu = new JMenu("Font Emphasis");
         boldMenuItem = new JMenuItem("Bold", KeyEvent.VK_B);
@@ -220,6 +236,42 @@ public class EditorFrame extends JFrame {
         insertListMenu.add(insertNumberList);
         insertListMenu.add(insertDictionaryList);
         insertListMenu.add(insertBulletList);
+
+        //// Adding action listeners to menu items above
+        boldMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fontEmphasisActionPerformed(e);
+            }
+        });
+
+        italicsMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                fontEmphasisACtionPerformed(e);
+            }
+        });
+
+        insertNumberList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertListActionPerformed(e);
+            }
+        });
+        insertDictionaryList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertListActionPerformed(e);
+            }
+        });
+
+        insertBulletList.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                insertListActionPerformed(e);
+            }
+        });
+
 
         menuInsert.add(insertHeaderMenuItem);
         menuInsert.add(insertTableMenuItem);
@@ -254,7 +306,6 @@ public class EditorFrame extends JFrame {
         setJMenuBar(menuBar);
         add(tabPane, BorderLayout.CENTER);
     }
-
 
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
@@ -356,10 +407,29 @@ public class EditorFrame extends JFrame {
     }
     //******************************** END *******************************************//
 
+    //********************** Action Performed for Insert > X *****************************//
+    private void insertTableActionPerformed(ActionEvent e) {
+        JDialog x = new InsertTableDialog(this, true);
+        x.setVisible(true);
+    }
 
-    //********************** Action Performed for About > X *****************************//
-    //*********************************************** END 8******************************//
+    private void insertListActionPerformed(ActionEvent e) {
+        //To change body of created methods use File | Settings | File Templates.
+    }
 
+    private void fontEmphasisACtionPerformed(ActionEvent e) {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private void fontEmphasisActionPerformed(ActionEvent e) {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    private void insertHeaderActionPerformed(ActionEvent e) {
+        //To change body of created methods use File | Settings | File Templates.
+    }
+
+    //******************************** END *******************************************//
 
     private JTextArea setupPane() {
         JTextArea newEditorPane = new JTextArea();

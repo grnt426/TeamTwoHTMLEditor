@@ -15,6 +15,7 @@ class InsertTableDialog extends JDialog {
      */
     public InsertTableDialog(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
+        setLocationRelativeTo(parent);
         initComponents();
     }
 
@@ -40,14 +41,14 @@ class InsertTableDialog extends JDialog {
         CancelButton.setText("Accept");
         CancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelButtonActionPerformed(evt);
+                AcceptButtonActionPerformed(evt);
             }
         });
 
         AcceptButton.setText("Cancel");
         AcceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AcceptButtonActionPerformed(evt);
+                CancelButtonActionPerformed(evt);
             }
         });
 
@@ -146,11 +147,12 @@ class InsertTableDialog extends JDialog {
     }
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        System.out.println("Pressed Cancel");
+        this.dispose();
     }
 
     private void AcceptButtonActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        System.out.println("Pressed AcceptButton");
     }
 
 
