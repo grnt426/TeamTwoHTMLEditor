@@ -373,7 +373,9 @@ public class EditorFrame extends JFrame {
         JScrollPane sp = new JScrollPane(pane);
         tabPane.addTab(f.getName(), sp);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-        newFileCount ++;
+        newFileCount++;
+
+        new OpenCommand(f, pane, this).execute(commandDistributor);
     }
 
     //What to do when a tab is selected

@@ -33,7 +33,12 @@ public class App {
                 public void run() {
                     EditorFrame j = new EditorFrame(distributor);
                     j.setVisible(true);
-                    j.openFileWithoutFileChooser(f);
+                    if (f.exists()) {
+                        j.openFileWithoutFileChooser(f);
+                    } else {
+                        JOptionPane.showMessageDialog(j, "File does not exist.");
+                    }
+
                 }
             });
 
