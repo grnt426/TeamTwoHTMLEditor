@@ -407,8 +407,16 @@ public class EditorFrame extends JFrame {
 
     //********************** Action Performed for Insert > X *****************************//
     private void insertTableActionPerformed(ActionEvent e) {
-        JDialog x = new InsertTableDialog(this, true);
+        InsertTableDialog x = new InsertTableDialog(this, true);
+        x.setLocationRelativeTo(this);
         x.setVisible(true);
+
+        makeTable(x.getRow(), x.getCol());
+        //TODO Call command for new table from here
+    }
+
+    private static void makeTable(int row, int col) {
+
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
