@@ -35,7 +35,7 @@ public class EditorFrame extends JFrame {
 
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
-    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem;
 
 
@@ -105,6 +105,7 @@ public class EditorFrame extends JFrame {
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
         //saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
+        validateMenuItem = new JMenuItem("Validate", KeyEvent.VK_V);
         closeTabMenuItem = new JMenuItem("Close Tab", KeyEvent.VK_W);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
@@ -113,6 +114,7 @@ public class EditorFrame extends JFrame {
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         //saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
+        validateMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.ALT_MASK));
         closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
@@ -138,12 +140,12 @@ public class EditorFrame extends JFrame {
             }
         });
 
-//        saveAsMenuItem.addActionListener(new ActionListener() {
-//            @Override
-//            public void actionPerformed(ActionEvent e) {
-//                saveAsMenuItemActionPerformed(e);
-//            }
-//        });
+        validateMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                validateActionPerformed(e);
+            }
+        });
 
         closeTabMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -162,7 +164,7 @@ public class EditorFrame extends JFrame {
         menuFile.add(newMenuItem);
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
-        //menuFile.add(saveAsMenuItem);
+        menuFile.add(validateMenuItem);
         menuFile.add(closeTabMenuItem);
         menuFile.add(quitMenuItem);
 
@@ -336,6 +338,7 @@ public class EditorFrame extends JFrame {
         }
     }
 
+
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
@@ -380,7 +383,6 @@ public class EditorFrame extends JFrame {
 
     //What to do when a tab is selected
     private void changeTabFocus(ChangeEvent e) {
-        //System.out.println("Switching Tab Focus");
         activePane = tabPane.getSelectedIndex();
     }
 
@@ -397,6 +399,11 @@ public class EditorFrame extends JFrame {
 
         tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
 
+    }
+
+    //What to do when clicking Validate in File Menu
+    private void validateActionPerformed(ActionEvent e) {
+        new ValidateCommand(editorPanes.get(activePane), tabPane.getTitleAt(activePane), this).execute(commandDistributor);
     }
 
     private void closeTabMenuItemActionPerformed(ActionEvent e) {
@@ -421,11 +428,6 @@ public class EditorFrame extends JFrame {
             JOptionPane.showMessageDialog(this, "Please Save all your files ");
 
         }
-
-
-        //Check if all files are saved and safe
-
-        //this.dispose();
 
     }
     // ******************************************** END ********************************//
