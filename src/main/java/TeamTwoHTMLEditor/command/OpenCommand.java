@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 
 import javax.swing.*;
 import java.io.File;
@@ -24,7 +24,7 @@ public class OpenCommand implements Command {
     }
 
     @Override
-    public void execute(CommandDispatcher c) {
+    public void execute(CommandDistributor c) {
         c.getFileManager().openFile(f, pane);
 		new ValidateCommand(pane, f.getPath(), parent).execute(c);
     }

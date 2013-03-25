@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 
 /**
  *
@@ -28,7 +28,7 @@ public class InsertConstructCommand implements Command {
     }
 
     @Override
-    public void execute(CommandDispatcher c) {
+    public void execute(CommandDistributor c) {
         switch (construct) {
             case HEADER:
                 //TODO Fill out header handling

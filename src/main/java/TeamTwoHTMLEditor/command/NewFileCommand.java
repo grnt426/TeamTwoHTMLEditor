@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -17,7 +17,7 @@ public class NewFileCommand implements Command {
     }
 
     @Override
-    public void execute(CommandDispatcher c) {
+    public void execute(CommandDistributor c) {
         c.getFileManager().createNewFile(filename);
     }
 }

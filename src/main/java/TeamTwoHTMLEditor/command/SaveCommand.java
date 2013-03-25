@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
@@ -22,7 +22,7 @@ public class SaveCommand implements Command {
     }
 
     @Override
-    public void execute(CommandDispatcher c) {
+    public void execute(CommandDistributor c) {
         String contents = pane.getText();
         String path = c.getFileManager().getPathAt(index);
         c.getFileManager().quickSaveFile(path, contents, index);

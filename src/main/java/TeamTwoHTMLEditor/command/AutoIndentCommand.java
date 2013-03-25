@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 
 import javax.swing.*;
 import javax.swing.text.BadLocationException;
@@ -17,7 +17,7 @@ public class AutoIndentCommand implements Command{
 	}
 
 	@Override
-	public void execute(CommandDispatcher c){
+	public void execute(CommandDistributor c){
 		String prevLine = getCurrentLine(activePane);
 		int numTabs = getTabCount(prevLine);
 		activePane.insert(indentTabs(numTabs), activePane.getCaretPosition());

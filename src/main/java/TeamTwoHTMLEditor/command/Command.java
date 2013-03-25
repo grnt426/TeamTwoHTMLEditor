@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.command;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,7 +11,7 @@ import TeamTwoHTMLEditor.CommandDispatcher;
  */
 public interface Command {
 
-    void execute(CommandDispatcher c);
+    void execute(CommandDistributor c);
 
 
 }

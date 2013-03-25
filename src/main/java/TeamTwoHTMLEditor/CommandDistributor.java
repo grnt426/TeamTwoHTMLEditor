@@ -7,11 +7,11 @@ package TeamTwoHTMLEditor;
  * Time: 2:58 PM
  * To change this template use File | Settings | File Templates.
  */
-public class CommandDispatcher {
+public class CommandDistributor {
     private FileManager fileManager;
 
 
-    public CommandDispatcher(FileManager fManager) {
+    public CommandDistributor(FileManager fManager) {
         fileManager = fManager;
     }
 

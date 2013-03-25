@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.GUI;
 
-import TeamTwoHTMLEditor.CommandDispatcher;
+import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.command.*;
 
 import javax.swing.*;
@@ -21,7 +21,7 @@ import java.util.ArrayList;
  */
 
 public class EditorFrame extends JFrame {
-    private CommandDispatcher commandDispatcher;
+    private CommandDistributor commandDistributor;
     private QuitDialog quitDialog;
     private JFileChooser fc;
     private int newFileCount = 1;
@@ -43,9 +43,9 @@ public class EditorFrame extends JFrame {
     private JMenu fontEmphasisMenu, insertListMenu;
 
 
-    public EditorFrame(CommandDispatcher cdis) {
+    public EditorFrame(CommandDistributor cdis) {
         initComponents();
-        commandDispatcher = cdis;
+        commandDistributor = cdis;
         fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("HTML Document", "html", "htm"));
         editorPanes = new ArrayList<JTextArea>();
@@ -356,7 +356,7 @@ public class EditorFrame extends JFrame {
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
-        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDispatcher);
+        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
 
         JTextArea pane = setupPane();
 
@@ -382,7 +382,7 @@ public class EditorFrame extends JFrame {
             tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
             newFileCount++;
 
-            new OpenCommand(f, pane, this).execute(commandDispatcher);
+            new OpenCommand(f, pane, this).execute(commandDistributor);
 
         }
 
@@ -397,7 +397,7 @@ public class EditorFrame extends JFrame {
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
 
-        new OpenCommand(f, pane, this).execute(commandDispatcher);
+        new OpenCommand(f, pane, this).execute(commandDistributor);
     }
 
     //What to do when a tab is selected
@@ -408,7 +408,7 @@ public class EditorFrame extends JFrame {
     //What to do when they click Save in File Menu
     private void saveMenuItemActionPerformed(ActionEvent e) {
         int i = tabPane.getSelectedIndex();
-        if (!commandDispatcher.getFileManager().needsSaveAsDialog(i)) {
+        if (!commandDistributor.getFileManager().needsSaveAsDialog(i)) {
             new SaveCommand(this, editorPanes.get(i), i);
         } else {
             saveAsMenuItemActionPerformed(null);
@@ -424,7 +424,7 @@ public class EditorFrame extends JFrame {
             File f = fc.getSelectedFile();
 
             JTextArea pane = getActivePane();
-            new SaveAsCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDispatcher);
+            new SaveAsCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
 
             tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
         }
@@ -433,13 +433,13 @@ public class EditorFrame extends JFrame {
 
     //What to do when clicking Validate in File Menu
     private void validateActionPerformed(ActionEvent e) {
-        new ValidateCommand(editorPanes.get(activePane), tabPane.getTitleAt(activePane), this).execute(commandDispatcher);
+        new ValidateCommand(editorPanes.get(activePane), tabPane.getTitleAt(activePane), this).execute(commandDistributor);
     }
 
 
     private void closeTabMenuItemActionPerformed(ActionEvent e) {
         int index = activePane;
-        new CloseTabCommand(index, this).execute(commandDispatcher);
+        new CloseTabCommand(index, this).execute(commandDistributor);
 
     }
 
@@ -456,7 +456,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed(ActionEvent e) {
-        new ShutDownCommand(this).execute(commandDispatcher);
+        new ShutDownCommand(this).execute(commandDistributor);
     }
 
     // ******************************************** END ********************************//
@@ -542,7 +542,7 @@ public class EditorFrame extends JFrame {
                 int keyCode = e.getKeyCode();
                 //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    new AutoIndentCommand(getActivePane()).execute(commandDispatcher);
+                    new AutoIndentCommand(getActivePane()).execute(commandDistributor);
                 }
             }
         });
