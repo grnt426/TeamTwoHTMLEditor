@@ -367,6 +367,15 @@ public class EditorFrame extends JFrame {
         new OpenCommand(f, pane, this).execute(commandDistributor);
     }
 
+    public void openFileWithoutFileChooser(File f) {
+        JTextArea pane = setupPane();
+
+        JScrollPane sp = new JScrollPane(pane);
+        tabPane.addTab(f.getName(), sp);
+        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
+        newFileCount ++;
+    }
+
     //What to do when a tab is selected
     private void changeTabFocus(ChangeEvent e) {
         //System.out.println("Switching Tab Focus");

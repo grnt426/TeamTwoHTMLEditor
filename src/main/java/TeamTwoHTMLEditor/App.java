@@ -31,9 +31,9 @@ public class App {
             System.out.println("Launching Editor with filename: " + filename);
             java.awt.EventQueue.invokeLater(new Runnable() {
                 public void run() {
-                    JFrame j = new EditorFrame(distributor);
+                    EditorFrame j = new EditorFrame(distributor);
                     j.setVisible(true);
-
+                    j.openFileWithoutFileChooser(f);
                 }
             });
 
