@@ -94,7 +94,7 @@ public class EditorFrame extends JFrame {
         newMenuItem = new JMenuItem("New", KeyEvent.VK_N);
         openMenuItem = new JMenuItem("Open", KeyEvent.VK_O);
         saveMenuItem = new JMenuItem("Save", KeyEvent.VK_S);
-        saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
+        //saveAsMenuItem = new JMenuItem("Save As", KeyEvent.VK_A);
         closeTabMenuItem = new JMenuItem("Close Tab", KeyEvent.VK_W);
         quitMenuItem = new JMenuItem("Quit", KeyEvent.VK_F4);
 
@@ -128,12 +128,12 @@ public class EditorFrame extends JFrame {
             }
         });
 
-        saveAsMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                saveAsMenuItemActionPerformed(e);
-            }
-        });
+//        saveAsMenuItem.addActionListener(new ActionListener() {
+//            @Override
+//            public void actionPerformed(ActionEvent e) {
+//                saveAsMenuItemActionPerformed(e);
+//            }
+//        });
 
         closeTabMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -152,7 +152,7 @@ public class EditorFrame extends JFrame {
         menuFile.add(newMenuItem);
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
-        menuFile.add(saveAsMenuItem);
+        //menuFile.add(saveAsMenuItem);
         menuFile.add(closeTabMenuItem);
         menuFile.add(quitMenuItem);
 
@@ -355,12 +355,6 @@ public class EditorFrame extends JFrame {
 
         tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
 
-    }
-
-    //What to do when they click Save As in File Menu
-    private void saveAsMenuItemActionPerformed(ActionEvent e) {
-        System.out.println("Opening Save File Chooser");
-        fc.showSaveDialog(this);
     }
 
     private void closeTabMenuItemActionPerformed(ActionEvent e) {
