@@ -77,8 +77,10 @@ public class EditorFrame extends JFrame {
                 changeTabFocus(e);
                 if (tabPane.getTabCount() <= 0) {
                     closeTabMenuItem.setEnabled(false);
+                    saveMenuItem.setEnabled(false);
                 } else {
                     closeTabMenuItem.setEnabled(true);
+                    saveMenuItem.setEnabled(true);
                 }
             }
         });
@@ -330,6 +332,7 @@ public class EditorFrame extends JFrame {
         add(tabPane, BorderLayout.CENTER);
         if (tabPane.getTabCount() <= 0) {
             closeTabMenuItem.setEnabled(false);
+            saveMenuItem.setEnabled(false);
         }
     }
 
