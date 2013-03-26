@@ -495,11 +495,9 @@ public class EditorFrame extends JFrame {
         x.setVisible(true);
 
         if ((x.getRow() != 0) || (x.getCol() != 0)) { //Making sure 'cancel' wasn't clicked
-            new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
+            new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor);
         }
-
-
-        new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
+        new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor);
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
