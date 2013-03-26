@@ -89,17 +89,18 @@ class HTMLFile implements DocumentListener {
         return fileContents.toString();
     }
 
-    public boolean isNeedToSave() {
-        return needToSave;
-    }
-
     void setFileContents(String fileContents) {
         needToSave = true;
         this.fileContents = new StringBuilder(fileContents);
     }
 
+
     public void setSave(boolean b) {
         this.needToSave = b;
+    }
+
+    public boolean isNeedToSave() {
+        return needToSave;
     }
 
     public void setNeedSaveAs(boolean b) {
