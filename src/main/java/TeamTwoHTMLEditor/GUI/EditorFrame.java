@@ -34,7 +34,7 @@ public class EditorFrame extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
-    private JCheckBoxMenuItem toggleWordWrapMenuItem;
+    private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem;
 
 
     //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
@@ -310,6 +310,8 @@ public class EditorFrame extends JFrame {
         ///Adding menuItem
         tabWidthMenuItem = new JMenuItem("Tab Width");
         toggleWordWrapMenuItem = new JCheckBoxMenuItem("Wrap Text", true);
+        toggleAutoIndentMenuItem = new JCheckBoxMenuItem("Auto Indent", true);
+
 
         tabWidthMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -325,8 +327,10 @@ public class EditorFrame extends JFrame {
             }
         });
 
+
         menuOptions.add(tabWidthMenuItem);
         menuOptions.add(toggleWordWrapMenuItem);
+        menuOptions.add(toggleAutoIndentMenuItem);
         menuBar.add(menuOptions);
         // ********************************** END ************************************//
 
@@ -548,11 +552,16 @@ public class EditorFrame extends JFrame {
     //******************************** END *******************************************//
 
     //******************************* Action Performed for Option > X *****************//
+
+    /**
+     * @param e
+     */
     private void toggleWordWrapActionPerformed(ActionEvent e) {
         for (JTextArea textArea : editorPanes) {
             textArea.setLineWrap(toggleWordWrapMenuItem.getState());
         }
     }
+
 
     private void tabWidthActionPerformed(ActionEvent e) {
         TabWidthDialog x = new TabWidthDialog(this, true, getActivePane().getTabSize());
@@ -597,7 +606,9 @@ public class EditorFrame extends JFrame {
                 //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {
                     try {
-                        new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+                        if (toggleAutoIndentMenuItem.getState()) {
+                            new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+                        }
                     } catch (ArrayIndexOutOfBoundsException x) {
 
                     }
