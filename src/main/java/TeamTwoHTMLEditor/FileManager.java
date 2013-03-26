@@ -92,10 +92,10 @@ public class FileManager {
         }
         for (HTMLFile aHTMLFileArray : HTMLFileArray) {
             if (aHTMLFileArray.isNeedToSave()) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     boolean canQuitAt(int index) {
