@@ -28,7 +28,7 @@ public class EditorFrame extends JFrame {
     private int newFileCount = 1;
     private int filesOpen = 0;
     private JTabbedPane tabPane;
-    private int activePane = 0;
+    private int activePaneIndex = 0;
     private ArrayList<JTextArea> editorPanes;
 
     private JMenuBar menuBar;
@@ -406,7 +406,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when a tab is selected
     private void changeTabFocus(ChangeEvent e) {
-        activePane = tabPane.getSelectedIndex();
+        activePaneIndex = tabPane.getSelectedIndex();
     }
 
     //What to do when they click Save in File Menu
@@ -436,19 +436,19 @@ public class EditorFrame extends JFrame {
 
     //What to do when clicking Validate in File Menu
     private void validateActionPerformed(ActionEvent e) {
-        new ValidateCommand(editorPanes.get(activePane), tabPane.getTitleAt(activePane), this).execute(commandDistributor);
+        new ValidateCommand(editorPanes.get(activePaneIndex), tabPane.getTitleAt(activePaneIndex), this).execute(commandDistributor);
     }
 
 
     private void closeTabMenuItemActionPerformed(ActionEvent e) {
-        int index = activePane;
+        int index = activePaneIndex;
         new CloseTabCommand(index, this).execute(commandDistributor);
 
     }
 
     public void closeTab() {
         if (newFileCount >= 1) {
-            int index = activePane;
+            int index = activePaneIndex;
             tabPane.remove(index);
             editorPanes.remove(index);
             newFileCount--;
@@ -565,42 +565,41 @@ public class EditorFrame extends JFrame {
     }
 
     JTextArea getActivePane() {
-        return editorPanes.get(activePane);
+        return editorPanes.get(activePaneIndex);
     }
 
-	public static int getTabCount(String str){
-		int tabCount = 0;
-		for(char c : str.toCharArray()){
-			if(c == '\t')
-				tabCount++;
-			else
-				break;
-		}
+    public static int getTabCount(String str) {
+        int tabCount = 0;
+        for (char c : str.toCharArray()) {
+            if (c == '\t')
+                tabCount++;
+            else
+                break;
+        }
 
-		return tabCount;
-	}
+        return tabCount;
+    }
 
-	public static String getCurrentLine(JTextArea pane){
-		int index = 0;
-		try{
-			index = pane.getLineOfOffset(pane.getCaretPosition());
-		}
-		catch(BadLocationException e){
-			// Not sure if we can do much.  Assume that there is no cursor
-			// and that we don't need to auto-indent.
-			return null;
-		}
+    public static String getCurrentLine(JTextArea pane) {
+        int index = 0;
+        try {
+            index = pane.getLineOfOffset(pane.getCaretPosition());
+        } catch (BadLocationException e) {
+            // Not sure if we can do much.  Assume that there is no cursor
+            // and that we don't need to auto-indent.
+            return null;
+        }
 
-		String[] content = pane.getText().split("\n");
-		return content[index-1];
-	}
+        String[] content = pane.getText().split("\n");
+        return content[index - 1];
+    }
 
-	public static String indentTabs(int tabCount){
-		String tabs = "";
-		for(; tabCount > 0; tabCount--){
-			 tabs += "\t";
-		}
-		return tabs;
-	}
+    public static String indentTabs(int tabCount) {
+        String tabs = "";
+        for (; tabCount > 0; tabCount--) {
+            tabs += "\t";
+        }
+        return tabs;
+    }
 }
 

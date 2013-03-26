@@ -51,7 +51,7 @@ public class FileManager {
      */
     public boolean closeFile(int index) {
         System.out.println("Closing a file with the name: " + HTMLFileArray.get(index).getName());
-        if (canQuit(index)) {
+        if (canQuitAt(index)) {
             return false;
         } else {
             HTMLFileArray.remove(index);
@@ -95,7 +95,7 @@ public class FileManager {
         return false;
     }
 
-    boolean canQuit(int index) {
+    boolean canQuitAt(int index) {
         return HTMLFileArray.get(index).isNeedToSave();
     }
 
