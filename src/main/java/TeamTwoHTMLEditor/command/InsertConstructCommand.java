@@ -31,8 +31,8 @@ public class InsertConstructCommand implements Command {
     public void execute(CommandDistributor c) {
         switch (construct) {
             case HEADER:
-                //TODO Fill out header handling
                 //insert header: <header> \n </header>
+
 
             case BOLD:
                 //TODO fill out bold heandling

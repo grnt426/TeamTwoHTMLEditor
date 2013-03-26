@@ -409,7 +409,7 @@ public class EditorFrame extends JFrame {
     private void saveMenuItemActionPerformed(ActionEvent e) {
         int i = tabPane.getSelectedIndex();
         if (!commandDistributor.getFileManager().needsSaveAsDialog(i)) {
-            new SaveCommand(this, editorPanes.get(i), i);
+            new SaveCommand(this, getActivePane(), i);
         } else {
             saveAsMenuItemActionPerformed(null);
         }
@@ -422,7 +422,6 @@ public class EditorFrame extends JFrame {
         int status = fc.showSaveDialog(this);
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
-
             JTextArea pane = getActivePane();
             new SaveAsCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
 
@@ -482,17 +481,17 @@ public class EditorFrame extends JFrame {
         //TODO Call command for new table from here
     }
 
-    private static void makeTable(int row, int col) {
-
+    private void makeTable(int row, int col) {
+        new InsertConstructCommand(InsertConstructCommand.Construct.TABLE).execute(commandDistributor);
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
-        //To change body of created methods use File | Settings | File Templates.
+        new InsertConstructCommand(InsertConstructCommand.Construct.HEADER).execute(commandDistributor);
     }
 
     private void insertListActionPerformed(ActionEvent e) {
         if (e.getSource() == insertNumberList) {
-            //TODO if numberList
+            new InsertConstructCommand(InsertConstructCommand.Construct.LIST).execute(commandDistributor);
         } else if (e.getSource() == insertBulletList) {
             //TODO if bulletList
         } else if (e.getSource() == insertDictionaryList) {
@@ -502,9 +501,9 @@ public class EditorFrame extends JFrame {
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
         if (e.getSource() == boldMenuItem) {
-            //TODO if bold
+            new InsertConstructCommand(InsertConstructCommand.Construct.BOLD).execute(commandDistributor);
         } else if (e.getSource() == italicsMenuItem) {
-            //TODO if italics
+            new InsertConstructCommand(InsertConstructCommand.Construct.ITALICS).execute(commandDistributor);
         }
     }
 
@@ -524,6 +523,7 @@ public class EditorFrame extends JFrame {
         JTextArea newEditorPane = new JTextArea();
         newEditorPane.setLineWrap(toggleWordWrapMenuItem.getState());
         newEditorPane.setTabSize(4);
+        //newEditorPane.setColumns(80);
         editorPanes.add(newEditorPane);
 
 
