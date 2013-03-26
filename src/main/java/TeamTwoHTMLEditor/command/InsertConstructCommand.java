@@ -11,20 +11,19 @@ public class InsertConstructCommand implements Command {
         HEADER, BOLD, ITALICS, LIST, TABLE
     }
 
-    ;
+    private Construct construct;
+    private int row;
+    private int col;
 
-    Construct construct;
-    int row, col;
 
-
-    public InsertConstructCommand(Construct cn, int r, int c) {
+    private InsertConstructCommand(Construct cn, int r) {
         construct = cn;
-        row = r;
-        col = c;
+        row = 0;
+        col = 0;
     }
 
     public InsertConstructCommand(Construct cn) {
-        this(cn, 0, 0);
+        this(cn, 0);
     }
 
     @Override

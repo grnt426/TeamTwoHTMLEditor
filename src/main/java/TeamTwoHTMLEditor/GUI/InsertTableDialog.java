@@ -12,8 +12,9 @@ import java.awt.event.ActionEvent;
  * JDialog displayed to insert a Table
  */
 class InsertTableDialog extends JDialog {
-    Frame editorFrame;
-    public int row, col;
+    private Frame editorFrame;
+    private int row;
+    private int col;
 
 
     public int getRow() {
@@ -27,8 +28,8 @@ class InsertTableDialog extends JDialog {
     /**
      * Creates new form InsertTableDialog
      */
-    public InsertTableDialog(java.awt.Frame parent, boolean modal) {
-        super(parent, modal);
+    public InsertTableDialog(Frame parent) {
+        super(parent, true);
         editorFrame = parent;
         initComponents();
         row = 1;

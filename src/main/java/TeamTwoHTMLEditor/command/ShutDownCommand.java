@@ -12,7 +12,7 @@ import javax.swing.*;
  * Time: 2:16 PM
  */
 public class ShutDownCommand implements Command {
-    EditorFrame eFrame;
+    private EditorFrame eFrame;
 
     public ShutDownCommand(EditorFrame frame) {
         eFrame = frame;

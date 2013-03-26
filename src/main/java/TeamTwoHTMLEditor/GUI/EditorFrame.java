@@ -473,7 +473,7 @@ public class EditorFrame extends JFrame {
 
     //********************** Action Performed for Insert > X *****************************//
     private void insertTableActionPerformed(ActionEvent e) {
-        InsertTableDialog x = new InsertTableDialog(this, true);
+        InsertTableDialog x = new InsertTableDialog(this);
         x.setLocationRelativeTo(this);
         x.setVisible(true);
 
@@ -553,7 +553,7 @@ public class EditorFrame extends JFrame {
         return newEditorPane;
     }
 
-    public JTextArea getActivePane() {
+    JTextArea getActivePane() {
         return editorPanes.get(activePane);
     }
 }

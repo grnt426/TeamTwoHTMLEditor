@@ -23,7 +23,7 @@ public class AutoIndentCommand implements Command{
 		activePane.insert(indentTabs(numTabs), activePane.getCaretPosition());
 	}
 
-	public static int getTabCount(String str){
+	private static int getTabCount(String str){
 		int tabCount = 0;
 		for(char c : str.toCharArray()){
 			if(c == '\t')
@@ -35,7 +35,7 @@ public class AutoIndentCommand implements Command{
 		return tabCount;
 	}
 
-	public static String getCurrentLine(JTextArea pane){
+	private static String getCurrentLine(JTextArea pane){
 		int index = 0;
 		try{
 			index = pane.getLineOfOffset(pane.getCaretPosition());
@@ -50,7 +50,7 @@ public class AutoIndentCommand implements Command{
 		return content[index-1];
 	}
 
-	public static String indentTabs(int tabCount){
+	private static String indentTabs(int tabCount){
 		String tabs = "";
 		for(; tabCount > 0; tabCount--){
 			 tabs += "\t";

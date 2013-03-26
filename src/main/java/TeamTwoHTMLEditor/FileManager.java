@@ -36,7 +36,7 @@ public class FileManager {
      */
     public void openFile(File f, JTextArea p) {
         HTMLFile x = new HTMLFile(f.getPath());
-        x.setNeedSaveAs(false);
+        x.setNeedSaveAs();
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
         System.out.println("Opened a file with the name: " + f.getName());
@@ -67,16 +67,16 @@ public class FileManager {
     public void saveFile(File f, String contents, int indexOfFile) {
         HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
         fileToSave.saveFile(contents);
-        HTMLFileArray.get(indexOfFile).setSave(true);
-        HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
+        HTMLFileArray.get(indexOfFile).setSave();
+        HTMLFileArray.get(indexOfFile).setNeedSaveAs();
     }
 
     public void quickSaveFile(String path, String contents, int indexOfFile) {
         System.out.println("Quick Saved file: " + path);
         HTMLFile fileToSave = new HTMLFile(path, false);
         fileToSave.saveFile(contents);
-        HTMLFileArray.get(indexOfFile).setSave(true);
-        HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
+        HTMLFileArray.get(indexOfFile).setSave();
+        HTMLFileArray.get(indexOfFile).setNeedSaveAs();
     }
 
 
@@ -95,7 +95,7 @@ public class FileManager {
         return false;
     }
 
-    public boolean canQuit(int index) {
+    boolean canQuit(int index) {
         return HTMLFileArray.get(index).isNeedToSave();
     }
 
