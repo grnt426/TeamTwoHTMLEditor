@@ -8,30 +8,23 @@ import TeamTwoHTMLEditor.CommandDistributor;
 public class InsertConstructCommand implements Command {
 
     public enum Construct {
-        HEADER, BOLD, ITALICS, LIST, TABLE
+        HEADER, BOLD, ITALICS, LIST
     }
 
     private Construct construct;
-    private int row;
-    private int col;
 
-
-    private InsertConstructCommand(Construct cn, int r) {
-        construct = cn;
-        row = 0;
-        col = 0;
-    }
 
     public InsertConstructCommand(Construct cn) {
-        this(cn, 0);
+        construct = cn;
+
     }
 
     @Override
     public void execute(CommandDistributor c) {
         switch (construct) {
             case HEADER:
+                //TODO fill out header
                 //insert header: <header> \n </header>
-
 
             case BOLD:
                 //TODO fill out bold heandling
@@ -44,10 +37,6 @@ public class InsertConstructCommand implements Command {
             case LIST:
                 //TODO fill out list handling
                 //call make list command?
-
-            case TABLE:
-                //TODO fill out taable handling
-                //call make table command?
 
         }
 

@@ -32,6 +32,7 @@ public class SaveAsCommand implements Command {
     public void execute(CommandDistributor c) {
         String contents = pane.getText();
         c.getFileManager().saveFile(f, contents, index);
+        c.getFileManager().printStatus();
         new ValidateCommand(pane, f.getPath(), parent).execute(c);
     }
 }

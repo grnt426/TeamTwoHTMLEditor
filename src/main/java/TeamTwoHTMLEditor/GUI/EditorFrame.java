@@ -75,11 +75,13 @@ public class EditorFrame extends JFrame {
                 if (tabPane.getTabCount() <= 0) {
                     closeTabMenuItem.setEnabled(false);
                     saveMenuItem.setEnabled(false);
+                    saveAsMenuItem.setEnabled(false);
                     validateMenuItem.setEnabled(false);
                 } else {
                     closeTabMenuItem.setEnabled(true);
                     saveMenuItem.setEnabled(true);
                     validateMenuItem.setEnabled(true);
+                    saveAsMenuItem.setEnabled(true);
                 }
             }
         });
@@ -177,10 +179,10 @@ public class EditorFrame extends JFrame {
         menuFile.add(newMenuItem);
         menuFile.add(openMenuItem);
         menuFile.add(saveMenuItem);
+        menuFile.add(saveAsMenuItem);
         menuFile.add(validateMenuItem);
         menuFile.add(closeTabMenuItem);
         menuFile.add(quitMenuItem);
-
         menuBar.add(menuFile);
 
         // BUILD FILE ************************************END****************************//
@@ -348,6 +350,7 @@ public class EditorFrame extends JFrame {
         if (tabPane.getTabCount() <= 0) {
             closeTabMenuItem.setEnabled(false);
             saveMenuItem.setEnabled(false);
+            saveAsMenuItem.setEnabled(false);
             validateMenuItem.setEnabled(false);
         }
     }
@@ -409,7 +412,7 @@ public class EditorFrame extends JFrame {
     private void saveMenuItemActionPerformed(ActionEvent e) {
         int i = tabPane.getSelectedIndex();
         if (!commandDistributor.getFileManager().needsSaveAsDialog(i)) {
-            new SaveCommand(this, getActivePane(), i);
+            new SaveCommand(this, getActivePane(), i).execute(commandDistributor);
         } else {
             saveAsMenuItemActionPerformed(null);
         }
@@ -477,12 +480,8 @@ public class EditorFrame extends JFrame {
         x.setLocationRelativeTo(this);
         x.setVisible(true);
 
-        makeTable(x.getRow(), x.getCol());
-        //TODO Call command for new table from here
-    }
 
-    private void makeTable(int row, int col) {
-        new InsertConstructCommand(InsertConstructCommand.Construct.TABLE).execute(commandDistributor);
+        new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {

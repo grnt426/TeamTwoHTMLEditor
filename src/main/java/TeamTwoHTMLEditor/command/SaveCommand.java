@@ -26,6 +26,7 @@ public class SaveCommand implements Command {
         String contents = pane.getText();
         String path = c.getFileManager().getPathAt(index);
         c.getFileManager().quickSaveFile(path, contents, index);
+        c.getFileManager().printStatus();
         new ValidateCommand(pane, path, parent).execute(c);
     }
 }
