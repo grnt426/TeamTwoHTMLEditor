@@ -184,7 +184,7 @@ public class EditorFrame extends JFrame {
 
 
         //Build the second menu - Edit   ************** BEGIN ************************** //
-        menuEdit.setMnemonic(KeyEvent.VK_E);
+        //menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
         ///Adding Edit MenuItems
@@ -213,7 +213,7 @@ public class EditorFrame extends JFrame {
         menuEdit.add(copyMenuItem);
         menuEdit.add(pasteMenuItem);
 
-        menuBar.add(menuEdit);
+        //menuBar.add(menuEdit);
         // BUILD EDIT **************************************END**************************//
 
 
@@ -340,9 +340,25 @@ public class EditorFrame extends JFrame {
 
         menuAbout.add(aboutUsMenuItem);
         menuAbout.add(helpMenuItem);
+
+        helpMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(helpMenuItem, "To start, open a" +
+                        " file or create a new file through the File menu.\nTo" +
+                        " contact the authors choose the About Authors option " +
+                        "in the About menu.\nCopy - Ctrl+C\nPaste - Ctrl+V");
+            }
+        });
+
         aboutUsMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(aboutUsMenuItem, "We are the great " +
+                        "authors of this HTML editor:\nKocsen Chung - kxc4519@r" +
+                        "it.edu\nKeegan Parrotte - kmp3325@rit.edu\nGrant Kurts - " +
+                        "grk2929@rit.edu\nShannon Trudeau - smt9020@rit.edu\nCalvin " +
+                        "DRosario - cbd2562@rit.edu");
                 System.out.println("We are the best EVER!");
             }
         });
@@ -495,9 +511,8 @@ public class EditorFrame extends JFrame {
         x.setVisible(true);
 
         if ((x.getRow() != 0) || (x.getCol() != 0)) { //Making sure 'cancel' wasn't clicked
-            new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor);
+            new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
         }
-        new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor);
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
@@ -617,25 +632,25 @@ public class EditorFrame extends JFrame {
         return getLine(pane, 0);
     }
 
-	public static String getPreviousLine(JTextArea pane){
-		return getLine(pane, -1);
-	}
+    public static String getPreviousLine(JTextArea pane) {
+        return getLine(pane, -1);
+    }
 
-	private static String getLine(JTextArea pane, int offset) {
-		int index = 0;
-		try {
-			index = pane.getLineOfOffset(pane.getCaretPosition());
-		} catch (BadLocationException e) {
-			// Not sure if we can do much.  Assume that there is no cursor
-			// and that we don't need to auto-indent.
-			return null;
-		}
+    private static String getLine(JTextArea pane, int offset) {
+        int index = 0;
+        try {
+            index = pane.getLineOfOffset(pane.getCaretPosition());
+        } catch (BadLocationException e) {
+            // Not sure if we can do much.  Assume that there is no cursor
+            // and that we don't need to auto-indent.
+            return null;
+        }
 
-		String[] content = pane.getText().split("\n");
-		if(index + offset < 0 || index + offset > content.length)
-			return "";
-		return content[index + offset];
-	}
+        String[] content = pane.getText().split("\n");
+        if (index + offset < 0 || index + offset > content.length)
+            return "";
+        return content[index + offset];
+    }
 
     public static String indentTabs(int tabCount) {
         String tabs = "";
