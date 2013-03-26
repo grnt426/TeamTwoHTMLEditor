@@ -479,8 +479,8 @@ public class EditorFrame extends JFrame {
         InsertTableDialog x = new InsertTableDialog(this);
         x.setLocationRelativeTo(this);
         x.setVisible(true);
-        System.out.println("We got " + x.getRow() + " For row and col: " + x.getCol());
-        if ((x.getRow() != 0) || (x.getCol() != 0)) {
+
+        if ((x.getRow() != 0) || (x.getCol() != 0)) { //Making sure 'cancel' wasn't clicked
             new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
         }
 
@@ -495,15 +495,14 @@ public class EditorFrame extends JFrame {
         x.setLocationRelativeTo(this);
         x.setVisible(true);
         int sizeOfList = x.getSizeOfList();
-        System.out.println("THE SIZE OF THE LIST INPUT IS : " + sizeOfList);
 
-        if (sizeOfList != 0) {
+        if (sizeOfList != 0) { //Making sure 'cancel' wasn't clicked
             if (e.getSource() == insertNumberList) {
                 new InsertListCommand(InsertListCommand.ListType.NUMBERED, sizeOfList).execute(commandDistributor);
             } else if (e.getSource() == insertBulletList) {
-
+                new InsertListCommand(InsertListCommand.ListType.BULLETED, sizeOfList).execute(commandDistributor);
             } else if (e.getSource() == insertDictionaryList) {
-                //TODO if dictionaryList
+                new InsertListCommand(InsertListCommand.ListType.DICTIONARY, sizeOfList).execute(commandDistributor);
             }
         }
     }
