@@ -47,22 +47,27 @@ public class InsertConstructCommand implements Command {
 //			tabs = curLine;
 //		}
 
-
+        String input = null;
         switch (construct) {
             case HEADER:
-                insertStr.append("<header></header>");
+                input = "<header></header>";
+                insertStr.append(input);
                 break;
 
             case BOLD:
-                insertStr.append("<b></b>");
+                input = "<b></b>";
+                insertStr.append(input);
                 break;
 
             case ITALICS:
-                insertStr.append("<i></i>");
+                input = "<i></i>";
+                insertStr.append(input);
                 break;
 
         }
 
         activePane.insert(insertStr.toString(), activePane.getCaretPosition());
+        activePane.setCaretPosition(activePane.getCaretPosition() - (input.length() / 2) - 1);
+
     }
 }

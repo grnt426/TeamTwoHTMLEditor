@@ -543,6 +543,7 @@ public class EditorFrame extends JFrame {
     private void tabWidthActionPerformed(ActionEvent e) {
         TabWidthDialog x = new TabWidthDialog(this, true, getActivePane().getTabSize());
         x.setVisible(true);
+        x.setLocationRelativeTo(this);
         int tabSize = x.getTabWidth();
         if (tabSize != 0) {
             for (JTextArea aTextArea : editorPanes) {
