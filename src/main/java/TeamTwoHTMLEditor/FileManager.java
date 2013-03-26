@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor;
 
 import javax.swing.*;
+import javax.swing.event.DocumentListener;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -128,5 +129,9 @@ public class FileManager {
 
     public String getPathAt(int index) {
         return HTMLFileArray.get(index).getFilename();
+    }
+
+    public DocumentListener getFileAt(int activePaneIndex) {
+        return HTMLFileArray.get(activePaneIndex);
     }
 }

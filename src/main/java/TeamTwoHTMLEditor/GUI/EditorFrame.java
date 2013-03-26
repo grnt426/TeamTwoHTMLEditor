@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor.GUI;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.command.*;
+import com.sun.corba.se.impl.logging.ORBUtilSystemException;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -372,6 +373,7 @@ public class EditorFrame extends JFrame {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
 
         JTextArea pane = setupPane();
+        pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(activePaneIndex));
 
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(
@@ -554,6 +556,11 @@ public class EditorFrame extends JFrame {
     //******************************** END *******************************************//
 
 
+    /**
+     * Helper function to set up a pane to be inserted by tab pane
+     *
+     * @return the JTextArea to be shown by the component of the tab pane
+     */
     private JTextArea setupPane() {
         JTextArea newEditorPane = new JTextArea();
         newEditorPane.setLineWrap(toggleWordWrapMenuItem.getState());
@@ -566,14 +573,18 @@ public class EditorFrame extends JFrame {
         newEditorPane.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
+                System.out.println("EVENT1");
+
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
+                System.out.println("EVENT2");
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
+                System.out.println("EVENT3");
                 int keyCode = e.getKeyCode();
                 //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {

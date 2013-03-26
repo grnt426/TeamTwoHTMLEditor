@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor;
 
+import javax.swing.event.DocumentEvent;
+import javax.swing.event.DocumentListener;
 import java.io.*;
 import java.util.Scanner;
 
@@ -7,7 +9,7 @@ import java.util.Scanner;
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 2:31 PM To
  * change this template use File | Settings | File Templates.
  */
-class HTMLFile {
+class HTMLFile implements DocumentListener {
     private boolean needToSave, needSaveAs;
     private String filename;
     private BufferedWriter writer;
@@ -113,5 +115,20 @@ class HTMLFile {
      */
     public String getFilename() {
         return filename;
+    }
+
+    @Override
+    public void insertUpdate(DocumentEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void removeUpdate(DocumentEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
+    }
+
+    @Override
+    public void changedUpdate(DocumentEvent e) {
+        //To change body of implemented methods use File | Settings | File Templates.
     }
 }
