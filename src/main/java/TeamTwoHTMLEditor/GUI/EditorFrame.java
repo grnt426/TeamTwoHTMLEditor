@@ -619,25 +619,25 @@ public class EditorFrame extends JFrame {
         return getLine(pane, 0);
     }
 
-	public static String getPreviousLine(JTextArea pane){
-		return getLine(pane, -1);
-	}
+    public static String getPreviousLine(JTextArea pane) {
+        return getLine(pane, -1);
+    }
 
-	private static String getLine(JTextArea pane, int offset) {
-		int index = 0;
-		try {
-			index = pane.getLineOfOffset(pane.getCaretPosition());
-		} catch (BadLocationException e) {
-			// Not sure if we can do much.  Assume that there is no cursor
-			// and that we don't need to auto-indent.
-			return null;
-		}
+    private static String getLine(JTextArea pane, int offset) {
+        int index = 0;
+        try {
+            index = pane.getLineOfOffset(pane.getCaretPosition());
+        } catch (BadLocationException e) {
+            // Not sure if we can do much.  Assume that there is no cursor
+            // and that we don't need to auto-indent.
+            return null;
+        }
 
-		String[] content = pane.getText().split("\n");
-		if(index + offset < 0 || index + offset > content.length)
-			return "";
-		return content[index + offset];
-	}
+        String[] content = pane.getText().split("\n");
+        if (index + offset < 0 || index + offset > content.length)
+            return "";
+        return content[index + offset];
+    }
 
     public static String indentTabs(int tabCount) {
         String tabs = "";
