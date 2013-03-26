@@ -341,24 +341,24 @@ public class EditorFrame extends JFrame {
         menuAbout.add(aboutUsMenuItem);
         menuAbout.add(helpMenuItem);
 
-		helpMenuItem.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(helpMenuItem, "To start, open a" +
-						" file or create a new file through the File menu.\nTo" +
-						" contact the authors choose the About Authors option " +
-						"in the About menu.\nCopy - Ctrl+C\nPaste - Ctrl+V");
-			}
-		});
+        helpMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                JOptionPane.showMessageDialog(helpMenuItem, "To start, open a" +
+                        " file or create a new file through the File menu.\nTo" +
+                        " contact the authors choose the About Authors option " +
+                        "in the About menu.\nCopy - Ctrl+C\nPaste - Ctrl+V");
+            }
+        });
 
         aboutUsMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-				JOptionPane.showMessageDialog(aboutUsMenuItem, "We are the great " +
-						"authors of this HTML editor:\nKocsen Chung - kxc4519@r" +
-						"it.edu\nKeegan Parrotte - kmp3325@rit.edu\nGrant Kurts - " +
-						"grk2929@rit.edu\nShannon Trudeau - smt9020@rit.edu\nCalvin " +
-						"DRosario - cbd2562@rit.edu");
+                JOptionPane.showMessageDialog(aboutUsMenuItem, "We are the great " +
+                        "authors of this HTML editor:\nKocsen Chung - kxc4519@r" +
+                        "it.edu\nKeegan Parrotte - kmp3325@rit.edu\nGrant Kurts - " +
+                        "grk2929@rit.edu\nShannon Trudeau - smt9020@rit.edu\nCalvin " +
+                        "DRosario - cbd2562@rit.edu");
                 System.out.println("We are the best EVER!");
             }
         });
@@ -513,9 +513,6 @@ public class EditorFrame extends JFrame {
         if ((x.getRow() != 0) || (x.getCol() != 0)) { //Making sure 'cancel' wasn't clicked
             new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
         }
-
-
-        new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
