@@ -2,7 +2,6 @@ package TeamTwoHTMLEditor.GUI;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.command.*;
-import com.sun.corba.se.impl.logging.ORBUtilSystemException;
 
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
@@ -531,11 +530,11 @@ public class EditorFrame extends JFrame {
 
         if (sizeOfList != 0) { //Making sure 'cancel' wasn't clicked
             if (e.getSource() == insertNumberList) {
-                new InsertListCommand(InsertListCommand.ListType.NUMBERED, sizeOfList).execute(commandDistributor);
+                new InsertListCommand(InsertListCommand.ListType.NUMBERED, sizeOfList, getActivePane()).execute(commandDistributor);
             } else if (e.getSource() == insertBulletList) {
-                new InsertListCommand(InsertListCommand.ListType.BULLETED, sizeOfList).execute(commandDistributor);
+                new InsertListCommand(InsertListCommand.ListType.BULLETED, sizeOfList, getActivePane()).execute(commandDistributor);
             } else if (e.getSource() == insertDictionaryList) {
-                new InsertListCommand(InsertListCommand.ListType.DICTIONARY, sizeOfList).execute(commandDistributor);
+                new InsertListCommand(InsertListCommand.ListType.DICTIONARY, sizeOfList, getActivePane()).execute(commandDistributor);
             }
         }
     }
@@ -560,8 +559,8 @@ public class EditorFrame extends JFrame {
 
     private void tabWidthActionPerformed(ActionEvent e) {
         TabWidthDialog x = new TabWidthDialog(this, true, getActivePane().getTabSize());
-        x.setVisible(true);
         x.setLocationRelativeTo(this);
+        x.setVisible(true);
         int tabSize = x.getTabWidth();
         if (tabSize != 0) {
             for (JTextArea aTextArea : editorPanes) {
@@ -633,18 +632,28 @@ public class EditorFrame extends JFrame {
     }
 
     public static String getCurrentLine(JTextArea pane) {
-        int index = 0;
-        try {
-            index = pane.getLineOfOffset(pane.getCaretPosition());
-        } catch (BadLocationException e) {
-            // Not sure if we can do much.  Assume that there is no cursor
-            // and that we don't need to auto-indent.
-            return null;
-        }
-
-        String[] content = pane.getText().split("\n");
-        return content[index - 1];
+        return getLine(pane, 0);
     }
+
+	public static String getPreviousLine(JTextArea pane){
+		return getLine(pane, -1);
+	}
+
+	private static String getLine(JTextArea pane, int offset) {
+		int index = 0;
+		try {
+			index = pane.getLineOfOffset(pane.getCaretPosition());
+		} catch (BadLocationException e) {
+			// Not sure if we can do much.  Assume that there is no cursor
+			// and that we don't need to auto-indent.
+			return null;
+		}
+
+		String[] content = pane.getText().split("\n");
+		if(index + offset < 0 || index + offset > content.length)
+			return "";
+		return content[index + offset];
+	}
 
     public static String indentTabs(int tabCount) {
         String tabs = "";

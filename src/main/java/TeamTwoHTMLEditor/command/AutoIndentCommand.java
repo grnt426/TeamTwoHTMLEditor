@@ -19,7 +19,7 @@ public class AutoIndentCommand implements Command{
 
 	@Override
 	public void execute(CommandDistributor c){
-		String prevLine = EditorFrame.getCurrentLine(activePane);
+		String prevLine = EditorFrame.getPreviousLine(activePane);
 		int numTabs = EditorFrame.getTabCount(prevLine);
 		activePane.insert(EditorFrame.indentTabs(numTabs), activePane.getCaretPosition());
 	}

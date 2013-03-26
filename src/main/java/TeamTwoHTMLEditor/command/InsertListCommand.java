@@ -1,61 +1,65 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
+
+import javax.swing.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Kocsen
- * Date: 3/26/13
- * Time: 1:01 AM
- * To change this template use File | Settings | File Templates.
+ * For inserting List elements.
  */
-public class InsertListCommand implements Command {
+public class InsertListCommand implements Command{
 
-    public enum ListType {NUMBERED, BULLETED, DICTIONARY}
+	private final JTextArea activePane;
 
-    ;
-    int size;
-    ListType type;
+	public enum ListType{NUMBERED, BULLETED, DICTIONARY}
 
-
-    public InsertListCommand(ListType l, int size) {
-        this.size = size;
-        type = l;
-
-    }
-
-    @Override
-    public void execute(CommandDistributor c) {
-        switch (type) {
-            case NUMBERED:
-            /*
-            Example:
-            <ol>
-                <li>  text here </li>
-                <li>   more text here </li>
-            </ol>
-             */
-
-            case BULLETED:
-            /* Example: (tabs or no tabs after <ul>?)
-            <ul>
-                <li>text</li>
-                <li>text</li>
-            </ul>
-             */
+	int size;
+	ListType type;
 
 
-            case DICTIONARY:
-            /*
-            <dl>
-            <dt>Coffee</dt>
-            <dd>black hot drink</dd>
-            <dt>Milk</dt>
-            <dd>white cold drink</dd>
-            </dl>
-             */
+	public InsertListCommand(ListType l, int size, JTextArea activePane){
+		this.size = size;
+		type = l;
+		this.activePane = activePane;
+	}
 
-        }
-    }
+	@Override
+	public void execute(CommandDistributor c){
+		StringBuilder listElement = new StringBuilder("");
+		int tabCount =
+				EditorFrame.getTabCount(EditorFrame.getCurrentLine(activePane));
+		String tabs = EditorFrame.indentTabs(tabCount);
+		System.out.println(tabCount);
+
+		switch(type){
+			case NUMBERED:
+				listElement.append("<ol>\n");
+				while(size-- > 0){
+					listElement.append(tabs).append("\t<li></li>\n");
+				}
+				listElement.append(tabs).append("</ol>");
+				break;
+
+			case BULLETED:
+				listElement.append("<ul>\n");
+				while(size-- > 0){
+					listElement.append(tabs).append("\t<li></li>\n");
+				}
+				listElement.append(tabs).append("</ul>");
+				break;
+
+			case DICTIONARY:
+				listElement.append("<dl>\n");
+				while(size-- > 0){
+					listElement.append(tabs).append("\t<dt></dt>\n");
+					listElement.append(tabs).append("\t<dd></dd>\n");
+				}
+				listElement.append(tabs).append("</dl>");
+				break;
+		}
+		System.out.println(listElement.toString());
+		activePane.insert(listElement.toString(), activePane.getCaretPosition());
+	}
 
 }

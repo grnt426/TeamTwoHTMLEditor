@@ -99,7 +99,7 @@ public class FileManager {
     }
 
     boolean canQuitAt(int index) {
-        return HTMLFileArray.get(index).isNeedToSave();
+        return !HTMLFileArray.get(index).isNeedToSave();
     }
 
     public int getNumOpenFiles() {

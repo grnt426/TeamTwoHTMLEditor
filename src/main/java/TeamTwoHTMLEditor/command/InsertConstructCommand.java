@@ -10,8 +10,8 @@ import javax.swing.*;
 public class InsertConstructCommand implements Command {
 
     public enum Construct {
-        HEADER, BOLD, ITALICS, LIST
-    }
+        HEADER, BOLD, ITALICS
+	}
 
     private Construct construct;
     private final JTextArea activePane;
