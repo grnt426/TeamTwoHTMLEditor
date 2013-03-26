@@ -92,14 +92,14 @@ public class FileManager {
         }
         for (HTMLFile aHTMLFileArray : HTMLFileArray) {
             if (aHTMLFileArray.isNeedToSave()) {
-                return true;
+                return false;
             }
         }
-        return false;
+        return true;
     }
 
     boolean canQuitAt(int index) {
-        return HTMLFileArray.get(index).isNeedToSave();
+        return !HTMLFileArray.get(index).isNeedToSave();
     }
 
     public int getNumOpenFiles() {
