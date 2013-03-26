@@ -119,12 +119,12 @@ class HTMLFile implements DocumentListener {
 
     @Override
     public void insertUpdate(DocumentEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        this.needToSave = true;
     }
 
     @Override
     public void removeUpdate(DocumentEvent e) {
-        //To change body of implemented methods use File | Settings | File Templates.
+        this.needToSave = true;
     }
 
     @Override
