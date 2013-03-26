@@ -573,18 +573,14 @@ public class EditorFrame extends JFrame {
         newEditorPane.addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
-                System.out.println("EVENT1");
-
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-                System.out.println("EVENT2");
             }
 
             @Override
             public void keyReleased(KeyEvent e) {
-                System.out.println("EVENT3");
                 int keyCode = e.getKeyCode();
                 //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {
