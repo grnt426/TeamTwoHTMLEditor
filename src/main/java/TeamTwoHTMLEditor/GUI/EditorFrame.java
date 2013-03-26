@@ -26,9 +26,10 @@ public class EditorFrame extends JFrame {
     private QuitDialog quitDialog;
     private JFileChooser fc;
     private int newFileCount = 1;
-    private int filesOpen = 0;
-    private JTabbedPane tabPane;
     private int activePaneIndex = 0;
+    private int globalTabSize = 4;
+    private JTabbedPane tabPane;
+
     private ArrayList<JTextArea> editorPanes;
 
     private JMenuBar menuBar;
@@ -564,11 +565,12 @@ public class EditorFrame extends JFrame {
 
 
     private void tabWidthActionPerformed(ActionEvent e) {
-        TabWidthDialog x = new TabWidthDialog(this, true, getActivePane().getTabSize());
+        TabWidthDialog x = new TabWidthDialog(this, true, globalTabSize);
         x.setLocationRelativeTo(this);
         x.setVisible(true);
         int tabSize = x.getTabWidth();
         if (tabSize != 0) {
+            globalTabSize = tabSize;
             for (JTextArea aTextArea : editorPanes) {
                 aTextArea.setTabSize(tabSize);
             }
@@ -585,7 +587,7 @@ public class EditorFrame extends JFrame {
     private JTextArea setupPane() {
         JTextArea newEditorPane = new JTextArea();
         newEditorPane.setLineWrap(toggleWordWrapMenuItem.getState());
-        newEditorPane.setTabSize(4);
+        newEditorPane.setTabSize(globalTabSize);
         //newEditorPane.setColumns(80);
         editorPanes.add(newEditorPane);
 
@@ -623,8 +625,12 @@ public class EditorFrame extends JFrame {
         return newEditorPane;
     }
 
-    JTextArea getActivePane() {
-        return editorPanes.get(activePaneIndex);
+    private JTextArea getActivePane() {
+        if (!(editorPanes.size() <= 0)) {
+            return editorPanes.get(activePaneIndex);
+        }
+        return null;
+
     }
 
     public static int getTabCount(String str) {
