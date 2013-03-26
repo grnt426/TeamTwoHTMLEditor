@@ -81,7 +81,8 @@ public class FileManager {
 
 
     /**
-     * @return
+     * Runs through the array of files to check if they have all been saved
+     * @return true if the system is allowed to quit
      */
     public boolean canQuit() {
         if (HTMLFileArray.isEmpty()) {

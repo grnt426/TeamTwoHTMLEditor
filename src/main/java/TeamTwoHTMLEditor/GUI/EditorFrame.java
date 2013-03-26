@@ -74,15 +74,9 @@ public class EditorFrame extends JFrame {
                 System.out.println("State Change");
                 changeTabFocus(e);
                 if (tabPane.getTabCount() <= 0) {
-                    closeTabMenuItem.setEnabled(false);
-                    saveMenuItem.setEnabled(false);
-                    saveAsMenuItem.setEnabled(false);
-                    validateMenuItem.setEnabled(false);
+                    setEverythingFileDependantEnabled(false);
                 } else {
-                    closeTabMenuItem.setEnabled(true);
-                    saveMenuItem.setEnabled(true);
-                    validateMenuItem.setEnabled(true);
-                    saveAsMenuItem.setEnabled(true);
+                    setEverythingFileDependantEnabled(true);
                 }
             }
         });
@@ -349,13 +343,17 @@ public class EditorFrame extends JFrame {
         setJMenuBar(menuBar);
         add(tabPane, BorderLayout.CENTER);
         if (tabPane.getTabCount() <= 0) {
-            closeTabMenuItem.setEnabled(false);
-            saveMenuItem.setEnabled(false);
-            saveAsMenuItem.setEnabled(false);
-            validateMenuItem.setEnabled(false);
+            setEverythingFileDependantEnabled(false);
         }
     }
 
+    private void setEverythingFileDependantEnabled(boolean b) {
+        closeTabMenuItem.setEnabled(b);
+        saveMenuItem.setEnabled(b);
+        saveAsMenuItem.setEnabled(b);
+        validateMenuItem.setEnabled(b);
+        menuInsert.setEnabled(b);
+    }
 
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
@@ -436,7 +434,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when clicking Validate in File Menu
     private void validateActionPerformed(ActionEvent e) {
-        new ValidateCommand(editorPanes.get(activePaneIndex), tabPane.getTitleAt(activePaneIndex), this).execute(commandDistributor);
+        new ValidateCommand(getActivePane(), commandDistributor.getFileManager().getPathAt(activePaneIndex), this).execute(commandDistributor);
     }
 
 
@@ -446,6 +444,9 @@ public class EditorFrame extends JFrame {
 
     }
 
+    /*
+    Close
+     */
     public void closeTab() {
         if (newFileCount >= 1) {
             int index = activePaneIndex;

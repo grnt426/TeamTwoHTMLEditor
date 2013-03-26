@@ -1,37 +1,35 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
-import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 
 /**
  *
  */
-public class InsertConstructCommand implements Command{
+public class InsertConstructCommand implements Command {
 
-	public enum Construct{
-		HEADER, BOLD, ITALICS, LIST
-	}
+    public enum Construct {
+        HEADER, BOLD, ITALICS, LIST
+    }
 
-	private Construct construct;
-	private final JTextArea activePane;
+    private Construct construct;
+    private final JTextArea activePane;
 
 
-	public InsertConstructCommand(Construct cn, JTextArea activePane){
-		construct = cn;
-		this.activePane = activePane;
-	}
+    public InsertConstructCommand(Construct cn, JTextArea activePane) {
+        construct = cn;
+        this.activePane = activePane;
+    }
 
-	@Override
-	public void execute(CommandDistributor c){
+    @Override
+    public void execute(CommandDistributor c) {
 
-		// If there is no active editor window, then do nothing
-		if(activePane == null)
-			return;
+        // If there is no active editor window, then do nothing
+        if (activePane == null)
+            return;
 
-		StringBuilder insertStr = new StringBuilder("");
+        StringBuilder insertStr = new StringBuilder("");
 //		String tabs = "";
 //		String curLine = EditorFrame.getCurrentLine(activePane);
 //
@@ -50,25 +48,21 @@ public class InsertConstructCommand implements Command{
 //		}
 
 
-		switch(construct){
-			case HEADER:
-				insertStr.append("<header></header>");
-				break;
+        switch (construct) {
+            case HEADER:
+                insertStr.append("<header></header>");
+                break;
 
-			case BOLD:
-				insertStr.append("<b></b>");
-				break;
+            case BOLD:
+                insertStr.append("<b></b>");
+                break;
 
-			case ITALICS:
-				insertStr.append("<i></i>");
-				break;
+            case ITALICS:
+                insertStr.append("<i></i>");
+                break;
 
-			case LIST:
-				//TODO fill out list handling
-				//call make list command?
-				break;
-		}
+        }
 
-		activePane.insert(insertStr.toString(), activePane.getCaretPosition());
-	}
+        activePane.insert(insertStr.toString(), activePane.getCaretPosition());
+    }
 }
