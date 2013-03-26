@@ -25,7 +25,17 @@ public class ShutDownCommand implements Command {
             eFrame.dispose();
             System.out.println("Shutting Down System");
         } else {
-            JOptionPane.showMessageDialog(eFrame, "Please Save all your files ");
+            int n = JOptionPane.showConfirmDialog(
+                    eFrame,
+                    "There are some unsaved files, would you like to quit anyway?",
+                    "Unsaved Files!",
+                    JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                eFrame.dispose();
+                System.out.println("Shutting Down System");
+            } else {
+
+            }
 
         }
     }

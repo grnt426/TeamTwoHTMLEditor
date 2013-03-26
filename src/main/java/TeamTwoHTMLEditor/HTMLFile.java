@@ -96,12 +96,12 @@ class HTMLFile {
         this.fileContents = new StringBuilder(fileContents);
     }
 
-    public void setSave() {
-        this.needToSave = true;
+    public void setSave(boolean b) {
+        this.needToSave = b;
     }
 
-    public void setNeedSaveAs() {
-        this.needSaveAs = false;
+    public void setNeedSaveAs(boolean b) {
+        this.needSaveAs = b;
     }
 
     public boolean getNeedSaveAs() {

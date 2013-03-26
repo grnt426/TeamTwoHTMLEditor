@@ -33,7 +33,7 @@ public class EditorFrame extends JFrame {
 
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
-    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem;
 
 
@@ -55,7 +55,7 @@ public class EditorFrame extends JFrame {
 
 
     private void initComponents() {
-        setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
         setTitle("IntelliHTML - An HTML FileManager from T2");
         setBounds(new Rectangle(0, 0, 500, 530));
         setName("EditorFrame");
@@ -308,7 +308,16 @@ public class EditorFrame extends JFrame {
         menuOptions.setMnemonic(KeyEvent.VK_O);
 
         ///Adding menuItem
+        tabWidthMenuItem = new JMenuItem("Tab Width");
         toggleWordWrapMenuItem = new JCheckBoxMenuItem("Wrap Text", true);
+
+        tabWidthMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                tabWidthActionPerformed(e);
+            }
+        });
+
         toggleWordWrapMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -316,6 +325,7 @@ public class EditorFrame extends JFrame {
             }
         });
 
+        menuOptions.add(tabWidthMenuItem);
         menuOptions.add(toggleWordWrapMenuItem);
         menuBar.add(menuOptions);
         // ********************************** END ************************************//
@@ -346,6 +356,7 @@ public class EditorFrame extends JFrame {
             setEverythingFileDependantEnabled(false);
         }
     }
+
 
     private void setEverythingFileDependantEnabled(boolean b) {
         closeTabMenuItem.setEnabled(b);
@@ -522,10 +533,21 @@ public class EditorFrame extends JFrame {
 
     //******************************** END *******************************************//
 
-    //******************************* Action Perfoemd for Option > X *****************//
+    //******************************* Action Performed for Option > X *****************//
     private void toggleWordWrapActionPerformed(ActionEvent e) {
         for (JTextArea textArea : editorPanes) {
             textArea.setLineWrap(toggleWordWrapMenuItem.getState());
+        }
+    }
+
+    private void tabWidthActionPerformed(ActionEvent e) {
+        TabWidthDialog x = new TabWidthDialog(this, true, getActivePane().getTabSize());
+        x.setVisible(true);
+        int tabSize = x.getTabWidth();
+        if (tabSize != 0) {
+            for (JTextArea aTextArea : editorPanes) {
+                aTextArea.setTabSize(tabSize);
+            }
         }
     }
     //******************************** END *******************************************//
@@ -554,7 +576,12 @@ public class EditorFrame extends JFrame {
                 int keyCode = e.getKeyCode();
                 //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {
-                    new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+                    try {
+                        new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+                    } catch (ArrayIndexOutOfBoundsException x) {
+
+                    }
+
                 }
             }
         });
