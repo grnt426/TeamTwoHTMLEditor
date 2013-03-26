@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -485,12 +486,12 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
-        new InsertConstructCommand(InsertConstructCommand.Construct.HEADER).execute(commandDistributor);
+        new InsertConstructCommand(InsertConstructCommand.Construct.HEADER, getActivePane()).execute(commandDistributor);
     }
 
     private void insertListActionPerformed(ActionEvent e) {
         if (e.getSource() == insertNumberList) {
-            new InsertConstructCommand(InsertConstructCommand.Construct.LIST).execute(commandDistributor);
+            new InsertConstructCommand(InsertConstructCommand.Construct.LIST, getActivePane()).execute(commandDistributor);
         } else if (e.getSource() == insertBulletList) {
             //TODO if bulletList
         } else if (e.getSource() == insertDictionaryList) {
@@ -500,9 +501,9 @@ public class EditorFrame extends JFrame {
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
         if (e.getSource() == boldMenuItem) {
-            new InsertConstructCommand(InsertConstructCommand.Construct.BOLD).execute(commandDistributor);
+            new InsertConstructCommand(InsertConstructCommand.Construct.BOLD, getActivePane()).execute(commandDistributor);
         } else if (e.getSource() == italicsMenuItem) {
-            new InsertConstructCommand(InsertConstructCommand.Construct.ITALICS).execute(commandDistributor);
+            new InsertConstructCommand(InsertConstructCommand.Construct.ITALICS, getActivePane()).execute(commandDistributor);
         }
     }
 
@@ -553,7 +554,46 @@ public class EditorFrame extends JFrame {
     }
 
     JTextArea getActivePane() {
+		if(editorPanes.size() == 0)
+			return null;
         return editorPanes.get(activePane);
     }
+
+	public static int getTabCount(String str){
+		int tabCount = 0;
+		for(char c : str.toCharArray()){
+			if(c == '\t')
+				tabCount++;
+			else
+				break;
+		}
+
+		return tabCount;
+	}
+
+	public static String getCurrentLine(JTextArea pane){
+		int index = 0;
+		try{
+			index = pane.getLineOfOffset(pane.getCaretPosition());
+		}
+		catch(BadLocationException e){
+			// Not sure if we can do much.  Assume that there is no cursor
+			// and that we don't need to auto-indent.
+			return null;
+		}
+
+		String[] content = pane.getText().split("\n");
+		if(content.length == 1)
+			return content[0];
+		return content[index-1];
+	}
+
+	public static String indentTabs(int tabCount){
+		String tabs = "";
+		for(; tabCount > 0; tabCount--){
+			 tabs += "\t";
+		}
+		return tabs;
+	}
 }
 
