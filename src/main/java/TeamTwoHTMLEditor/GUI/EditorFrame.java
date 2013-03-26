@@ -479,9 +479,11 @@ public class EditorFrame extends JFrame {
         InsertTableDialog x = new InsertTableDialog(this);
         x.setLocationRelativeTo(this);
         x.setVisible(true);
+        System.out.println("We got " + x.getRow() + " For row and col: " + x.getCol());
+        if ((x.getRow() != 0) || (x.getCol() != 0)) {
+            new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
+        }
 
-
-        new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
     }
 
     private void insertHeaderActionPerformed(ActionEvent e) {
@@ -489,12 +491,20 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertListActionPerformed(ActionEvent e) {
-        if (e.getSource() == insertNumberList) {
-            new InsertConstructCommand(InsertConstructCommand.Construct.LIST).execute(commandDistributor);
-        } else if (e.getSource() == insertBulletList) {
-            //TODO if bulletList
-        } else if (e.getSource() == insertDictionaryList) {
-            //TODO if dictionaryList
+        SizeOfListDialog x = new SizeOfListDialog(this, true);
+        x.setLocationRelativeTo(this);
+        x.setVisible(true);
+        int sizeOfList = x.getSizeOfList();
+        System.out.println("THE SIZE OF THE LIST INPUT IS : " + sizeOfList);
+
+        if (sizeOfList != 0) {
+            if (e.getSource() == insertNumberList) {
+                new InsertListCommand(InsertListCommand.ListType.NUMBERED, sizeOfList).execute(commandDistributor);
+            } else if (e.getSource() == insertBulletList) {
+
+            } else if (e.getSource() == insertDictionaryList) {
+                //TODO if dictionaryList
+            }
         }
     }
 
