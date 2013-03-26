@@ -511,7 +511,7 @@ public class EditorFrame extends JFrame {
         x.setVisible(true);
 
         if ((x.getRow() != 0) || (x.getCol() != 0)) { //Making sure 'cancel' wasn't clicked
-            new InsertTableCommand(x.getRow(), x.getCol()).execute(commandDistributor);
+            new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor);
         }
     }
 
@@ -647,7 +647,7 @@ public class EditorFrame extends JFrame {
         }
 
         String[] content = pane.getText().split("\n");
-        if (index + offset < 0 || index + offset > content.length)
+        if (index + offset < 0 || index + offset >= content.length)
             return "";
         return content[index + offset];
     }
