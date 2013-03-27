@@ -6,11 +6,7 @@ import TeamTwoHTMLEditor.GUI.EditorFrame;
 import javax.swing.*;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Keegan
- * Date: 3/22/13
- * Time: 5:30 PM
- * Class that is instantiated when wanting to close a file/tab
+ * @author Keegan Parrotte - kmp3325@rit.edu
  */
 public class CloseTabCommand implements Command {
 
