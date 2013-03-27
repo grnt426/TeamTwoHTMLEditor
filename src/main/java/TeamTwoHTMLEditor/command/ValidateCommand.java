@@ -60,8 +60,6 @@ public class ValidateCommand implements Command {
                 e.printStackTrace();
                 return;
             }
-			// If the validate option was accessed from the menu, give feedback when successful.
-			if (manuallyClicked) JOptionPane.showMessageDialog(parent, "This HTML file is valid.");
         }
     }
 
@@ -74,6 +72,8 @@ public class ValidateCommand implements Command {
         try {
             db = dbf.newDocumentBuilder();
             Document dom = db.parse(filename);
+			// If the validate option was accessed from the menu, give feedback when successful.
+			if (manuallyClicked) JOptionPane.showMessageDialog(parent, "This HTML file is valid.");
         } catch (ParserConfigurationException ignored) {
         } catch (SAXException e) {
             JOptionPane x = new JOptionPane();
