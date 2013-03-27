@@ -123,8 +123,6 @@
 				<configuration>
 					<reportTitle>Changelog for ${projectName} -- Unit 2
 					</reportTitle>
-					<plainTextChangeLogFilename>target/vclog.txt</plainTextChangeLogFilename>
-					<simpleHTMLChangeLogFilename>target/vclog.txt.html</simpleHTMLChangeLogFilename>
 				</configuration>
 				<executions>
 					<execution>
