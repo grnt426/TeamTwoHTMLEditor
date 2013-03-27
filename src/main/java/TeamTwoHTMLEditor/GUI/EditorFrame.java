@@ -389,7 +389,7 @@ public class EditorFrame extends JFrame {
         JTextArea pane = setupPane();
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(
-				"File" + Integer.toString(newFileCount), editorScrollPane);
+                "File" + Integer.toString(newFileCount), editorScrollPane);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(tabPane.getSelectedIndex()));
         newFileCount++;
@@ -550,8 +550,7 @@ public class EditorFrame extends JFrame {
 
     /**
      * Action performed when pressing the word wrap menu item
-     *
-	 */
+     */
     private void toggleWordWrapActionPerformed() {
         for (JTextArea textArea : editorPanes) {
             textArea.setLineWrap(toggleWordWrapMenuItem.getState());
@@ -561,8 +560,7 @@ public class EditorFrame extends JFrame {
     /**
      * Action performed method when pressing the tabWidth button.
      * Launches a dialog for the user to set the dat width.
-     *
-	 */
+     */
     private void tabWidthActionPerformed() {
         TabWidthDialog x = new TabWidthDialog(this, true, globalTabSize);
         x.setLocationRelativeTo(this);
@@ -593,19 +591,20 @@ public class EditorFrame extends JFrame {
 
         // Attach a keylistener to allow for auto-indentation
         newEditorPane.addKeyListener(new KeyListener() {
-			// Need this variable for tabs, the selected text is only present on
-			// keyPressed and turns to null on keyReleased.
-			String selected = "";
-			@Override
+            // Need this variable for tabs, the selected text is only present on
+            // keyPressed and turns to null on keyReleased.
+            String selected = "";
+
+            @Override
             public void keyTyped(KeyEvent e) {
             }
 
             @Override
             public void keyPressed(KeyEvent e) {
-				// Get selected texts for the keyRelease here.
-				if (e.getKeyCode() == KeyEvent.VK_TAB){
-					selected = getActivePane().getSelectedText();
-				}
+                // Get selected texts for the keyRelease here.
+                if (e.getKeyCode() == KeyEvent.VK_TAB) {
+                    selected = getActivePane().getSelectedText();
+                }
             }
 
             @Override
@@ -621,10 +620,10 @@ public class EditorFrame extends JFrame {
                     }
 
                 } else if (keyCode == KeyEvent.VK_TAB) {
-					if (selected != null){
-						new TabSelectedCommand(getActivePane(), selected).execute(commandDistributor);
-					}
-				}
+                    if (selected != null) {
+                        new TabSelectedCommand(getActivePane(), selected).execute(commandDistributor);
+                    }
+                }
             }
         });
 
@@ -640,6 +639,10 @@ public class EditorFrame extends JFrame {
         }
         return null;
 
+    }
+
+    public int getActivePaneIndex() {
+        return activePaneIndex;
     }
 
     public static int getTabCount(String str) {

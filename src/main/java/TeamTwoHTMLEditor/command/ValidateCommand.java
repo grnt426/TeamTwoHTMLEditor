@@ -27,19 +27,18 @@ public class ValidateCommand implements Command {
     private String filename;
     private EditorFrame parent;
     private static final Random gen = new Random();
-	private boolean manuallyClicked;
+    private boolean manuallyClicked;
 
     public ValidateCommand(JTextArea pane, String filename, EditorFrame parent, boolean manuallyClicked) {
         this.pane = pane;
         this.filename = filename;
         this.parent = parent;
-		this.manuallyClicked = manuallyClicked;
-		checkFile();
+        this.manuallyClicked = manuallyClicked;
     }
 
-    private void checkFile() {
+    private void checkFile(CommandDistributor c) {
         File f = new File(filename);
-        if (!f.exists()) {
+        if (!f.exists() || !c.getFileManager().canQuitAt(parent.getActivePaneIndex())) {
             int i = 8;
             String newFilename = "";
             while (i-- > 0) newFilename += gen.nextInt(9);
@@ -65,6 +64,7 @@ public class ValidateCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
+        checkFile(c);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setIgnoringElementContentWhitespace(true);
         dbf.setIgnoringComments(true);
@@ -72,8 +72,8 @@ public class ValidateCommand implements Command {
         try {
             db = dbf.newDocumentBuilder();
             Document dom = db.parse(filename);
-			// If the validate option was accessed from the menu, give feedback when successful.
-			if (manuallyClicked) JOptionPane.showMessageDialog(parent, "This HTML file is valid.");
+            // If the validate option was accessed from the menu, give feedback when successful.
+            if (manuallyClicked) JOptionPane.showMessageDialog(parent, "This HTML file is valid.");
         } catch (ParserConfigurationException ignored) {
         } catch (SAXException e) {
             JOptionPane x = new JOptionPane();
