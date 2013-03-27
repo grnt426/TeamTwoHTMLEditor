@@ -24,11 +24,21 @@ public class CloseTabCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
-        if (c.getFileManager().closeFile(index)) {
-            System.out.println("Tab # " + (index + 1) + " may close");
+        if (c.getFileManager().canQuitAt(index)) {
             parent.closeTab();
+            c.getFileManager().closeFile(index);
         } else {
-            JOptionPane.showMessageDialog(parent, "Please save the file before exiting");
+            int n = JOptionPane.showConfirmDialog(
+                    parent,
+                    "This Tab has not been saved, would you like to quit anyway?",
+                    "Unsaved Tab",
+                    JOptionPane.YES_NO_OPTION);
+            if (n == JOptionPane.YES_OPTION) {
+                parent.closeTab();
+                c.getFileManager().closeFile(index);
+            } else {
+
+            }
         }
     }
 

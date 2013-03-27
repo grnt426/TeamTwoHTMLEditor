@@ -393,12 +393,13 @@ public class EditorFrame extends JFrame {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
 
         JTextArea pane = setupPane();
-        pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(activePaneIndex));
+
 
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(
                 "File" + Integer.toString(newFileCount), editorScrollPane);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
+        pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(activePaneIndex));
         newFileCount++;
     }
 
@@ -481,7 +482,7 @@ public class EditorFrame extends JFrame {
     Close
      */
     public void closeTab() {
-        if (newFileCount >= 1) {
+        if (newFileCount > 1) {
             int index = activePaneIndex;
             tabPane.remove(index);
             editorPanes.remove(index);
@@ -581,6 +582,7 @@ public class EditorFrame extends JFrame {
 
     /**
      * Helper function to set up a pane to be inserted by tab pane
+     * MUST always be called when making a new representation of a file
      *
      * @return the JTextArea to be shown by the component of the tab pane
      */

@@ -28,7 +28,7 @@ public class ShutDownCommand implements Command {
             int n = JOptionPane.showConfirmDialog(
                     eFrame,
                     "There are some unsaved files, would you like to quit anyway?",
-                    "Unsaved Files!",
+                    "Unsaved Files",
                     JOptionPane.YES_NO_OPTION);
             if (n == JOptionPane.YES_OPTION) {
                 eFrame.dispose();

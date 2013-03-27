@@ -38,7 +38,7 @@ public class FileManager {
     public void openFile(File f, JTextArea p) {
         HTMLFile x = new HTMLFile(f.getPath());
         x.setNeedSaveAs(false);
-        x.setSave(true);
+        x.setNeedToSave(true);
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
         printStatus();
@@ -51,8 +51,7 @@ public class FileManager {
      * @return true if the file modified the file (closed), false otherwise
      */
     public boolean closeFile(int index) {
-        System.out.println("Closing a file with the name: " + HTMLFileArray.get(index).getName());
-        if (canQuitAt(index)) {
+        if (!canQuitAt(index)) {
             return false;
         } else {
             HTMLFileArray.remove(index);
@@ -68,7 +67,7 @@ public class FileManager {
     public void saveFile(File f, String contents, int indexOfFile) {
         HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
         fileToSave.saveFile(contents);
-        HTMLFileArray.get(indexOfFile).setSave(true);
+        HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
     }
 
@@ -76,7 +75,7 @@ public class FileManager {
         System.out.println("Quick Saved file: " + path);
         HTMLFile fileToSave = new HTMLFile(path, false);
         fileToSave.saveFile(contents);
-        HTMLFileArray.get(indexOfFile).setSave(true);
+        HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
     }
 
@@ -98,12 +97,8 @@ public class FileManager {
         return true;
     }
 
-    boolean canQuitAt(int index) {
-        return !HTMLFileArray.get(index).isNeedToSave();
-    }
-
-    public int getNumOpenFiles() {
-        return numOpenFiles;
+    public boolean canQuitAt(int index) {
+        return !(HTMLFileArray.get(index).isNeedToSave());
     }
 
 
@@ -114,9 +109,9 @@ public class FileManager {
         for (HTMLFile aFile : HTMLFileArray) {
             System.out.println("\t" + aFile.getName());
             if (aFile.isNeedToSave()) {
-                System.out.println("\t\tSAVED");
-            } else {
                 System.out.println("\t\tNEEDS SAVE");
+            } else {
+                System.out.println("\t\tSAVED");
             }
 
         }
@@ -132,6 +127,7 @@ public class FileManager {
     }
 
     public DocumentListener getFileAt(int activePaneIndex) {
+        System.out.println("AWESOME index = " + activePaneIndex);
         return HTMLFileArray.get(activePaneIndex);
     }
 }

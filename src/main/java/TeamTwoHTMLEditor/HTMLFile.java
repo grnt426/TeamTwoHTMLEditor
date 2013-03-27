@@ -33,7 +33,6 @@ class HTMLFile implements DocumentListener {
     }
 
     void loadFile() {
-
         // We want to read in the whole file, so we need to recreate the Scanner
         // instance each time to reset the read-head to the start of the file.
         try {
@@ -95,7 +94,7 @@ class HTMLFile implements DocumentListener {
     }
 
 
-    public void setSave(boolean b) {
+    public void setNeedToSave(boolean b) {
         this.needToSave = b;
     }
 
