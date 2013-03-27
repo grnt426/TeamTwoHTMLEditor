@@ -38,7 +38,7 @@ public class FileManager {
     public void openFile(File f, JTextArea p) {
         HTMLFile x = new HTMLFile(f.getPath());
         x.setNeedSaveAs(false);
-        x.setNeedToSave(true);
+        x.setNeedToSave(false);
         HTMLFileArray.add(x);
         numOpenFiles = HTMLFileArray.size();
         printStatus();
@@ -47,17 +47,11 @@ public class FileManager {
     }
 
     /**
-     * @param index
-     * @return true if the file modified the file (closed), false otherwise
+     * @param index - the index of where to close the file (backend)
      */
-    public boolean closeFile(int index) {
-        if (!canQuitAt(index)) {
-            return false;
-        } else {
-            HTMLFileArray.remove(index);
-            numOpenFiles = HTMLFileArray.size();
-            return true;
-        }
+    public void closeFile(int index) {
+        HTMLFileArray.remove(index);
+        numOpenFiles = HTMLFileArray.size();
 
     }
 
@@ -115,7 +109,7 @@ public class FileManager {
             }
 
         }
-        System.out.println("******************************");
+        System.out.println("******************************END");
     }
 
     public boolean needsSaveAsDialog(int index) {
@@ -127,7 +121,6 @@ public class FileManager {
     }
 
     public DocumentListener getFileAt(int activePaneIndex) {
-        System.out.println("AWESOME index = " + activePaneIndex);
         return HTMLFileArray.get(activePaneIndex);
     }
 }

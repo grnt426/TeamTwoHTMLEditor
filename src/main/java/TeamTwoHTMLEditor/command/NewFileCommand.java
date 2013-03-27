@@ -19,5 +19,6 @@ public class NewFileCommand implements Command {
     @Override
     public void execute(CommandDistributor c) {
         c.getFileManager().createNewFile(filename);
+        c.getFileManager().printStatus();
     }
 }

@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
 import org.w3c.dom.Document;
 import org.xml.sax.SAXException;
 
@@ -24,10 +25,10 @@ public class ValidateCommand implements Command {
 
     private JTextArea pane;
     private String filename;
-    private JFrame parent;
+    private EditorFrame parent;
     private static final Random gen = new Random();
 
-    public ValidateCommand(JTextArea pane, String filename, JFrame parent) {
+    public ValidateCommand(JTextArea pane, String filename, EditorFrame parent) {
         this.pane = pane;
         this.filename = filename;
         this.parent = parent;
@@ -50,7 +51,7 @@ public class ValidateCommand implements Command {
                 // TODO can't validate, I guess don't bother?
                 JOptionPane x = new JOptionPane();
                 x.setName("Error while parsing the HTML");
-                x.showMessageDialog(parent, "Unable to create a temporary " +
+                JOptionPane.showMessageDialog(parent, "Unable to create a temporary " +
                         "file to validate HTML. No " +
                         "validation performed");
                 e.printStackTrace();
@@ -61,7 +62,6 @@ public class ValidateCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
-        System.out.println("Validating...");
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setIgnoringElementContentWhitespace(true);
         dbf.setIgnoringComments(true);
@@ -73,9 +73,8 @@ public class ValidateCommand implements Command {
         } catch (SAXException e) {
             JOptionPane x = new JOptionPane();
             x.setName("Warning while parsing the HTML");
-            x.showMessageDialog(parent, e.getMessage(), "Syntax Error with HTML", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(parent, e.getMessage(), "Syntax Error with HTML", JOptionPane.INFORMATION_MESSAGE);
         } catch (IOException ignored) {
         }
-        System.out.println("Done!");
     }
 }

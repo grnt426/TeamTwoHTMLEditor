@@ -11,7 +11,8 @@ import java.io.File;
  * User: Kocsen
  * Date: 3/25/13
  * Time: 3:38 PM
- * To change this template use File | Settings | File Templates.
+ * Command for Saving As.
+ * the execute method simply runs a save file given a path from the file chooser
  */
 public class SaveAsCommand implements Command {
     private String filename;
@@ -34,5 +35,6 @@ public class SaveAsCommand implements Command {
         c.getFileManager().saveFile(f, contents, index);
         c.getFileManager().printStatus();
         new ValidateCommand(pane, f.getPath(), parent).execute(c);
+        c.getFileManager().printStatus();
     }
 }

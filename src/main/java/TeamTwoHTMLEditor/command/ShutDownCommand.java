@@ -38,5 +38,6 @@ public class ShutDownCommand implements Command {
             }
 
         }
+        c.getFileManager().printStatus();
     }
 }

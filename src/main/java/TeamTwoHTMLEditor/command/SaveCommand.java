@@ -28,5 +28,6 @@ public class SaveCommand implements Command {
         c.getFileManager().quickSaveFile(path, contents, index);
         c.getFileManager().printStatus();
         new ValidateCommand(pane, path, parent).execute(c);
+        c.getFileManager().printStatus();
     }
 }

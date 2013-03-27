@@ -23,7 +23,6 @@ import java.util.ArrayList;
 
 public class EditorFrame extends JFrame {
     private CommandDistributor commandDistributor;
-    private QuitDialog quitDialog;
     private JFileChooser fc;
     private int newFileCount = 1;
     private int activePaneIndex = 0;
@@ -65,14 +64,10 @@ public class EditorFrame extends JFrame {
 
         setLayout(new BorderLayout());
 
-        quitDialog = new QuitDialog();
-        quitDialog.setVisible(false);
-
         tabPane = new JTabbedPane();
         tabPane.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                System.out.println("State Change");
                 changeTabFocus(e);
                 if (tabPane.getTabCount() <= 0) {
                     setEverythingFileDependantEnabled(false);
@@ -111,7 +106,7 @@ public class EditorFrame extends JFrame {
         openMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_O, ActionEvent.CTRL_MASK));
         saveMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_S, ActionEvent.CTRL_MASK));
         saveAsMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_A, ActionEvent.CTRL_MASK));
-        validateMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.ALT_MASK));
+        validateMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
         closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
@@ -391,15 +386,12 @@ public class EditorFrame extends JFrame {
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed(ActionEvent e) {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
-
         JTextArea pane = setupPane();
-
-
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(
                 "File" + Integer.toString(newFileCount), editorScrollPane);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-        pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(activePaneIndex));
+        pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(tabPane.getSelectedIndex()));
         newFileCount++;
     }
 
@@ -418,7 +410,8 @@ public class EditorFrame extends JFrame {
             tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
             newFileCount++;
 
-            new OpenCommand(f, pane, this).execute(commandDistributor);
+            new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor);
+
 
         }
 
@@ -433,7 +426,7 @@ public class EditorFrame extends JFrame {
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         newFileCount++;
 
-        new OpenCommand(f, pane, this).execute(commandDistributor);
+        new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor);
     }
 
     //What to do when a tab is selected
@@ -556,7 +549,9 @@ public class EditorFrame extends JFrame {
     //******************************* Action Performed for Option > X *****************//
 
     /**
-     * @param e
+     * Action performed when pressing the word wrap menu item
+     *
+     * @param e - Action event passed in. not used
      */
     private void toggleWordWrapActionPerformed(ActionEvent e) {
         for (JTextArea textArea : editorPanes) {
@@ -564,7 +559,12 @@ public class EditorFrame extends JFrame {
         }
     }
 
-
+    /**
+     * Action performed method when pressing the tabWidth button.
+     * Launches a dialog for the user to set the dat width.
+     *
+     * @param e - Action Event passed in. not used
+     */
     private void tabWidthActionPerformed(ActionEvent e) {
         TabWidthDialog x = new TabWidthDialog(this, true, globalTabSize);
         x.setLocationRelativeTo(this);
@@ -590,7 +590,6 @@ public class EditorFrame extends JFrame {
         JTextArea newEditorPane = new JTextArea();
         newEditorPane.setLineWrap(toggleWordWrapMenuItem.getState());
         newEditorPane.setTabSize(globalTabSize);
-        //newEditorPane.setColumns(80);
         editorPanes.add(newEditorPane);
 
 
@@ -656,7 +655,7 @@ public class EditorFrame extends JFrame {
     }
 
     private static String getLine(JTextArea pane, int offset) {
-        int index = 0;
+        int index;
         try {
             index = pane.getLineOfOffset(pane.getCaretPosition());
         } catch (BadLocationException e) {

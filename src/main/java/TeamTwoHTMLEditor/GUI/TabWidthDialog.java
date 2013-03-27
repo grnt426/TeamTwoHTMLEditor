@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
  * User: Kocsen
  * Date: 3/26/13
  * Time: 10:32 AM
- * To change this template use File | Settings | File Templates.
+ * Dialog to be shown when the user wants to input the default tab width for the editor
  */
 public class TabWidthDialog extends JDialog {
     private int tabWidth;

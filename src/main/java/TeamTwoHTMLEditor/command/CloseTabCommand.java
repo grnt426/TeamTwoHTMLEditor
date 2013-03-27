@@ -40,6 +40,8 @@ public class CloseTabCommand implements Command {
 
             }
         }
+
+        c.getFileManager().printStatus();
     }
 
 }

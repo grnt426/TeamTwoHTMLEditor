@@ -11,7 +11,6 @@ import java.awt.event.ActionEvent;
  * JDialog displayed to insert a Table
  */
 class InsertTableDialog extends JDialog {
-    private EditorFrame editorFrame;
     private int row;
     private int col;
 
@@ -29,7 +28,7 @@ class InsertTableDialog extends JDialog {
      */
     public InsertTableDialog(EditorFrame parent) {
         super(parent, true);
-        editorFrame = parent;
+        EditorFrame editorFrame = parent;
         initComponents();
         row = 1;
         col = 1;
@@ -42,27 +41,27 @@ class InsertTableDialog extends JDialog {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel2 = new javax.swing.JPanel();
-        CancelButton = new javax.swing.JButton();
-        AcceptButton = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        JPanel jPanel1 = new JPanel();
+        JPanel jPanel2 = new JPanel();
+        JButton cancelButton = new JButton();
+        JButton acceptButton = new JButton();
+        JLabel jLabel1 = new JLabel();
+        JLabel jLabel2 = new JLabel();
         rowSpinner = new javax.swing.JSpinner();
         colSpinner = new javax.swing.JSpinner();
-        jLabel3 = new javax.swing.JLabel();
+        JLabel jLabel3 = new JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
-        AcceptButton.setText("Accept");
-        AcceptButton.addActionListener(new java.awt.event.ActionListener() {
+        acceptButton.setText("Accept");
+        acceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 AcceptButtonActionPerformed(evt);
             }
         });
 
-        CancelButton.setText("Cancel");
-        CancelButton.addActionListener(new java.awt.event.ActionListener() {
+        cancelButton.setText("Cancel");
+        cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 CancelButtonActionPerformed(evt);
             }
@@ -74,9 +73,9 @@ class InsertTableDialog extends JDialog {
                 jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(AcceptButton, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
+                                .addComponent(acceptButton, javax.swing.GroupLayout.DEFAULT_SIZE, 179, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(CancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(cancelButton, javax.swing.GroupLayout.PREFERRED_SIZE, 173, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
@@ -84,8 +83,8 @@ class InsertTableDialog extends JDialog {
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                        .addComponent(CancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
-                                        .addComponent(AcceptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(cancelButton, javax.swing.GroupLayout.DEFAULT_SIZE, 34, Short.MAX_VALUE)
+                                        .addComponent(acceptButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                 .addContainerGap())
         );
 
@@ -177,15 +176,8 @@ class InsertTableDialog extends JDialog {
     }
 
 
-    private javax.swing.JButton AcceptButton;
-    private javax.swing.JButton CancelButton;
     private javax.swing.JSpinner colSpinner;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
 
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JSpinner rowSpinner;
 
 }
