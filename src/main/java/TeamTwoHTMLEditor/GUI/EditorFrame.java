@@ -625,14 +625,7 @@ public class EditorFrame extends JFrame {
 
                 } else if (keyCode == KeyEvent.VK_TAB) {
 					if (selected != null){
-						String[] split = selected.split("\n");
-						String newSelected = "";
-						for (String s : split) newSelected += ("\t"+s+"\n");
-						// Substring gets rid of the first tab that is still
-						// registered for the original tab keyPress and
-						// the last extra newline
-						getActivePane().replaceSelection(newSelected.substring(1
-								, newSelected.length()-1));
+						new TabSelectedCommand(getActivePane(), selected).execute(commandDistributor);
 					}
 				}
             }
