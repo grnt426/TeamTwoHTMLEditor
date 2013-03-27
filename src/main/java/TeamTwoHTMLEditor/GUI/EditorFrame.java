@@ -461,7 +461,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when clicking Validate in File Menu
     private void validateActionPerformed() {
-        new ValidateCommand(getActivePane(), commandDistributor.getFileManager().getPathAt(activePaneIndex), this).execute(commandDistributor);
+        new ValidateCommand(getActivePane(), commandDistributor.getFileManager().getPathAt(activePaneIndex), this, true).execute(commandDistributor);
     }
 
 

@@ -27,11 +27,13 @@ public class ValidateCommand implements Command {
     private String filename;
     private EditorFrame parent;
     private static final Random gen = new Random();
+	private boolean manuallyClicked;
 
-    public ValidateCommand(JTextArea pane, String filename, EditorFrame parent) {
+    public ValidateCommand(JTextArea pane, String filename, EditorFrame parent, boolean manuallyClicked) {
         this.pane = pane;
         this.filename = filename;
         this.parent = parent;
+		this.manuallyClicked = manuallyClicked;
 		checkFile();
     }
 
@@ -58,6 +60,8 @@ public class ValidateCommand implements Command {
                 e.printStackTrace();
                 return;
             }
+			// If the validate option was accessed from the menu, give feedback when successful.
+			if (manuallyClicked) JOptionPane.showMessageDialog(parent, "This HTML file is valid.");
         }
     }
 

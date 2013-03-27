@@ -32,7 +32,7 @@ public class OpenCommand implements Command {
     public void execute(CommandDistributor c) {
         c.getFileManager().openFile(f, pane);
         pane.getDocument().addDocumentListener(c.getFileManager().getFileAt(index));
-        new ValidateCommand(pane, f.getPath(), parent).execute(c);
+        new ValidateCommand(pane, f.getPath(), parent, false).execute(c);
         c.getFileManager().printStatus();
     }
 
