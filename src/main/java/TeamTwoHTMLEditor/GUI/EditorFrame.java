@@ -68,7 +68,7 @@ public class EditorFrame extends JFrame {
         tabPane.addChangeListener(new ChangeListener() {
             @Override
             public void stateChanged(ChangeEvent e) {
-                changeTabFocus(e);
+                changeTabFocus();
                 if (tabPane.getTabCount() <= 0) {
                     setEverythingFileDependantEnabled(false);
                 } else {
@@ -114,56 +114,56 @@ public class EditorFrame extends JFrame {
         newMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                newMenuItemActionPerformed(e);
+                newMenuItemActionPerformed();
             }
         });
 
         openMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                openMenuItemActionPerformed(e);
+                openMenuItemActionPerformed();
             }
         });
 
         saveMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                saveMenuItemActionPerformed(e);
+                saveMenuItemActionPerformed();
             }
         });
 
         saveAsMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                saveAsMenuItemActionPerformed(e);
+                saveAsMenuItemActionPerformed();
             }
         });
 
         validateMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                validateActionPerformed(e);
+                validateActionPerformed();
             }
         });
 
         closeTabMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                closeTabMenuItemActionPerformed(e);
+                closeTabMenuItemActionPerformed();
             }
         });
 
         quitMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                quitMenuItemActionPerformed(e);
+                quitMenuItemActionPerformed();
             }
         });
 
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
-                quitMenuItemActionPerformed(null);
+                quitMenuItemActionPerformed();
             }
         });
 
@@ -195,14 +195,14 @@ public class EditorFrame extends JFrame {
         copyMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                copyMenuItemActionPerformed(e);
+                copyMenuItemActionPerformed();
             }
         });
 
         pasteMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                pasteMenuItemActionPerformed(e);
+                pasteMenuItemActionPerformed();
             }
         });
 
@@ -226,14 +226,14 @@ public class EditorFrame extends JFrame {
         insertHeaderMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                insertHeaderActionPerformed(e);
+                insertHeaderActionPerformed();
             }
         });
 
         insertTableMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                insertTableActionPerformed(e);
+                insertTableActionPerformed();
             }
         });
 
@@ -312,14 +312,14 @@ public class EditorFrame extends JFrame {
         tabWidthMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                tabWidthActionPerformed(e);
+                tabWidthActionPerformed();
             }
         });
 
         toggleWordWrapMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                toggleWordWrapActionPerformed(e);
+                toggleWordWrapActionPerformed();
             }
         });
 
@@ -384,19 +384,19 @@ public class EditorFrame extends JFrame {
 
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
-    private void newMenuItemActionPerformed(ActionEvent e) {
+    private void newMenuItemActionPerformed() {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
         JTextArea pane = setupPane();
         JScrollPane editorScrollPane = new JScrollPane(pane);
         tabPane.addTab(
-                "File" + Integer.toString(newFileCount), editorScrollPane);
+				"File" + Integer.toString(newFileCount), editorScrollPane);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
         pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(tabPane.getSelectedIndex()));
         newFileCount++;
     }
 
     //What to do when they click Open in File Menu
-    private void openMenuItemActionPerformed(ActionEvent e) {
+    private void openMenuItemActionPerformed() {
         System.out.println("Opening Open File Chooser");
 
         int status = fc.showOpenDialog(this);
@@ -430,23 +430,23 @@ public class EditorFrame extends JFrame {
     }
 
     //What to do when a tab is selected
-    private void changeTabFocus(ChangeEvent e) {
+    private void changeTabFocus() {
         activePaneIndex = tabPane.getSelectedIndex();
     }
 
     //What to do when they click Save in File Menu
-    private void saveMenuItemActionPerformed(ActionEvent e) {
+    private void saveMenuItemActionPerformed() {
         int i = tabPane.getSelectedIndex();
         if (!commandDistributor.getFileManager().needsSaveAsDialog(i)) {
             new SaveCommand(this, getActivePane(), i).execute(commandDistributor);
         } else {
-            saveAsMenuItemActionPerformed(null);
+            saveAsMenuItemActionPerformed();
         }
 
     }
 
 
-    private void saveAsMenuItemActionPerformed(ActionEvent e) {
+    private void saveAsMenuItemActionPerformed() {
         System.out.println("Opening Save File Chooser");
         int status = fc.showSaveDialog(this);
         if (status == JFileChooser.APPROVE_OPTION) {
@@ -460,12 +460,12 @@ public class EditorFrame extends JFrame {
     }
 
     //What to do when clicking Validate in File Menu
-    private void validateActionPerformed(ActionEvent e) {
+    private void validateActionPerformed() {
         new ValidateCommand(getActivePane(), commandDistributor.getFileManager().getPathAt(activePaneIndex), this).execute(commandDistributor);
     }
 
 
-    private void closeTabMenuItemActionPerformed(ActionEvent e) {
+    private void closeTabMenuItemActionPerformed() {
         int index = activePaneIndex;
         new CloseTabCommand(index, this).execute(commandDistributor);
 
@@ -486,7 +486,7 @@ public class EditorFrame extends JFrame {
     }
 
     //What to do when they click on Quit in File Menu
-    private void quitMenuItemActionPerformed(ActionEvent e) {
+    private void quitMenuItemActionPerformed() {
         new ShutDownCommand(this).execute(commandDistributor);
     }
 
@@ -495,16 +495,16 @@ public class EditorFrame extends JFrame {
 
     //********************** Action Performed for Edit > X *****************************//
     //What to do when copy or paste
-    private void copyMenuItemActionPerformed(ActionEvent e) {
+    private void copyMenuItemActionPerformed() {
         //Grab current file edited
     }
 
-    private void pasteMenuItemActionPerformed(ActionEvent e) {
+    private void pasteMenuItemActionPerformed() {
     }
     //******************************** END *******************************************//
 
     //********************** Action Performed for Insert > X *****************************//
-    private void insertTableActionPerformed(ActionEvent e) {
+    private void insertTableActionPerformed() {
         InsertTableDialog x = new InsertTableDialog(this);
         x.setLocationRelativeTo(this);
         x.setVisible(true);
@@ -514,7 +514,7 @@ public class EditorFrame extends JFrame {
         }
     }
 
-    private void insertHeaderActionPerformed(ActionEvent e) {
+    private void insertHeaderActionPerformed() {
         new InsertConstructCommand(InsertConstructCommand.Construct.HEADER, getActivePane()).execute(commandDistributor);
     }
 
@@ -551,9 +551,8 @@ public class EditorFrame extends JFrame {
     /**
      * Action performed when pressing the word wrap menu item
      *
-     * @param e - Action event passed in. not used
-     */
-    private void toggleWordWrapActionPerformed(ActionEvent e) {
+	 */
+    private void toggleWordWrapActionPerformed() {
         for (JTextArea textArea : editorPanes) {
             textArea.setLineWrap(toggleWordWrapMenuItem.getState());
         }
@@ -563,9 +562,8 @@ public class EditorFrame extends JFrame {
      * Action performed method when pressing the tabWidth button.
      * Launches a dialog for the user to set the dat width.
      *
-     * @param e - Action Event passed in. not used
-     */
-    private void tabWidthActionPerformed(ActionEvent e) {
+	 */
+    private void tabWidthActionPerformed() {
         TabWidthDialog x = new TabWidthDialog(this, true, globalTabSize);
         x.setLocationRelativeTo(this);
         x.setVisible(true);
@@ -619,8 +617,7 @@ public class EditorFrame extends JFrame {
                         if (toggleAutoIndentMenuItem.getState()) {
                             new AutoIndentCommand(getActivePane()).execute(commandDistributor);
                         }
-                    } catch (ArrayIndexOutOfBoundsException x) {
-
+                    } catch (ArrayIndexOutOfBoundsException ignored) {
                     }
 
                 } else if (keyCode == KeyEvent.VK_TAB) {

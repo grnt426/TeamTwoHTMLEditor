@@ -4,7 +4,6 @@ import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
-import javax.swing.text.BadLocationException;
 
 /**
  * Author:      Grant Kurtz

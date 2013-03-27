@@ -32,6 +32,7 @@ public class ValidateCommand implements Command {
         this.pane = pane;
         this.filename = filename;
         this.parent = parent;
+		checkFile();
     }
 
     private void checkFile() {

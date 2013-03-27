@@ -15,16 +15,14 @@ import java.io.File;
  * the execute method simply runs a save file given a path from the file chooser
  */
 public class SaveAsCommand implements Command {
-    private String filename;
-    private File f;
+	private File f;
     private JTextArea pane;
     private EditorFrame parent;
     private int index;
 
     public SaveAsCommand(EditorFrame editorFrame, File saveFile, JTextArea pane, int i) {
         f = saveFile;
-        filename = f.getName();
-        this.pane = pane;
+		this.pane = pane;
         parent = editorFrame;
         index = i;
     }

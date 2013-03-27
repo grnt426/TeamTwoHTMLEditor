@@ -9,9 +9,8 @@ import javax.swing.*;
  * Handles delegating the task of saving.
  */
 public class SaveCommand implements Command {
-    private String filename;
 
-    private JTextArea pane;
+	private JTextArea pane;
     private EditorFrame parent;
     private int index;
 

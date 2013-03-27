@@ -1,7 +1,6 @@
 package TeamTwoHTMLEditor.GUI;
 
 import javax.swing.*;
-import java.awt.event.ActionEvent;
 
 /**
  * Created with IntelliJ IDEA.
@@ -28,8 +27,7 @@ class InsertTableDialog extends JDialog {
      */
     public InsertTableDialog(EditorFrame parent) {
         super(parent, true);
-        EditorFrame editorFrame = parent;
-        initComponents();
+		initComponents();
         row = 1;
         col = 1;
     }
@@ -56,14 +54,14 @@ class InsertTableDialog extends JDialog {
         acceptButton.setText("Accept");
         acceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AcceptButtonActionPerformed(evt);
+                AcceptButtonActionPerformed();
             }
         });
 
         cancelButton.setText("Cancel");
         cancelButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CancelButtonActionPerformed(evt);
+                CancelButtonActionPerformed();
             }
         });
 
@@ -161,14 +159,14 @@ class InsertTableDialog extends JDialog {
         pack();
     }
 
-    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void CancelButtonActionPerformed() {
         row = 0;
         col = 0;
         this.setVisible(false);
         this.dispose();
     }
 
-    private void AcceptButtonActionPerformed(ActionEvent evt) {
+    private void AcceptButtonActionPerformed() {
         row = (Integer) rowSpinner.getValue();
         col = (Integer) colSpinner.getValue();
         this.setVisible(false);

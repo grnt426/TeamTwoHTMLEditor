@@ -14,6 +14,13 @@ import java.awt.event.ActionListener;
 public class TabWidthDialog extends JDialog {
     private int tabWidth;
     private int previousTabWidth;
+	private javax.swing.JButton AcceptButton;
+	private javax.swing.JButton CancelButton;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JSpinner numElementsSpinner;
 
     public TabWidthDialog(EditorFrame parent, boolean modal, int prev) {
         super(parent, modal);
@@ -38,7 +45,7 @@ public class TabWidthDialog extends JDialog {
         AcceptButton.setText("Accept");
         AcceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AcceptButtonActionPerformed(evt);
+                AcceptButtonActionPerformed();
             }
         });
 
@@ -46,7 +53,7 @@ public class TabWidthDialog extends JDialog {
         CancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CancelButtonActionPerformed(e);
+                CancelButtonActionPerformed();
             }
         });
 
@@ -131,13 +138,13 @@ public class TabWidthDialog extends JDialog {
         pack();
     }
 
-    private void AcceptButtonActionPerformed(ActionEvent evt) {
+    private void AcceptButtonActionPerformed() {
         tabWidth = (Integer) numElementsSpinner.getValue();
         this.setVisible(false);
         this.dispose();
     }
 
-    private void CancelButtonActionPerformed(ActionEvent e) {
+    private void CancelButtonActionPerformed() {
         tabWidth = 0;
         this.setVisible(false);
         this.dispose();
@@ -150,12 +157,4 @@ public class TabWidthDialog extends JDialog {
     public int getTabWidth() {
         return tabWidth;
     }
-
-    private javax.swing.JButton AcceptButton;
-    private javax.swing.JButton CancelButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner numElementsSpinner;
 }

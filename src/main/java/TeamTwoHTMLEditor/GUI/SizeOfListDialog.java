@@ -12,8 +12,15 @@ import java.awt.event.ActionListener;
  * JDialog that appears in order to know how many elements inside the list
  */
 public class SizeOfListDialog extends JDialog {
-    private EditorFrame editorFrame;
-    private int sizeOfList;
+
+	private int sizeOfList;
+	private javax.swing.JButton AcceptButton;
+	private javax.swing.JButton CancelButton;
+	private javax.swing.JLabel jLabel1;
+	private javax.swing.JLabel jLabel3;
+	private javax.swing.JPanel jPanel1;
+	private javax.swing.JPanel jPanel2;
+	private javax.swing.JSpinner numElementsSpinner;
 
     /**
      * @return size of the input on the spinner
@@ -27,8 +34,7 @@ public class SizeOfListDialog extends JDialog {
      */
     public SizeOfListDialog(EditorFrame parent, boolean modal) {
         super(parent, modal);
-        editorFrame = parent;
-        sizeOfList = 1;
+		sizeOfList = 1;
         initComponents();
 
     }
@@ -56,7 +62,7 @@ public class SizeOfListDialog extends JDialog {
         AcceptButton.setText("Accept");
         AcceptButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AcceptButtonActionPerformed(evt);
+                AcceptButtonActionPerformed();
             }
         });
 
@@ -64,7 +70,7 @@ public class SizeOfListDialog extends JDialog {
         CancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                CancelButtonActionPerformed(e);
+                CancelButtonActionPerformed();
             }
         });
 
@@ -148,23 +154,15 @@ public class SizeOfListDialog extends JDialog {
         pack();
     }// </editor-fold>
 
-    private void AcceptButtonActionPerformed(ActionEvent evt) {
+    private void AcceptButtonActionPerformed() {
         sizeOfList = (Integer) numElementsSpinner.getValue();
         this.setVisible(false);
         this.dispose();
     }
 
-    private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
+    private void CancelButtonActionPerformed() {
         sizeOfList = 0;
         this.setVisible(false);
         this.dispose();
     }
-
-    private javax.swing.JButton AcceptButton;
-    private javax.swing.JButton CancelButton;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner numElementsSpinner;
 }
