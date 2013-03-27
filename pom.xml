@@ -15,6 +15,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<mainClass>TeamTwoHTMLEditor.App</mainClass>
 		<jarName>HTMLEditor</jarName>
+		<projectName>IntelliHTML</projectName>
 	</properties>
 
 	<repositories>
@@ -110,6 +111,28 @@
 				<configuration>
 					<mainClass>${mainClass}</mainClass>
 				</configuration>
+			</plugin>
+
+			<!--
+				Creates the Git version history log.
+			-->
+			<plugin>
+				<groupId>com.github.danielflower.mavenplugins</groupId>
+				<artifactId>maven-gitlog-plugin</artifactId>
+				<version>1.5.0</version>
+				<configuration>
+					<reportTitle>Changelog for ${projectName} -- Unit 2
+					</reportTitle>
+					<plainTextChangeLogFilename>target/vclog.txt</plainTextChangeLogFilename>
+					<simpleHTMLChangeLogFilename>target/vclog.txt.html</simpleHTMLChangeLogFilename>
+				</configuration>
+				<executions>
+					<execution>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>

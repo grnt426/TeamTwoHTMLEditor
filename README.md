@@ -18,8 +18,12 @@ Building
 --------
 To build an executable Jar with Maven, run
 
-	mvn clean package
+	mvn clean package --log-file buildlog.txt
 
 Then, to execute the jar
 
 	java -jar target/HTMLEditor.jar
+
+alternatively, the batch file can be executed
+
+	start.bat
