@@ -35,7 +35,7 @@ public class ValidateCommand implements Command {
      * @param pane
      * @param filename
      * @param parent
-     * @param manuallyClicked
+     * @param manuallyClicked - If the validation was done when saving/opening or manually
      */
     public ValidateCommand(JTextArea pane, String filename, EditorFrame parent, boolean manuallyClicked) {
         this.pane = pane;
@@ -81,15 +81,16 @@ public class ValidateCommand implements Command {
         checkFile(c);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setIgnoringElementContentWhitespace(true);
-        dbf.setIgnoringComments(true);
         DocumentBuilder db = null;
         try {
             db = dbf.newDocumentBuilder();
             Document dom = db.parse(filename);
             // If the validate option was accessed from the menu, give feedback when successful.
-            if (manuallyClicked) JOptionPane.showMessageDialog(parent, "This HTML file is valid.");
+            if (manuallyClicked)
+                JOptionPane.showMessageDialog(parent, "This HTML file is valid.", "Success", JOptionPane.PLAIN_MESSAGE);
         } catch (ParserConfigurationException ignored) {
         } catch (SAXException e) {
+            dbf.setIgnoringComments(true);
             JOptionPane x = new JOptionPane();
             x.setName("Warning while parsing the HTML");
             JOptionPane.showMessageDialog(parent, e.getMessage(), "Syntax Error with HTML", JOptionPane.INFORMATION_MESSAGE);
