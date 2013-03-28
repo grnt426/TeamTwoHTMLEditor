@@ -5,6 +5,7 @@ import TeamTwoHTMLEditor.CommandDistributor;
 import javax.swing.*;
 
 /**
+ * The class that inserts all the different Constructs
  *
  */
 public class InsertConstructCommand implements Command {
@@ -22,6 +23,14 @@ public class InsertConstructCommand implements Command {
         this.activePane = activePane;
     }
 
+    /**
+     * The execute command just makes a new stringBuilder and appends the specific string given the Case of the enum.
+     * The enum depicts what type of header it is.
+     *
+     * After appending to the StringBuilder, it is inserted into the area and then the caret is set in between the
+     * tags so that the usr can start typing code between the tags.
+     * @param c - Command distributor who has a reference access to the FileManager
+     */
     @Override
     public void execute(CommandDistributor c) {
 
@@ -30,22 +39,6 @@ public class InsertConstructCommand implements Command {
             return;
 
         StringBuilder insertStr = new StringBuilder("");
-//		String tabs = "";
-//		String curLine = EditorFrame.getCurrentLine(activePane);
-//
-//		// If the current line isn't a fresh line, then move down a line before
-//		// starting the insert of the construct.
-//		System.out.println("INSERT HEADER:\n'" + curLine + "'\n" + curLine.matches("\t+(?!.)"));
-//		if(curLine.matches("\t*.")){
-//			tabs = EditorFrame.indentTabs(EditorFrame.getTabCount(curLine));
-//			insertStr.append("\n" + tabs);
-//		}
-//
-//		// Otherwise we can just use the current number of tabs on this line
-//		// making the assumption it has already been indented correctly.
-//		else{
-//			tabs = curLine;
-//		}
 
         String input = null;
         switch (construct) {

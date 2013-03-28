@@ -16,10 +16,21 @@ class HTMLFile implements DocumentListener {
     private Scanner reader;
     private StringBuilder fileContents;
 
+    /**
+     * Overloaded constructor
+     *
+     * @param path - the pathname of the document
+     */
     public HTMLFile(String path) {
         this(path, true);
     }
 
+    /**
+     * Constructor for HTMLFile
+     *
+     * @param path     - The name of the file/the path
+     * @param loadFile - True if it needs to be loaded
+     */
     public HTMLFile(String path, boolean loadFile) {
         filename = path;
         needToSave = false;
@@ -28,6 +39,9 @@ class HTMLFile implements DocumentListener {
             loadFile();
     }
 
+    /**
+     * @return the name of the file which is the pathname
+     */
     public String getName() {
         return filename;
     }
@@ -56,11 +70,19 @@ class HTMLFile implements DocumentListener {
         }
     }
 
+    /**
+     * Main method to call for saving a file
+     *
+     * @param newContent - The string contents of the new file to save.
+     */
     public void saveFile(String newContent) {
         setFileContents(newContent);
         saveFile();
     }
 
+    /**
+     * Actual save file method that uses buffers to do so
+     */
     void saveFile() {
         this.needToSave = false;
         System.out.println("SAVED FILE: " + filename);
@@ -84,28 +106,56 @@ class HTMLFile implements DocumentListener {
         }
     }
 
+    /**
+     * @return - String format of the file of the contents
+     */
     public String getFileContents() {
         return fileContents.toString();
     }
 
+    /**
+     * Write to the file given the fileContents (used for savintg
+     *
+     * @param fileContents - the contents to save
+     */
     void setFileContents(String fileContents) {
         needToSave = true;
         this.fileContents = new StringBuilder(fileContents);
     }
 
 
+    /**
+     * Setter for need To save
+     *
+     * @param b - the new set of whether the documetn isntance needs to save or not
+     */
     public void setNeedToSave(boolean b) {
         this.needToSave = b;
     }
 
+    /**
+     * Checks if the given HTMLFile needs a save
+     *
+     * @return - True if the document needs to save, false otherwise.
+     */
     public boolean isNeedToSave() {
         return needToSave;
     }
 
+    /**
+     * Setter for needSaveAs
+     *
+     * @param b - true if the document has not ever been saved. false otherwise.
+     */
     public void setNeedSaveAs(boolean b) {
         this.needSaveAs = b;
     }
 
+    /**
+     * getter for the needSaveAS
+     *
+     * @return - true if the document has not ever been saved. false otherwise.
+     */
     public boolean getNeedSaveAs() {
         return needSaveAs;
     }
@@ -117,6 +167,17 @@ class HTMLFile implements DocumentListener {
         return filename;
     }
 
+    /**
+     * All the overriding methods below are methods that are implemented by the DocumentListener.
+     * They all trigger when the document has been altered in any of the following ways.
+     * Insertion
+     * Deletion
+     * Or change (copy/paste)
+     * <p/>
+     * This ensures that whenver the document has been changed, the state of the document changes to being unsaved
+     *
+     * @param e - The event that triggers the methods . Is unused
+     */
     @Override
     public void insertUpdate(DocumentEvent e) {
         this.needToSave = true;

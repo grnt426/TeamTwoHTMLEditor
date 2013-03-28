@@ -24,6 +24,12 @@ public class InsertListCommand implements Command{
 		this.activePane = activePane;
 	}
 
+    /**
+     * The execute command checks what type of list has to be inserted by checking the enums by case. And then a loop
+     * iterates for how ever many times thes user has inputed from the Dialog shown. The appropriate list is then
+     * posted on the view.
+     * @param c - Command distributor who has a reference access to the FileManager
+     */
 	@Override
 	public void execute(CommandDistributor c){
 		StringBuilder listElement = new StringBuilder("");

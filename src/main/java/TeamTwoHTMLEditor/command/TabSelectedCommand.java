@@ -16,6 +16,10 @@ public class TabSelectedCommand implements Command{
 			this.selected = selected;
 		}
 
+    /**
+     * This execute method is used for when pressing the tab key when text is highlighted.
+     * @param c - Command distributor who has a reference access to the FileManager
+     */
 		@Override
 		public void execute(CommandDistributor c){
 			String[] split = selected.split("\n");

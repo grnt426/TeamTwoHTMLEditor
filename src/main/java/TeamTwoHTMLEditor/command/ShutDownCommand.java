@@ -19,6 +19,12 @@ public class ShutDownCommand implements Command {
 
     }
 
+    /**
+     * Checks if the editor can quit based on the save state of the files.
+     * If all files are saved, the editor quit, else an interruption option pane is shown to prevent the shutdown operation.
+     *
+     * @param c - Command distributor who has a reference access to the FileManager
+     */
     @Override
     public void execute(CommandDistributor c) {
         if (c.getFileManager().canQuit()) {

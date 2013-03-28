@@ -112,14 +112,33 @@ public class FileManager {
         System.out.println("******************************END");
     }
 
+    /**
+     * Method to see if a file needs the SaveAs dialog.
+     *
+     * @param index - the index of where in the tabs and where in the file array the file to deal with is
+     * @return - True if the file needs a saveAs, false otherwise
+     */
     public boolean needsSaveAsDialog(int index) {
         return HTMLFileArray.get(index).getNeedSaveAs();
     }
 
+    /**
+     * Get the name (which is the path) of the file requested
+     *
+     * @param index - The file requested at this index
+     * @return - Returns a string of the filename == pathname
+     */
     public String getPathAt(int index) {
         return HTMLFileArray.get(index).getFilename();
     }
 
+    /**
+     * This is in order for every pane that is in the view to have the actual back end file object (HTMLFile instance)
+     * Listen to it for changes.
+     *
+     * @param activePaneIndex - the index of the location of the file
+     * @return The document (HTML Document extend DocumentListener)
+     */
     public DocumentListener getFileAt(int activePaneIndex) {
         return HTMLFileArray.get(activePaneIndex);
     }

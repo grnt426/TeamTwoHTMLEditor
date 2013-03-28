@@ -627,12 +627,13 @@ public class EditorFrame extends JFrame {
             }
         });
 
-        //editorPane.setContentType("text/html");
-        //editorPane.setEditorKit(new HTMLEditorKit());
-        //editorPane.setEditorKitForContentType("text/html", new HTMLEditorKit());
+
         return newEditorPane;
     }
 
+    /**
+     * @return -  get the pane of the currently selected tab
+     */
     private JTextArea getActivePane() {
         if (!(editorPanes.size() <= 0)) {
             return editorPanes.get(activePaneIndex);
@@ -641,10 +642,20 @@ public class EditorFrame extends JFrame {
 
     }
 
+    /**
+     * @return The index of the active pane
+     *         Will probably be removed
+     */
     public int getActivePaneIndex() {
         return activePaneIndex;
     }
 
+    /**
+     * Static method in order for the AutoIndentCommand to work
+     *
+     * @param str, the string of the file contents to be indented
+     * @return number of tabs that are in the current emitting place
+     */
     public static int getTabCount(String str) {
         int tabCount = 0;
         for (char c : str.toCharArray()) {
@@ -657,10 +668,18 @@ public class EditorFrame extends JFrame {
         return tabCount;
     }
 
+    /**
+     * @param pane - the Active Pane
+     * @return - The string of the current line edited
+     */
     public static String getCurrentLine(JTextArea pane) {
         return getLine(pane, 0);
     }
 
+    /**
+     * @param pane - the Active Pane
+     * @return - The string of the previous line being edited
+     */
     public static String getPreviousLine(JTextArea pane) {
         return getLine(pane, -1);
     }
@@ -681,6 +700,12 @@ public class EditorFrame extends JFrame {
         return content[index + offset];
     }
 
+    /**
+     * Static methods that will indent the tabs given the current count of the tab count.
+     *
+     * @param tabCount - the number of tabs prepending the edit
+     * @return string of tabs to auto indent
+     */
     public static String indentTabs(int tabCount) {
         String tabs = "";
         for (; tabCount > 0; tabCount--) {

@@ -20,6 +20,10 @@ public class InsertTableCommand implements Command{
 		this.activePane = activePane;
 	}
 
+    /**
+     * Same thing as the insert list command, but this has two loops to form the rows and columns appropriately
+     * @param c - Command distributor who has a reference access to the FileManager
+     */
 	@Override
 	public void execute(CommandDistributor c){
 		StringBuilder listElement = new StringBuilder("");

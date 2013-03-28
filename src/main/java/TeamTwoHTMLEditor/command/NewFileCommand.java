@@ -16,6 +16,10 @@ public class NewFileCommand implements Command {
         filename = s;
     }
 
+    /**
+     * Calls the file manager to create the new file.
+     * @param c - Command distributor who has a reference access to the FileManager
+     */
     @Override
     public void execute(CommandDistributor c) {
         c.getFileManager().createNewFile(filename);

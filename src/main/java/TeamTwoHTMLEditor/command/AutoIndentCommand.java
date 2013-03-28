@@ -7,6 +7,7 @@ import javax.swing.*;
 
 /**
  * Author:      Grant Kurtz
+ * Class that runs the auto indent
  */
 public class AutoIndentCommand implements Command{
 
