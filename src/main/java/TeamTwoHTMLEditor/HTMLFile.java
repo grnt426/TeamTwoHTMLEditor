@@ -173,8 +173,7 @@ class HTMLFile implements DocumentListener {
      * Insertion
      * Deletion
      * Or change (copy/paste)
-     * <p/>
-     * This ensures that whenver the document has been changed, the state of the document changes to being unsaved
+     * This ensures that whenever the document has been changed, the state of the document changes to being unsaved
      *
      * @param e - The event that triggers the methods . Is unused
      */
