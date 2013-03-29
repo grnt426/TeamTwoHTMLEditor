@@ -514,9 +514,6 @@ public class EditorFrame extends JFrame {
         }
     }
 
-    private void insertHeaderActionPerformed() {
-        new InsertConstructCommand(InsertConstructCommand.Construct.HEADER, getActivePane()).execute(commandDistributor);
-    }
 
     private void insertListActionPerformed(ActionEvent e) {
         SizeOfListDialog x = new SizeOfListDialog(this, true);
@@ -534,6 +531,11 @@ public class EditorFrame extends JFrame {
             }
         }
     }
+
+    private void insertHeaderActionPerformed() {
+        new InsertConstructCommand(InsertConstructCommand.Construct.HEADER, getActivePane()).execute(commandDistributor);
+    }
+
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
         if (e.getSource() == boldMenuItem) {
