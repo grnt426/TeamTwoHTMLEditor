@@ -38,7 +38,8 @@ public class EditorFrame extends JFrame {
 
 
     //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
-    private JMenuItem insertHeaderMenuItem, insertTableMenuItem;
+    private JMenu insertHeaderMenu;
+    private JMenuItem insertH1MenuItem, insertH2MenuItem, insertH3MenuItem, insertTableMenuItem, insertImageMenuItem;
     private JMenuItem boldMenuItem, italicsMenuItem;
     private JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
     private JMenu fontEmphasisMenu, insertListMenu;
@@ -218,15 +219,28 @@ public class EditorFrame extends JFrame {
         menuInsert.setMnemonic(KeyEvent.VK_I);
         menuInsert.getAccessibleContext().setAccessibleDescription("Allows you to insert HTML tags");
 
-        /// Adding MenuItems
-        insertHeaderMenuItem = new JMenuItem("Header", KeyEvent.VK_H);
+        /// Adding SubMenus for Headers and MenuItems
+        insertHeaderMenu = new JMenu("Headers");
+        insertH1MenuItem = new JMenuItem("H1", KeyEvent.VK_H);
+        insertH2MenuItem = new JMenuItem("H2", KeyEvent.VK_H);
+        insertH3MenuItem = new JMenuItem("H3", KeyEvent.VK_H);
         insertTableMenuItem = new JMenuItem("Table", KeyEvent.VK_T);
+        insertImageMenuItem = new JMenuItem("Image", KeyEvent.VK_T);
 
         //// Adding action listeners for MenuItems above
-        insertHeaderMenuItem.addActionListener(new ActionListener() {
-            @Override
+        insertH1MenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                insertHeaderActionPerformed();
+                insertH1ActionPerformed();
+            }
+        });
+        insertH2MenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertH2ActionPerformed();
+            }
+        });
+        insertH3MenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertH3ActionPerformed();
             }
         });
 
@@ -237,6 +251,11 @@ public class EditorFrame extends JFrame {
             }
         });
 
+        insertImageMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertImageActionPerformed();
+            }
+        });
 
         /// Adding submenus and menu items
         fontEmphasisMenu = new JMenu("Font Emphasis");
@@ -289,11 +308,15 @@ public class EditorFrame extends JFrame {
         });
 
 
-        menuInsert.add(insertHeaderMenuItem);
+        menuInsert.add(insertHeaderMenu);
         menuInsert.add(insertTableMenuItem);
         menuInsert.add(fontEmphasisMenu);
         menuInsert.add(insertListMenu);
+        menuInsert.add(insertImageMenuItem);
 
+        insertHeaderMenu.add(insertH1MenuItem);
+        insertHeaderMenu.add(insertH2MenuItem);
+        insertHeaderMenu.add(insertH3MenuItem);
         /// Handling events
 
 
@@ -532,8 +555,22 @@ public class EditorFrame extends JFrame {
         }
     }
 
-    private void insertHeaderActionPerformed() {
-        new InsertConstructCommand(InsertConstructCommand.Construct.HEADER, getActivePane()).execute(commandDistributor);
+    private void insertH1ActionPerformed() {
+        new InsertConstructCommand(InsertConstructCommand.Construct.H1, getActivePane()).execute(commandDistributor);
+    }
+    private void insertH2ActionPerformed() {
+        new InsertConstructCommand(InsertConstructCommand.Construct.H2, getActivePane()).execute(commandDistributor);
+    }
+    private void insertH3ActionPerformed() {
+        new InsertConstructCommand(InsertConstructCommand.Construct.H3, getActivePane()).execute(commandDistributor);
+    }
+
+    private void insertImageActionPerformed() {
+        String src = "Shannon";
+        String alt = "Awesome";
+        String height = "1";
+        String width = "2";
+        new InsertImageCommand(src, alt, height, width, getActivePane()).execute(commandDistributor);
     }
 
 

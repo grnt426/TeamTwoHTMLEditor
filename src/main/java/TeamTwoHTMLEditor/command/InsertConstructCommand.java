@@ -11,7 +11,7 @@ import javax.swing.*;
 public class InsertConstructCommand implements Command {
 
     public enum Construct {
-        HEADER, BOLD, ITALICS
+        H1, H2, H3, BOLD, ITALICS
 	}
 
     private Construct construct;
@@ -42,8 +42,16 @@ public class InsertConstructCommand implements Command {
 
         String input = null;
         switch (construct) {
-            case HEADER:
-                input = "<header></header>";
+            case H1:
+                input = "<h1></h1>";
+                insertStr.append(input);
+                break;
+            case H2:
+                input = "<h2></h2>";
+                insertStr.append(input);
+                break;
+            case H3:
+                input = "<h3></h3>";
                 insertStr.append(input);
                 break;
 
