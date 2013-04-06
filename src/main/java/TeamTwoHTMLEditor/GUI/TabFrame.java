@@ -17,11 +17,12 @@ public class TabFrame extends JPanel {
 
     private boolean wordWrap;
     private int tabSize;
-    JScrollPane linkListScrollPane;
-    JTextArea editorTextArea;
+    private JScrollPane linkListScrollPane;
+    private JTextArea editorTextArea;
 
 
     public TabFrame(EditorFrame editorFrame) {
+
         this.wordWrap = editorFrame.getWordWrapBoolean();
         tabSize = editorFrame.getGlobalTabSize();
         initComponents();
@@ -29,19 +30,17 @@ public class TabFrame extends JPanel {
     }
 
     private void initComponents() {
-        JPanel displayPanel = new JPanel();
-
         editorTextArea = setupTextArea();
         JScrollPane editorScrollPane = new JScrollPane(editorTextArea);
 
         //
         ArrayList<String> ary = new ArrayList<String>();
-        ary.add("HTTPS://github.com/grn2524/TeamTwoHTMLEditor");
+        ary.add("https://super.duper.yolo.com/teamTwoHTMLEditor/Rocks.html");
         //
 
         linkListScrollPane = new JScrollPane(new JList<String>(new LinksListModel(ary)));
 
-        GroupLayout layout = new GroupLayout(displayPanel);
+        GroupLayout layout = new GroupLayout(this);
 
         //Setting layout
         layout.setHorizontalGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -51,7 +50,6 @@ public class TabFrame extends JPanel {
                                 .addComponent(editorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                                 .addComponent(linkListScrollPane))
                         .addContainerGap()));
-        displayPanel.setLayout(new BorderLayout());
 
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -63,10 +61,10 @@ public class TabFrame extends JPanel {
                                 .addContainerGap()));
 
 
-        // END BUILD Link List view;
+        setLayout(layout);
 
-        displayPanel.setLayout(layout);
-
+        this.setVisible(true);
+        super.setVisible(true);
     }
 
 
