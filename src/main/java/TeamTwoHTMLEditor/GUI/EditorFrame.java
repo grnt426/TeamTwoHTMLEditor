@@ -29,7 +29,7 @@ public class EditorFrame extends JFrame {
     private int globalTabSize = 4;
     private JTabbedPane tabPane;
 
-    private ArrayList<JTextArea> editorPanes;
+    private ArrayList<TabFrame> tabFrames;
 
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
@@ -50,7 +50,7 @@ public class EditorFrame extends JFrame {
         commandDistributor = cdis;
         fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("HTML Document", "html", "htm"));
-        editorPanes = new ArrayList<JTextArea>();
+        tabFrames = new ArrayList<TabFrame>();
 
     }
 
@@ -387,7 +387,8 @@ public class EditorFrame extends JFrame {
         });
 
         menuBar.add(menuAbout);
-        // BUILD EDIT **************************************END**************************//
+        // BUILD ABOUT **************************************END**************************//
+
 
         setJMenuBar(menuBar);
         add(tabPane, BorderLayout.CENTER);
@@ -409,13 +410,20 @@ public class EditorFrame extends JFrame {
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed() {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
-        JTextArea pane = setupPane();
-        JScrollPane editorScrollPane = new JScrollPane(pane);
-        tabPane.addTab(
-                "File" + Integer.toString(newFileCount), editorScrollPane);
-        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-        pane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(tabPane.getSelectedIndex()));
+
+        TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
+        tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
+        // ADDING tab to view
+        tabPane.addTab(                                 //KEY EVENT 3 : Add Tab to view
+                "File" + Integer.toString(newFileCount), newTabFrame);
+        tabPane.setSelectedIndex(tabPane.getTabCount() - 1); //Helper, select new tab to be viewed
+
+        //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
+        addListeners(newTabFrame.getTextPane());   //KEY EVENT 4 : Add the listeners (document and other)
+
         newFileCount++;
+
+
     }
 
     //What to do when they click Open in File Menu
@@ -426,15 +434,17 @@ public class EditorFrame extends JFrame {
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
 
-            JTextArea pane = setupPane();
+            TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
+            JTextArea pane = newTabFrame.getTextPane();
+            tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
 
-            JScrollPane editorScrollPane = new JScrollPane(pane);
-            tabPane.addTab(f.getName(), editorScrollPane);
+            tabPane.addTab(f.getName(), newTabFrame);  //KEY EVENT 3 : Add to tab view
             tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-            newFileCount++;
 
             new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor);
 
+            //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
+            addListeners(pane);                         //KEY EVENT 4 : Add the listeners (document and other)
 
         }
 
@@ -442,14 +452,15 @@ public class EditorFrame extends JFrame {
     }
 
     public void openFileWithoutFileChooser(File f) {
-        JTextArea pane = setupPane();
+        TabFrame newTabFrame = new TabFrame(this);
+        tabFrames.add(newTabFrame);
 
-        JScrollPane sp = new JScrollPane(pane);
-        tabPane.addTab(f.getName(), sp);
+        tabPane.addTab(f.getName(), newTabFrame);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-        newFileCount++;
 
-        new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor);
+
+        new OpenCommand(f, newTabFrame.getTextPane(), this, tabPane.getTabCount() - 1).execute(commandDistributor);
+        addListeners(newTabFrame.getTextPane());
     }
 
     //What to do when a tab is selected
@@ -498,14 +509,10 @@ public class EditorFrame extends JFrame {
     Close
      */
     public void closeTab() {
-        if (newFileCount > 1) {
-            int index = activePaneIndex;
-            tabPane.remove(index);
-            editorPanes.remove(index);
-            newFileCount--;
-        } else {
-            System.err.println("Fatal error closing tab");
-        }
+        int index = activePaneIndex;
+        tabPane.remove(index);
+        tabFrames.remove(index);
+
     }
 
     //What to do when they click on Quit in File Menu
@@ -558,9 +565,11 @@ public class EditorFrame extends JFrame {
     private void insertH1ActionPerformed() {
         new InsertConstructCommand(InsertConstructCommand.Construct.H1, getActivePane()).execute(commandDistributor);
     }
+
     private void insertH2ActionPerformed() {
         new InsertConstructCommand(InsertConstructCommand.Construct.H2, getActivePane()).execute(commandDistributor);
     }
+
     private void insertH3ActionPerformed() {
         new InsertConstructCommand(InsertConstructCommand.Construct.H3, getActivePane()).execute(commandDistributor);
     }
@@ -591,8 +600,8 @@ public class EditorFrame extends JFrame {
      * Action performed when pressing the word wrap menu item
      */
     private void toggleWordWrapActionPerformed() {
-        for (JTextArea textArea : editorPanes) {
-            textArea.setLineWrap(toggleWordWrapMenuItem.getState());
+        for (TabFrame tabFrame : tabFrames) {
+            tabFrame.getTextPane().setLineWrap(toggleWordWrapMenuItem.getState());
         }
     }
 
@@ -607,27 +616,15 @@ public class EditorFrame extends JFrame {
         int tabSize = x.getTabWidth();
         if (tabSize != 0) {
             globalTabSize = tabSize;
-            for (JTextArea aTextArea : editorPanes) {
-                aTextArea.setTabSize(tabSize);
+            for (TabFrame tabFrame : tabFrames) {
+                tabFrame.getTextPane().setTabSize(tabSize);
             }
         }
     }
     //******************************** END *******************************************//
 
 
-    /**
-     * Helper function to set up a pane to be inserted by tab pane
-     * MUST always be called when making a new representation of a file
-     *
-     * @return the JTextArea to be shown by the component of the tab pane
-     */
-    private JTextArea setupPane() {
-        JTextArea newEditorPane = new JTextArea();
-        newEditorPane.setLineWrap(toggleWordWrapMenuItem.getState());
-        newEditorPane.setTabSize(globalTabSize);
-        editorPanes.add(newEditorPane);
-
-
+    private void addListeners(JTextArea newEditorPane) {
         // Attach a keylistener to allow for auto-indentation
         newEditorPane.addKeyListener(new KeyListener() {
             // Need this variable for tabs, the selected text is only present on
@@ -666,16 +663,16 @@ public class EditorFrame extends JFrame {
             }
         });
 
-
-        return newEditorPane;
+        // Adding the document Listener
+        newEditorPane.getDocument().addDocumentListener(commandDistributor.getFileManager().getFileAt(tabPane.getTabCount() - 1));
     }
 
     /**
      * @return -  get the pane of the currently selected tab
      */
     private JTextArea getActivePane() {
-        if (!(editorPanes.size() <= 0)) {
-            return editorPanes.get(activePaneIndex);
+        if (!(tabFrames.size() <= 0)) {
+            return tabFrames.get(activePaneIndex).getTextPane();
         }
         return null;
 
@@ -751,6 +748,14 @@ public class EditorFrame extends JFrame {
             tabs += "\t";
         }
         return tabs;
+    }
+
+    public int getGlobalTabSize() {
+        return globalTabSize;
+    }
+
+    public boolean getWordWrapBoolean() {
+        return toggleWordWrapMenuItem.getState();
     }
 }
 
