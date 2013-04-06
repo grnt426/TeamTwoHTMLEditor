@@ -34,7 +34,7 @@ public class EditorFrame extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
-    private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem;
+    private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem, toggleLinksViewMenuItem;
 
 
     //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
@@ -330,6 +330,7 @@ public class EditorFrame extends JFrame {
         tabWidthMenuItem = new JMenuItem("Tab Width");
         toggleWordWrapMenuItem = new JCheckBoxMenuItem("Wrap Text", true);
         toggleAutoIndentMenuItem = new JCheckBoxMenuItem("Auto Indent", true);
+        toggleLinksViewMenuItem = new JCheckBoxMenuItem("View Links", false);
 
 
         tabWidthMenuItem.addActionListener(new ActionListener() {
@@ -346,10 +347,16 @@ public class EditorFrame extends JFrame {
             }
         });
 
-
+        toggleLinksViewMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toggleLinksViewActionPerformed();
+            }
+        });
         menuOptions.add(tabWidthMenuItem);
         menuOptions.add(toggleWordWrapMenuItem);
         menuOptions.add(toggleAutoIndentMenuItem);
+        menuOptions.add(toggleLinksViewMenuItem);
         menuBar.add(menuOptions);
         // ********************************** END ************************************//
 
@@ -621,6 +628,13 @@ public class EditorFrame extends JFrame {
             }
         }
     }
+
+    private void toggleLinksViewActionPerformed() {
+        for (TabFrame tabFrame : tabFrames) {
+            tabFrame.setLinkViewVisible(toggleLinksViewMenuItem.getState());
+        }
+    }
+
     //******************************** END *******************************************//
 
 

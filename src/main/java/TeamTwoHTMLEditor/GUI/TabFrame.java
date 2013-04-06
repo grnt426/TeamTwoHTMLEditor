@@ -17,8 +17,9 @@ public class TabFrame extends JPanel {
 
     private boolean wordWrap;
     private int tabSize;
-    private JScrollPane linkListScrollPane;
+    private JScrollPane linkListScrollPane, editorScrollPane;
     private JTextArea editorTextArea;
+    private JList<String> linkList;
 
 
     public TabFrame(EditorFrame editorFrame) {
@@ -26,19 +27,21 @@ public class TabFrame extends JPanel {
         this.wordWrap = editorFrame.getWordWrapBoolean();
         tabSize = editorFrame.getGlobalTabSize();
         initComponents();
+        //By Default, the links view will be set to false
+        linkListScrollPane.setVisible(true);
 
     }
 
     private void initComponents() {
         editorTextArea = setupTextArea();
-        JScrollPane editorScrollPane = new JScrollPane(editorTextArea);
+        editorScrollPane = new JScrollPane(editorTextArea);
 
-        //
+        // SAMPLE LISt
         ArrayList<String> ary = new ArrayList<String>();
         ary.add("https://super.duper.yolo.com/teamTwoHTMLEditor/Rocks.html");
         //
-
-        linkListScrollPane = new JScrollPane(new JList<String>(new LinksListModel(ary)));
+        linkList = setupLinkList(ary);
+        linkListScrollPane = new JScrollPane(linkList);
 
         GroupLayout layout = new GroupLayout(this);
 
@@ -63,8 +66,7 @@ public class TabFrame extends JPanel {
 
         setLayout(layout);
 
-        this.setVisible(true);
-        super.setVisible(true);
+
     }
 
 
@@ -83,6 +85,10 @@ public class TabFrame extends JPanel {
         return newEditorPane;
     }
 
+    private JList<String> setupLinkList(ArrayList array) {
+        JList<String> list = new JList<String>(new LinksListModel(array));
+        return list;
+    }
 
     public void setLinkViewVisible(boolean b) {
         this.linkListScrollPane.setVisible(b);
