@@ -330,7 +330,7 @@ public class EditorFrame extends JFrame {
         tabWidthMenuItem = new JMenuItem("Tab Width");
         toggleWordWrapMenuItem = new JCheckBoxMenuItem("Wrap Text", true);
         toggleAutoIndentMenuItem = new JCheckBoxMenuItem("Auto Indent", true);
-        toggleLinksViewMenuItem = new JCheckBoxMenuItem("View Links", false);
+        toggleLinksViewMenuItem = new JCheckBoxMenuItem("View Links", true);
 
 
         tabWidthMenuItem.addActionListener(new ActionListener() {
