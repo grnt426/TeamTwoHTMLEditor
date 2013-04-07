@@ -142,4 +142,5 @@ public class FileManager {
     public DocumentListener getFileAt(int activePaneIndex) {
         return HTMLFileArray.get(activePaneIndex);
     }
+
 }

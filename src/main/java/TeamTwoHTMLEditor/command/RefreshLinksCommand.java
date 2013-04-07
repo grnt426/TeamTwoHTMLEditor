@@ -14,6 +14,8 @@ public class RefreshLinksCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
-        //To change body of implemented methods use File | Settings | File Templates.
+       //get active HTMLFile file
+       //get the links object for that file
+       //do the refresh method
     }
 }
