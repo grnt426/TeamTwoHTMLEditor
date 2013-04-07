@@ -22,13 +22,6 @@ public class SizeOfListDialog extends JDialog {
     private javax.swing.JSpinner numElementsSpinner;
 
     /**
-     * @return size of the input on the spinner
-     */
-    public int getSizeOfList() {
-        return sizeOfList;
-    }
-
-    /**
      * Creates new form SizeOfListDialog
      */
     public SizeOfListDialog(EditorFrame parent, boolean modal) {
@@ -39,8 +32,7 @@ public class SizeOfListDialog extends JDialog {
     }
 
 
-    @SuppressWarnings("unchecked")
-    // <editor-fold defaultstate="collapsed" desc="Generated Code">
+
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -161,5 +153,12 @@ public class SizeOfListDialog extends JDialog {
         sizeOfList = 0;
         this.setVisible(false);
         this.dispose();
+    }
+
+    /**
+     * @return size of the input on the spinner
+     */
+    public int getSizeOfList() {
+        return sizeOfList;
     }
 }
