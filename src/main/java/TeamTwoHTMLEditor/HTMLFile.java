@@ -79,6 +79,7 @@ class HTMLFile implements DocumentListener {
      */
     public void saveFile(String newContent) {
         setFileContents(newContent);
+        links.refresh();
         saveFile();
     }
 

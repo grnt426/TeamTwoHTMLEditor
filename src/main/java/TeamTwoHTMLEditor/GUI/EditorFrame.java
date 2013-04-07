@@ -39,7 +39,7 @@ public class EditorFrame extends JFrame {
 
     //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
     private JMenu insertHeaderMenu;
-    private JMenuItem insertH1MenuItem, insertH2MenuItem, insertH3MenuItem, insertTableMenuItem, insertImageMenuItem;
+    private JMenuItem insertH1MenuItem, insertH2MenuItem, insertH3MenuItem, insertTableMenuItem, insertImageMenuItem, insertATagMenuItem;
     private JMenuItem boldMenuItem, italicsMenuItem;
     private JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
     private JMenu fontEmphasisMenu, insertListMenu;
@@ -225,7 +225,8 @@ public class EditorFrame extends JFrame {
         insertH2MenuItem = new JMenuItem("H2", KeyEvent.VK_H);
         insertH3MenuItem = new JMenuItem("H3", KeyEvent.VK_H);
         insertTableMenuItem = new JMenuItem("Table", KeyEvent.VK_T);
-        insertImageMenuItem = new JMenuItem("Image", KeyEvent.VK_T);
+        insertImageMenuItem = new JMenuItem("Image");
+        insertATagMenuItem = new JMenuItem("Link");
 
         //// Adding action listeners for MenuItems above
         insertH1MenuItem.addActionListener(new ActionListener() {
@@ -254,6 +255,11 @@ public class EditorFrame extends JFrame {
         insertImageMenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 insertImageActionPerformed();
+            }
+        });
+        insertATagMenuItem.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                insertATagActionPerformed();
             }
         });
 
@@ -313,6 +319,7 @@ public class EditorFrame extends JFrame {
         menuInsert.add(fontEmphasisMenu);
         menuInsert.add(insertListMenu);
         menuInsert.add(insertImageMenuItem);
+        menuInsert.add(insertATagMenuItem);
 
         insertHeaderMenu.add(insertH1MenuItem);
         insertHeaderMenu.add(insertH2MenuItem);
@@ -588,7 +595,11 @@ public class EditorFrame extends JFrame {
         String width = "2";
         new InsertImageCommand(src, alt, height, width, getActivePane()).execute(commandDistributor);
     }
-
+    private void insertATagActionPerformed() {
+        String href = "Shannon";
+        String name = "Awesome";
+        new InsertATag(href, name, getActivePane()).execute(commandDistributor);
+    }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
         if (e.getSource() == boldMenuItem) {

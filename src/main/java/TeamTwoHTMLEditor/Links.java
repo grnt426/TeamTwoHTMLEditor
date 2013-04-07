@@ -17,24 +17,34 @@ public class Links {
     public Links(HTMLFile f) {
         file = f;
         links = new ArrayList<String>();
-        this.setList();
+        this.refresh();
     }
 
-    public void setList() {
+    public void refresh() {
         String contents;
-        int currIndex = -1;
 
         contents = file.getFileContents();
+        if (contents != "") {
+            parseContents(contents);
+        }
 
-        currIndex = contents.indexOf("http");
+    }
+
+    private void parseContents(String contents) {
+        int currIndex = -1;
+        currIndex = contents.indexOf("href");
         while (currIndex < contents.length()) {
             if (currIndex == -1) {
                 break;
             }
-            links.add(contents.substring(currIndex, contents.indexOf("</a>", currIndex)));
+            currIndex = contents.indexOf("\"", currIndex);
+            links.add(contents.substring(currIndex+1, contents.indexOf("\"", currIndex+1 )));
             currIndex = contents.indexOf("href", currIndex + 1);
         }
-        System.out.println(links.toString());
+    }
+
+    public ArrayList<String> getLinks() {
+        return links;
     }
 
 }
