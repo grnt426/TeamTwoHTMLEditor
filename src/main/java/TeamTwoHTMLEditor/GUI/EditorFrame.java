@@ -1,6 +1,10 @@
 package TeamTwoHTMLEditor.GUI;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.GUI.inputDialogs.InsertTableDialog;
+import TeamTwoHTMLEditor.GUI.inputDialogs.SizeOfListDialog;
+import TeamTwoHTMLEditor.GUI.inputDialogs.TabWidthDialog;
+import TeamTwoHTMLEditor.GUI.inputDialogs.URLDialog;
 import TeamTwoHTMLEditor.command.*;
 
 import javax.swing.*;
@@ -11,6 +15,7 @@ import javax.swing.text.BadLocationException;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
+import java.net.URL;
 import java.util.ArrayList;
 
 /**
@@ -32,8 +37,9 @@ public class EditorFrame extends JFrame {
     private ArrayList<TabFrame> tabFrames;
 
     private JMenuBar menuBar;
-    private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuAbout;
+    private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuHTML, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JMenuItem renderPreviewMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem, toggleLinksViewMenuItem;
 
 
@@ -87,6 +93,7 @@ public class EditorFrame extends JFrame {
         menuAbout = new JMenu("About");
         menuInsert = new JMenu("Insert");
         menuOptions = new JMenu("Options");
+        menuHTML = new JMenu("HTML");
 
 
         //Build the first menu - File    ************** BEGIN ************************** //
@@ -110,6 +117,23 @@ public class EditorFrame extends JFrame {
         validateMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_K, ActionEvent.CTRL_MASK));
         closeTabMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_W, ActionEvent.CTRL_MASK));
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
+
+        //Adding Icons
+
+        URL newMenuItemURL = getClass().getResource("/stock_new.png");
+        URL openMenuItemURL = getClass().getResource("/stock_open.png");
+        URL saveMenuItemURL = getClass().getResource("/stock_data_save.png");
+        URL saveAsMenuItemURL = getClass().getResource("/stock_save_template.png");
+        URL validateURL = getClass().getResource("/ok.png");
+        URL closeTabURL = getClass().getResource("/stock_data_delete_table.png");
+
+        if (newMenuItemURL != null) newMenuItem.setIcon(new ImageIcon(newMenuItemURL));
+        if (openMenuItemURL != null) openMenuItem.setIcon(new ImageIcon(openMenuItemURL));
+        if (saveMenuItemURL != null) if (newMenuItemURL != null) saveMenuItem.setIcon(new ImageIcon(saveMenuItemURL));
+        if (saveAsMenuItemURL != null) saveAsMenuItem.setIcon(new ImageIcon(saveAsMenuItemURL));
+        if (validateURL != null) validateMenuItem.setIcon(new ImageIcon(validateURL));
+        if (closeTabURL != null) closeTabMenuItem.setIcon(new ImageIcon(closeTabURL));
+
 
         ///Adding listeners
         newMenuItem.addActionListener(new ActionListener() {
@@ -228,6 +252,7 @@ public class EditorFrame extends JFrame {
         insertImageMenuItem = new JMenuItem("Image");
         insertATagMenuItem = new JMenuItem("Link");
 
+
         //// Adding action listeners for MenuItems above
         insertH1MenuItem.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -321,6 +346,20 @@ public class EditorFrame extends JFrame {
         menuInsert.add(insertImageMenuItem);
         menuInsert.add(insertATagMenuItem);
 
+        //Adding icons
+        insertHeaderMenu.setIcon(new ImageIcon(getClass().getResource("/stock_edit_headers_and_footers.png")));
+        insertTableMenuItem.setIcon(new ImageIcon(getClass().getResource("/show_table_row.png")));
+        insertImageMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_insert_image.png")));
+        fontEmphasisMenu.setIcon(new ImageIcon(getClass().getResource("/stock_font.png")));
+        boldMenuItem.setIcon(new ImageIcon(getClass().getResource("/format_text_bold.png")));
+        italicsMenuItem.setIcon(new ImageIcon(getClass().getResource("/format_text_italic.png")));
+        insertATagMenuItem.setIcon(new ImageIcon(getClass().getResource("/insert_link.png")));
+        insertListMenu.setIcon(new ImageIcon(getClass().getResource("/stock_list.png")));
+        insertNumberList.setIcon(new ImageIcon(getClass().getResource("/stock_list_number.png")));
+        insertBulletList.setIcon(new ImageIcon(getClass().getResource("/stock_list_bullet.png")));
+        insertDictionaryList.setIcon(new ImageIcon(getClass().getResource("/stock_list_insert_unnumbered.png")));
+
+
         insertHeaderMenu.add(insertH1MenuItem);
         insertHeaderMenu.add(insertH2MenuItem);
         insertHeaderMenu.add(insertH3MenuItem);
@@ -367,13 +406,36 @@ public class EditorFrame extends JFrame {
         menuBar.add(menuOptions);
         // ********************************** END ************************************//
 
+        //Build the fourth menu - HTML ************** BEGIN ************************** //
+        menuHTML.setMnemonic(KeyEvent.VK_H);
 
-        //Build the fourth menu - About ************** BEGIN ************************** //
+        //adding Menu Items
+        renderPreviewMenuItem = new JMenuItem("Preview");
+        renderPreviewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+        renderPreviewMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_preview.png ")));
+
+        menuHTML.add(renderPreviewMenuItem);
+
+        renderPreviewMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                renderActionPerformed();
+            }
+        });
+
+        menuBar.add(menuHTML);
+        // ********************************** END ************************************//
+
+        //Build the fifth menu - About ************** BEGIN ************************** //
         menuAbout.setMnemonic(KeyEvent.VK_A);
 
         // Adding About MenuItems
         aboutUsMenuItem = new JMenuItem("About the Authors");
         helpMenuItem = new JMenuItem("Help");
+
+        //Adding icons
+        aboutUsMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_about.png")));
+        helpMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_help.png")));
 
         menuAbout.add(aboutUsMenuItem);
         menuAbout.add(helpMenuItem);
@@ -418,6 +480,8 @@ public class EditorFrame extends JFrame {
         saveAsMenuItem.setEnabled(b);
         validateMenuItem.setEnabled(b);
         menuInsert.setEnabled(b);
+        menuHTML.setEnabled(b);
+
     }
 
     // ********************** Action Performed for File > X *****************************//
@@ -589,16 +653,22 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertImageActionPerformed() {
-        String src = "Shannon";
-        String alt = "Awesome";
-        String height = "1";
-        String width = "2";
-        new InsertImageCommand(src, alt, height, width, getActivePane()).execute(commandDistributor);
+        URLDialog dialog = new URLDialog(this, true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+        String src = dialog.getURL();
+        if (src != "") {
+            new InsertImageCommand(src, getActivePane()).execute(commandDistributor);
+        }
+
     }
+
     private void insertATagActionPerformed() {
-        String href = "Shannon";
-        String name = "Awesome";
-        new InsertATag(href, name, getActivePane()).execute(commandDistributor);
+        URLDialog dialog = new URLDialog(this, true);
+        dialog.setLocationRelativeTo(this);
+        dialog.setVisible(true);
+        String href = dialog.getURL();
+        if (href != "") new InsertATagCommand(href, getActivePane()).execute(commandDistributor);
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
@@ -644,6 +714,15 @@ public class EditorFrame extends JFrame {
         for (TabFrame tabFrame : tabFrames) {
             tabFrame.setLinkViewVisible(toggleLinksViewMenuItem.getState());
         }
+    }
+
+    //******************************** END *******************************************//
+
+    //******************************* Action Performed for HTML > X *****************//
+
+
+    private void renderActionPerformed() {
+        new RenderPreviewCommand(this, getActivePane()).execute(commandDistributor);
     }
 
     //******************************** END *******************************************//

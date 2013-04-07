@@ -15,7 +15,7 @@ class HTMLFile implements DocumentListener {
     private BufferedWriter writer;
     private Scanner reader;
     private StringBuilder fileContents;
-    private Links links;
+    private Links linksList;
 
     /**
      * Overloaded constructor
@@ -38,7 +38,7 @@ class HTMLFile implements DocumentListener {
         needSaveAs = true;
         if (loadFile)
             loadFile();
-        links = new Links(this);
+        linksList = new Links(this);
     }
 
     /**
@@ -79,7 +79,7 @@ class HTMLFile implements DocumentListener {
      */
     public void saveFile(String newContent) {
         setFileContents(newContent);
-        links.refresh();
+        linksList.refresh();
         saveFile();
     }
 
@@ -118,6 +118,10 @@ class HTMLFile implements DocumentListener {
         } else {
             return "";
         }
+    }
+
+    public Links getLinksList(){
+        return linksList;
     }
 
     /**

@@ -9,32 +9,26 @@ package TeamTwoHTMLEditor.command;
  */
 
 import TeamTwoHTMLEditor.CommandDistributor;
-import TeamTwoHTMLEditor.GUI.EditorFrame;
+
 import javax.swing.*;
 
-public class InsertImageCommand implements Command{
+public class InsertImageCommand implements Command {
 
     private final JTextArea activePane;
     private String src;
-    private String alt;
-    private String width;
-    private String height;
 
-    public InsertImageCommand(String src, String alt, String height, String width, JTextArea activePane) {
+    public InsertImageCommand(String src, JTextArea activePane) {
         this.src = src;
-        this.alt = alt;
-        this.width = width;
-        this.height = height;
         this.activePane = activePane;
     }
 
-    public void execute(CommandDistributor c){
+    public void execute(CommandDistributor c) {
         String input;
 
         // If there is no active editor window, then do nothing
         if (activePane == null)
             return;
-        input = "<img src=\"" + src + "\" alt=\"" + alt + "\" height=\"" + height + "\" width=\"" + width + "\">";
+        input = "<img src=\"" + src + "\">";
         StringBuilder insertStr = new StringBuilder("");
         insertStr.append(input);
 

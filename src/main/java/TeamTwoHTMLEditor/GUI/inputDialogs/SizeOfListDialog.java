@@ -1,4 +1,6 @@
-package TeamTwoHTMLEditor.GUI;
+package TeamTwoHTMLEditor.GUI.inputDialogs;
+
+import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
 import java.net.URL;
