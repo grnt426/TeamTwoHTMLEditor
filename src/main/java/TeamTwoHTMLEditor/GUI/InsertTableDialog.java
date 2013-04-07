@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.GUI;
 
 import javax.swing.*;
+import java.net.URL;
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,15 +13,16 @@ import javax.swing.*;
 class InsertTableDialog extends JDialog {
     private int row;
     private int col;
-
-
-    public int getRow() {
-        return row;
-    }
-
-    public int getCol() {
-        return col;
-    }
+    // ** GUI BUILDER VAR DECLARATIONS
+    private javax.swing.JButton AcceptButton;
+    private javax.swing.JButton CancelButton;
+    private javax.swing.JSpinner colSpinner;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JSpinner rowSpinner;
 
     /**
      * Creates new form InsertTableDialog
@@ -31,6 +33,16 @@ class InsertTableDialog extends JDialog {
         row = 1;
         col = 1;
     }
+
+
+    public int getRow() {
+        return row;
+    }
+
+    public int getCol() {
+        return col;
+    }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -53,14 +65,17 @@ class InsertTableDialog extends JDialog {
         setTitle("Insert HTML Table");
         setAlwaysOnTop(true);
 
+        URL rowURL = getClass().getResource("/show_table_row.png");
+        URL colURL = getClass().getResource("/table_column_add.png");
+        URL otherURL = getClass().getResource("/table.png");
+
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/show_table_row.png"))); // NOI18N
-        System.out.println("GOT 1 ICON!");
+        if (rowURL != null) jLabel1.setIcon(new javax.swing.ImageIcon(rowURL)); // NOI18N
         jLabel1.setText("Number of Rows");
 
         jLabel2.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/table_column_add.png"))); // NOI18N
+        if (colURL != null) jLabel2.setIcon(new javax.swing.ImageIcon(colURL)); // NOI18N
         jLabel2.setText("Number of Columns");
 
         rowSpinner.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
@@ -70,7 +85,7 @@ class InsertTableDialog extends JDialog {
         colSpinner.setModel(new javax.swing.SpinnerNumberModel(1, 1, 9999, 1));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/table.png"))); // NOI18N
+        if (otherURL != null) jLabel3.setIcon(new javax.swing.ImageIcon(otherURL)); // NOI18N
         jLabel3.setText("HTML Table Creator");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
@@ -180,13 +195,4 @@ class InsertTableDialog extends JDialog {
     }
 
 
-    private javax.swing.JButton AcceptButton;
-    private javax.swing.JButton CancelButton;
-    private javax.swing.JSpinner colSpinner;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JSpinner rowSpinner;
 }
