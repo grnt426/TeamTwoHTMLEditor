@@ -288,7 +288,6 @@ public class URLDialog extends JDialog {
     }
 
     private void URLFieldActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
     }
 
     public String getURL() {
