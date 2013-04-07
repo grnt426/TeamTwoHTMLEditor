@@ -19,7 +19,7 @@ public class TabFrame extends JPanel {
     private int tabSize;
     private JScrollPane linkListScrollPane, editorScrollPane;
     private JTextArea editorTextArea;
-    private JList<String> linkList;
+    private JList linkList;
 
 
     public TabFrame(EditorFrame editorFrame) {
@@ -85,8 +85,8 @@ public class TabFrame extends JPanel {
         return newEditorPane;
     }
 
-    private JList<String> setupLinkList(ArrayList array) {
-        JList<String> list = new JList<String>(new LinksListModel(array));
+    private JList setupLinkList(ArrayList array) {
+        JList list = new JList(new LinksListModel(array));
         return list;
     }
 
