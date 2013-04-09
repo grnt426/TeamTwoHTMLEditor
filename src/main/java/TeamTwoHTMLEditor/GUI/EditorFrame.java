@@ -12,6 +12,7 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
+import java.awt.GridBagConstraints;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -553,7 +554,31 @@ public class EditorFrame extends JFrame {
 		tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
 
 		tabPane.addTab(name, newTabFrame);  //KEY EVENT 3 : Add to tab view
-		tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
+		int index = tabPane.getTabCount() - 1;
+		tabPane.setSelectedIndex(index);
+
+		//For the close button on tabs, create JPanel with label for name of
+		// file and button for the actual close operation.
+		JPanel closePanel = new JPanel(new GridBagLayout());
+		JLabel title = new JLabel(name);
+		JButton closeBtn = new JButton("x");
+		GridBagConstraints layout = new GridBagConstraints();
+		layout.gridx = 0;
+		layout.gridy = 0;
+		layout.weightx = 1;
+		closePanel.add(title, layout);
+
+		layout.gridx++;
+		layout.weightx = 0;
+		closePanel.add(closeBtn, layout);
+
+		tabPane.setTabComponentAt(index, closePanel);
+		closeBtn.addActionListener(new ActionListener() {
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				closeTabMenuItemActionPerformed();
+			}
+		});
 
 		return pane;
 	}
