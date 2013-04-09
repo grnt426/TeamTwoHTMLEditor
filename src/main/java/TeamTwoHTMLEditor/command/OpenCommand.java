@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
+import TeamTwoHTMLEditor.GUI.TabFrame;
 
 import javax.swing.*;
 import java.io.File;
@@ -17,9 +18,9 @@ public class OpenCommand implements Command{
 	private JTextArea pane;
 	private final EditorFrame parent;
 
-	public OpenCommand(File openFile, JTextArea p, EditorFrame parent, int i){
+	public OpenCommand(File openFile, JTextArea pane, EditorFrame parent, int i){
 		f = openFile;
-		pane = p;
+		this.pane = pane;
 		this.parent = parent;
 		index = i;
 	}

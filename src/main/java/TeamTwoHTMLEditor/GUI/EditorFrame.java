@@ -545,6 +545,7 @@ public class EditorFrame extends JFrame {
 		JTextArea textArea = realizeNewTab(f.getName());
 
         new OpenCommand(f, textArea, this, tabPane.getTabCount() - 1).execute(commandDistributor);
+        new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor);
         addListeners(textArea);
     }
 
@@ -820,6 +821,13 @@ public class EditorFrame extends JFrame {
     private JTextArea getActivePane() {
         if (!(tabFrames.size() <= 0)) {
             return tabFrames.get(activePaneIndex).getTextPane();
+        }
+        return null;
+
+    }
+    private TabFrame getActiveTabFrame() {
+        if (!(tabFrames.size() <= 0)) {
+            return tabFrames.get(activePaneIndex);
         }
         return null;
 

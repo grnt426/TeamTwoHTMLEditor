@@ -30,11 +30,6 @@ public class TabFrame extends JPanel{
 		editorTextArea = setupTextArea();
 		editorScrollPane = new JScrollPane(editorTextArea);
 
-		// SAMPLE LISt
-		ArrayList<String> ary = new ArrayList<String>();
-		ary.add("https://super.duper.yolo.com/teamTwoHTMLEditor/Rocks.html");
-		//
-		linkList = setupLinkList(ary);
 		linkListScrollPane = new JScrollPane(linkList);
 
 		GroupLayout layout = new GroupLayout(this);
@@ -79,7 +74,7 @@ public class TabFrame extends JPanel{
 		return newEditorPane;
 	}
 
-	private JList setupLinkList(ArrayList array){
+	public JList setupLinkList(ArrayList array){
 		JList list = new JList(new LinksListModel(array));
 		return list;
 	}
