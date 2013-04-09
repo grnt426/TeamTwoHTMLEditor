@@ -11,7 +11,7 @@ import java.util.Scanner;
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 2:31 PM To
  * change this template use File | Settings | File Templates.
  */
-class HTMLFile implements DocumentListener {
+public class HTMLFile implements DocumentListener {
     private boolean needToSave, needSaveAs;
     private String filename;
     private BufferedWriter writer;

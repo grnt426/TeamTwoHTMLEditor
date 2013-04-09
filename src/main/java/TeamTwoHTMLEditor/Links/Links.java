@@ -32,7 +32,6 @@ public class Links {
     }
 
     /**
-     *
      * @param contents - the contents of the file that you want to find the links of
      */
     private void parseContents(String contents) {
@@ -43,12 +42,12 @@ public class Links {
                 break;
             }
             currIndex = contents.indexOf("\"", currIndex);
-            links.add(contents.substring(currIndex+1, contents.indexOf("\"", currIndex+1 )));
+            links.add(contents.substring(currIndex + 1, contents.indexOf("\"", currIndex + 1)));
             currIndex = contents.indexOf("href", currIndex + 1);
         }
     }
 
-    public ArrayList<String> display(Links.LinkStrategy s) {
+    public ArrayList<String> display(LinkStrategy s) {
         return s.display(links);
     }
 

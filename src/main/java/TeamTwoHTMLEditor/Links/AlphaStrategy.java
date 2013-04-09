@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * Time: 12:09 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AlphaStrategy implements Links.LinkStrategy {
+public class AlphaStrategy implements LinkStrategy {
 
     @Override
     public ArrayList<String> display(ArrayList<String> links) {
