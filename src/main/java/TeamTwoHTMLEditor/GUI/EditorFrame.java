@@ -418,7 +418,7 @@ public class EditorFrame extends JFrame {
         refreshLinksMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
 
         renderPreviewMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_preview.png ")));
-        //refreshLinksMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_refresh.png")));
+        refreshLinksMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_refresh.png")));
 
         menuHTML.add(renderPreviewMenuItem);
         menuHTML.add(refreshLinksMenuItem);
