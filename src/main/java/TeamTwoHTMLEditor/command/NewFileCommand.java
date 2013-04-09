@@ -3,26 +3,25 @@ package TeamTwoHTMLEditor.command;
 import TeamTwoHTMLEditor.CommandDistributor;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Kocsen
- * Date: 3/21/13
- * Time: 10:41 PM
+ * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 10:41 PM
  */
-public class NewFileCommand implements Command {
+public class NewFileCommand implements Command{
 
-    private String filename;
+	private String filename;
 
-    public NewFileCommand(String s) {
-        filename = s;
-    }
+	public NewFileCommand(String s){
+		filename = s;
+	}
 
-    /**
-     * Calls the file manager to create the new file.
-     * @param c - Command distributor who has a reference access to the FileManager
-     */
-    @Override
-    public void execute(CommandDistributor c) {
-        c.getFileManager().createNewFile(filename);
-        c.getFileManager().printStatus();
-    }
+	/**
+	 * Calls the file manager to create the new file.
+	 *
+	 * @param c - Command distributor who has a reference access to the
+	 *          FileManager
+	 */
+	@Override
+	public void execute(CommandDistributor c){
+		c.getFileManager().createNewFile(filename);
+		c.getFileManager().printStatus();
+	}
 }

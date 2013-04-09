@@ -1,22 +1,19 @@
 package TeamTwoHTMLEditor;
 
 /**
- * Created with IntelliJ IDEA.
- * User: Kocsen
- * Date: 3/22/13
- * Time: 2:58 PM
+ * Created with IntelliJ IDEA. User: Kocsen Date: 3/22/13 Time: 2:58 PM
  * Distributor/Controller class - Contains a reference to FileManager
  */
-public class CommandDistributor {
-    private FileManager fileManager;
+public class CommandDistributor{
+	private FileManager fileManager;
 
 
-    public CommandDistributor(FileManager fManager) {
-        fileManager = fManager;
-    }
+	public CommandDistributor(FileManager fManager){
+		fileManager = fManager;
+	}
 
-    public FileManager getFileManager() {
-        return fileManager;
-    }
+	public FileManager getFileManager(){
+		return fileManager;
+	}
 
 }
