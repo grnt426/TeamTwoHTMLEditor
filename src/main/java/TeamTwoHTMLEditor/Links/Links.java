@@ -47,7 +47,7 @@ public class Links{
 	}
 
 	public ArrayList<String> display(LinkStrategy s){
-		return s.display(links);
+		return s.display((ArrayList<String>) links.clone());
 	}
 
 	public ArrayList<String> getLinks(){
