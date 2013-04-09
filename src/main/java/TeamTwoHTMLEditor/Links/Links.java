@@ -1,4 +1,6 @@
-package TeamTwoHTMLEditor;
+package TeamTwoHTMLEditor.Links;
+
+import TeamTwoHTMLEditor.HTMLFile;
 
 import java.util.ArrayList;
 
@@ -46,7 +48,7 @@ public class Links {
         }
     }
 
-    public ArrayList<String> display(LinkStrategy s) {
+    public ArrayList<String> display(Links.LinkStrategy s) {
         return s.display(links);
     }
 

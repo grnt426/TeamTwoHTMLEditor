@@ -1,4 +1,6 @@
-package TeamTwoHTMLEditor;
+package TeamTwoHTMLEditor.Links;
+
+import TeamTwoHTMLEditor.Links.Links;
 
 import java.util.ArrayList;
 
@@ -9,7 +11,7 @@ import java.util.ArrayList;
  * Time: 12:09 AM
  * To change this template use File | Settings | File Templates.
  */
-public class AlphaStrategy implements LinkStrategy {
+public class AlphaStrategy implements Links.LinkStrategy {
 
     @Override
     public ArrayList<String> display(ArrayList<String> links) {

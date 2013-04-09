@@ -1,4 +1,4 @@
-package TeamTwoHTMLEditor;
+package TeamTwoHTMLEditor.Links;
 
 import java.util.ArrayList;
 

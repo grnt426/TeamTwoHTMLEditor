@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor;
 
+import TeamTwoHTMLEditor.Links.Links;
+
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import java.io.*;
