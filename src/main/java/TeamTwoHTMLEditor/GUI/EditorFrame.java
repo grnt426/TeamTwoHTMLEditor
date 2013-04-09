@@ -497,7 +497,7 @@ public class EditorFrame extends JFrame {
 //                "File" + Integer.toString(newFileCount), newTabFrame);
 //        tabPane.setSelectedIndex(tabPane.getTabCount() - 1); //Helper, select new tab to be viewed
 
-		JTextArea textArea = realizeNewTab("File"+newFileCount);
+        JTextArea textArea = realizeNewTab("File" + newFileCount);
 
         //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
         addListeners(textArea);   //KEY EVENT 4 : Add the listeners (document and other)
@@ -522,9 +522,10 @@ public class EditorFrame extends JFrame {
 //            tabPane.addTab(f.getName(), newTabFrame);  //KEY EVENT 3 : Add to tab view
 //            tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
 
-			JTextArea pane = realizeNewTab(f.getName());
+            JTextArea pane = realizeNewTab(f.getName());
 
             new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor);
+            new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor);
 
             //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
             addListeners(pane);                         //KEY EVENT 4 : Add the listeners (document and other)
@@ -542,47 +543,47 @@ public class EditorFrame extends JFrame {
 //        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
 
 
-		JTextArea textArea = realizeNewTab(f.getName());
+        JTextArea textArea = realizeNewTab(f.getName());
 
         new OpenCommand(f, textArea, this, tabPane.getTabCount() - 1).execute(commandDistributor);
         new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor);
         addListeners(textArea);
     }
 
-	private JTextArea realizeNewTab(String name) {
-		TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
-		JTextArea pane = newTabFrame.getTextPane();
-		tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
+    private JTextArea realizeNewTab(String name) {
+        TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
+        JTextArea pane = newTabFrame.getTextPane();
+        tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
 
-		tabPane.addTab(name, newTabFrame);  //KEY EVENT 3 : Add to tab view
-		int index = tabPane.getTabCount() - 1;
-		tabPane.setSelectedIndex(index);
+        tabPane.addTab(name, newTabFrame);  //KEY EVENT 3 : Add to tab view
+        int index = tabPane.getTabCount() - 1;
+        tabPane.setSelectedIndex(index);
 
-		//For the close button on tabs, create JPanel with label for name of
-		// file and button for the actual close operation.
-		JPanel closePanel = new JPanel(new GridBagLayout());
-		JLabel title = new JLabel(name);
-		JButton closeBtn = new JButton("x");
-		GridBagConstraints layout = new GridBagConstraints();
-		layout.gridx = 0;
-		layout.gridy = 0;
-		layout.weightx = 1;
-		closePanel.add(title, layout);
+        //For the close button on tabs, create JPanel with label for name of
+        // file and button for the actual close operation.
+        JPanel closePanel = new JPanel(new GridBagLayout());
+        JLabel title = new JLabel(name);
+        JButton closeBtn = new JButton("x");
+        GridBagConstraints layout = new GridBagConstraints();
+        layout.gridx = 0;
+        layout.gridy = 0;
+        layout.weightx = 1;
+        closePanel.add(title, layout);
 
-		layout.gridx++;
-		layout.weightx = 0;
-		closePanel.add(closeBtn, layout);
+        layout.gridx++;
+        layout.weightx = 0;
+        closePanel.add(closeBtn, layout);
 
-		tabPane.setTabComponentAt(index, closePanel);
-		closeBtn.addActionListener(new ActionListener() {
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				closeTabMenuItemActionPerformed();
-			}
-		});
+        tabPane.setTabComponentAt(index, closePanel);
+        closeBtn.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                closeTabMenuItemActionPerformed();
+            }
+        });
 
-		return pane;
-	}
+        return pane;
+    }
 
 
     //What to do when a tab is selected
@@ -825,6 +826,7 @@ public class EditorFrame extends JFrame {
         return null;
 
     }
+
     private TabFrame getActiveTabFrame() {
         if (!(tabFrames.size() <= 0)) {
             return tabFrames.get(activePaneIndex);
