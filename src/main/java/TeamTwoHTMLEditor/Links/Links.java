@@ -5,13 +5,13 @@ import TeamTwoHTMLEditor.HTMLFile;
 import java.util.ArrayList;
 
 /**
- * Created with IntelliJ IDEA. User: Shannon Date: 4/6/13 Time: 10:35 PM To
- * change this template use File | Settings | File Templates.
+ * Maintains a list of HTML links parsed from the HTMLFile this class
+ * represents.
  */
 public class Links{
 
-	private HTMLFile file;
-	private ArrayList<String> links;
+	private final HTMLFile file;
+	private final ArrayList<String> links;
 
 	public Links(HTMLFile f){
 		file = f;
@@ -19,16 +19,22 @@ public class Links{
 		this.refresh();
 	}
 
+	/**
+	 * Re-parses the entire file for all HTML links.
+	 */
 	public void refresh(){
 		String contents;
 
 		contents = file.getFileContents();
+		links.clear();
 		if(contents != ""){
 			parseContents(contents);
 		}
 	}
 
 	/**
+	 * Handles processing the HTMLFile for HTML links contained within.
+	 *
 	 * @param contents - the contents of the file that you want to find the
 	 *                 links of
 	 */
@@ -46,6 +52,14 @@ public class Links{
 		}
 	}
 
+	/**
+	 * Produces a list of HTML links ordered according to a LinkStrategy. Note,
+	 * that a copy of the original list is used to preserve the original
+	 * ordering of the HTML links.
+	 *
+	 * @param s		The LinkStrategy to sort by.
+	 * @return		The links as sorted by the specified LinkStrategy.
+	 */
 	public ArrayList<String> display(LinkStrategy s){
 		return s.display((ArrayList<String>) links.clone());
 	}
