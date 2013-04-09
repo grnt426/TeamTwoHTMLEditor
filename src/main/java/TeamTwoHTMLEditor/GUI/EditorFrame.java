@@ -487,7 +487,7 @@ public class EditorFrame extends JFrame {
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed() {
-        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
+
 
         TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
         tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
@@ -495,6 +495,8 @@ public class EditorFrame extends JFrame {
         tabPane.addTab(                                 //KEY EVENT 3 : Add Tab to view
                 "File" + Integer.toString(newFileCount), newTabFrame);
         tabPane.setSelectedIndex(tabPane.getTabCount() - 1); //Helper, select new tab to be viewed
+
+        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
 
         //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
         addListeners(newTabFrame.getTextPane());   //KEY EVENT 4 : Add the listeners (document and other)
