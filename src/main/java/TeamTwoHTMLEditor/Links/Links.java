@@ -1,5 +1,6 @@
 package TeamTwoHTMLEditor.Links;
 
+import TeamTwoHTMLEditor.GUI.LinksListModel;
 import TeamTwoHTMLEditor.HTMLFile;
 
 import java.util.ArrayList;
@@ -53,5 +54,9 @@ public class Links{
 	public ArrayList<String> getLinks(){
 		return links;
 	}
+
+    public LinksListModel getLinksModel(){
+          return new LinksListModel(links);
+    }
 
 }
