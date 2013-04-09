@@ -40,7 +40,7 @@ public class EditorFrame extends JFrame {
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuHTML, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
-    private JMenuItem renderPreviewMenuItem;
+    private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem, toggleLinksViewMenuItem;
 
 
@@ -412,15 +412,28 @@ public class EditorFrame extends JFrame {
 
         //adding Menu Items
         renderPreviewMenuItem = new JMenuItem("Preview");
+        refreshLinksMenuItem = new JMenuItem("Refresh Links");
+
         renderPreviewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
+        refreshLinksMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+
         renderPreviewMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_preview.png ")));
+        //refreshLinksMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_refresh.png")));
 
         menuHTML.add(renderPreviewMenuItem);
+        menuHTML.add(refreshLinksMenuItem);
 
         renderPreviewMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 renderActionPerformed();
+            }
+        });
+
+        refreshLinksMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                refreshLinksMenuItemActionPerformed();
             }
         });
 
@@ -473,7 +486,6 @@ public class EditorFrame extends JFrame {
             setEverythingFileDependantEnabled(false);
         }
     }
-
 
     private void setEverythingFileDependantEnabled(boolean b) {
         closeTabMenuItem.setEnabled(b);
@@ -769,9 +781,20 @@ public class EditorFrame extends JFrame {
 
     //******************************* Action Performed for HTML > X *****************//
 
-
+    /**
+     * Calls Render Command that pops up a preview of the HTML on the current file
+     */
     private void renderActionPerformed() {
         new RenderPreviewCommand(this, getActivePane()).execute(commandDistributor);
+    }
+
+    /**
+     * Refreshes the view of the List
+     */
+    private void refreshLinksMenuItemActionPerformed() {
+        for (int i = 0; i < tabFrames.size(); i++) {
+            new RefreshLinksCommand(tabFrames.get(i), i);
+        }
     }
 
     //******************************** END *******************************************//
