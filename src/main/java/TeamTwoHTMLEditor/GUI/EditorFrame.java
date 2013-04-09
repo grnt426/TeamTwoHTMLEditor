@@ -622,6 +622,9 @@ public class EditorFrame extends JFrame {
     }
 
 
+    /**
+     * Call the CloseTab command which goes through all the checks that must happen before closing a file/tab
+     */
     private void closeTabMenuItemActionPerformed() {
         int index = activePaneIndex;
         new CloseTabCommand(index, this).execute(commandDistributor);
@@ -629,7 +632,8 @@ public class EditorFrame extends JFrame {
     }
 
     /*
-    Close
+    Precondition: Have the file removed from the back end
+    This method simply closes the tab on the view.
      */
     public void closeTab() {
         int index = activePaneIndex;

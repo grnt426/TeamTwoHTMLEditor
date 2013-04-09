@@ -16,6 +16,12 @@ public class TabFrame extends JPanel {
     private JList linkList;
 
 
+    /**
+     * Constructor for the tab frame, which is a panel that is showed at every tab.
+     *
+     * @param editorFrame - The parent Editor Frame
+     */
+
     public TabFrame(EditorFrame editorFrame) {
 
         this.wordWrap = editorFrame.getWordWrapBoolean();
@@ -26,6 +32,9 @@ public class TabFrame extends JPanel {
 
     }
 
+    /**
+     * Initializes the GUI components of the tabFrame.
+     */
     private void initComponents() {
         editorTextArea = setupTextArea();
         editorScrollPane = new JScrollPane(editorTextArea);
@@ -74,14 +83,38 @@ public class TabFrame extends JPanel {
         return newEditorPane;
     }
 
+    /**
+     * Sets the list that is being shown given an array.
+     * The method makes a new LinksListModel with the given array and then
+     * updates the List View.
+     *
+     * @param array - The array that contains the string representation of links
+     */
     public void setList(ArrayList array) {
-        linkList.setModel(new LinksListModel(array));
+        if (!array.isEmpty()) {
+            linkList.setModel(new LinksListModel(array));
+        } else {
+            ArrayList<String> x = new ArrayList<String>(1);
+            x.add("Empty");
+            linkList.setModel(new LinksListModel(x));
+        }
+
     }
 
+    /**
+     * Set if you want to see the link view visible or not.
+     *
+     * @param b
+     */
     public void setLinkViewVisible(boolean b) {
         this.linkListScrollPane.setVisible(b);
     }
 
+    /**
+     * Returns the text pane from the TabFrame Object
+     *
+     * @return
+     */
     public JTextArea getTextPane() {
         return this.editorTextArea;
     }
