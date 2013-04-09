@@ -6,8 +6,7 @@ import TeamTwoHTMLEditor.GUI.EditorFrame;
 import javax.swing.*;
 
 /**
- * Author:      Grant Kurtz
- * Class that runs the auto indent
+ * Author:      Grant Kurtz Class that runs the auto indent
  */
 public class AutoIndentCommand implements Command{
 
