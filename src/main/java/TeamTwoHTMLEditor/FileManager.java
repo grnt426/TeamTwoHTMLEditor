@@ -100,6 +100,7 @@ public class FileManager {
         System.out.println("**** File Manager Status *****");
         System.out.println("Total number of files open: " + Integer.toString(HTMLFileArray.size()));
         System.out.println("File List:");
+        if (HTMLFileArray.isEmpty()) System.out.println(" NONE");
         for (HTMLFile aFile : HTMLFileArray) {
             System.out.println("\t" + aFile.getName());
             if (aFile.isNeedToSave()) {
