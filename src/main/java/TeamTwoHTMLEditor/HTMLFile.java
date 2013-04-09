@@ -131,6 +131,7 @@ public class HTMLFile implements DocumentListener{
 		}
 	}
 
+
 	public Links getLinksList(){
 		return linksList;
 	}

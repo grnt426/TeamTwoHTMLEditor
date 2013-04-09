@@ -1,10 +1,7 @@
 package TeamTwoHTMLEditor.GUI;
 
 import TeamTwoHTMLEditor.CommandDistributor;
-import TeamTwoHTMLEditor.GUI.inputDialogs.InsertTableDialog;
-import TeamTwoHTMLEditor.GUI.inputDialogs.SizeOfListDialog;
-import TeamTwoHTMLEditor.GUI.inputDialogs.TabWidthDialog;
-import TeamTwoHTMLEditor.GUI.inputDialogs.URLDialog;
+import TeamTwoHTMLEditor.GUI.inputDialogs.*;
 import TeamTwoHTMLEditor.command.*;
 
 import javax.swing.*;
@@ -725,11 +722,12 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertATagActionPerformed() {
-        URLDialog dialog = new URLDialog(this, true);
+        URLWithNameDialog dialog = new URLWithNameDialog(this, true);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
         String href = dialog.getURL();
-        if (href != "") new InsertATagCommand(href, getActivePane()).execute(commandDistributor);
+        String name = dialog.getName();
+        if (href != "" && name != "") new InsertATagCommand(href, name, getActivePane()).execute(commandDistributor);
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
