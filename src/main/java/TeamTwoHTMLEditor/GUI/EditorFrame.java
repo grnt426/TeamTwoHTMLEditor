@@ -587,6 +587,10 @@ public class EditorFrame extends JFrame {
         closeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+				JButton b = (JButton) e.getSource();
+				JPanel p = (JPanel) b.getParent();
+				int i = tabPane.indexOfTabComponent(p);
+				tabPane.setSelectedIndex(i);
                 closeTabMenuItemActionPerformed();
             }
         });
