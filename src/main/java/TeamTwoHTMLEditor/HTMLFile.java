@@ -18,6 +18,7 @@ public class HTMLFile implements DocumentListener{
 	private Scanner reader;
 	private StringBuilder fileContents;
 	private Links linksList;
+	private CareTaker history;
 
 	/**
 	 * Overloaded constructor
@@ -42,6 +43,7 @@ public class HTMLFile implements DocumentListener{
 			loadFile();
 		}
 		linksList = new Links(this);
+		history = new CareTaker();
 	}
 
 	/**
@@ -190,6 +192,17 @@ public class HTMLFile implements DocumentListener{
 	 */
 	public String getFilename(){
 		return filename;
+	}
+
+	public void createMemento(){
+		history.storePrevious(new Memento(fileContents.toString()));
+	}
+
+	public void restoreState(){
+		Memento previous = history.retrievePrevious();
+		if(previous == null)
+			return;
+		setFileContents(previous.getPreviousState());
 	}
 
 	/**
