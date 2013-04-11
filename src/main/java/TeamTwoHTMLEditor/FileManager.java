@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor;
 
 import TeamTwoHTMLEditor.GUI.TabFrame;
+import TeamTwoHTMLEditor.Links.Links;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
@@ -48,8 +49,8 @@ public class FileManager {
         pane.setText(contents);
     }
 
-    public ArrayList<String> getLinksAt(int index) {
-         return HTMLFileArray.get(index).getLinksList().getLinks();
+    public Links getLinksAt(int index) {
+        return HTMLFileArray.get(index).getLinksList();
     }
 
     /**
@@ -104,8 +105,8 @@ public class FileManager {
 
     public void printStatus() {
         System.out.println("**** File Manager Status *****");
-        System.out.println("Total number of files open: " + 
-						   Integer.toString(HTMLFileArray.size()));
+        System.out.println("Total number of files open: " +
+                Integer.toString(HTMLFileArray.size()));
         System.out.println("File List:");
         if (HTMLFileArray.isEmpty()) System.out.println(" NONE");
         for (HTMLFile aFile : HTMLFileArray) {
