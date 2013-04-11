@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor;
 
+import TeamTwoHTMLEditor.GUI.TabFrame;
+
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
 import java.io.File;
@@ -35,7 +37,7 @@ public class FileManager {
     /**
      *
      */
-    public void openFile(File f, JTextArea p) {
+    public void openFile(File f, JTextArea pane) {
         HTMLFile x = new HTMLFile(f.getPath());
         x.setNeedSaveAs(false);
         x.setNeedToSave(false);
@@ -43,7 +45,11 @@ public class FileManager {
         numOpenFiles = HTMLFileArray.size();
         printStatus();
         String contents = x.getFileContents();
-        p.setText(contents);
+        pane.setText(contents);
+    }
+
+    public ArrayList<String> getLinksAt(int index) {
+         return HTMLFileArray.get(index).getLinksList().getLinks();
     }
 
     /**
