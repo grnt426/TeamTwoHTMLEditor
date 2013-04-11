@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.GUI.TabFrame;
+import TeamTwoHTMLEditor.Links.Links;
 
 import java.util.ArrayList;
 
@@ -19,8 +20,9 @@ public class RefreshLinksCommand implements Command {
 
     @Override
     public void execute(CommandDistributor c) {
-        ArrayList<String> links = c.getFileManager().getLinksAt(index);
+        Links links = c.getFileManager().getLinksAt(index);
+        links.refresh();
         System.out.println("LINKS: " + links.toString());
-        f.setList(links);
+        f.setList(links.getLinks());
     }
 }
