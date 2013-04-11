@@ -33,6 +33,18 @@ public class Links{
 		}
 	}
 
+    /**
+     *
+     * @param c - whatever contents that you want parsed
+     */
+    public void refresh(String c){
+        String contents = c;
+        links.clear();
+        if(contents != ""){
+            parseContents(contents);
+        }
+    }
+
 	/**
 	 * Handles processing the HTMLFile for HTML links contained within.
 	 *
