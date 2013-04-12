@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
@@ -22,7 +23,7 @@ public class RenderPreviewCommand implements Command{
 	}
 
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		JDialog previewFrame = new JDialog(editorFrame, true);
 		previewFrame.setSize(editorFrame.getSize());
 		previewFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);

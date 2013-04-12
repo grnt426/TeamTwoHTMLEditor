@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
@@ -31,7 +32,7 @@ public class CloseTabCommand implements Command{
 	 *          FileManager
 	 */
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		if(c.getFileManager().canQuitAt(index)){
 			parent.closeTab();
 			c.getFileManager().closeFile(index);

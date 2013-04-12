@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.GUI;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.inputDialogs.*;
 import TeamTwoHTMLEditor.command.*;
 
@@ -26,6 +27,7 @@ import java.util.ArrayList;
 
 public class EditorFrame extends JFrame {
     private CommandDistributor commandDistributor;
+	private CommandMediator commandMediator;
     private JFileChooser fc;
     private int newFileCount = 1;
     private int activePaneIndex = 0;
@@ -49,9 +51,10 @@ public class EditorFrame extends JFrame {
     private JMenu fontEmphasisMenu, insertListMenu;
 
 
-    public EditorFrame(CommandDistributor cdis) {
+    public EditorFrame(CommandDistributor cdis, CommandMediator cmdm) {
         initComponents();
         commandDistributor = cdis;
+		commandMediator = cmdm;
         fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("HTML Document", "html", "htm"));
         tabFrames = new ArrayList<TabFrame>();
@@ -497,7 +500,7 @@ public class EditorFrame extends JFrame {
     // ********************** Action Performed for File > X *****************************//
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed() {
-        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor);
+        new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor, commandMediator);
 
 //        TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
 //        tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
@@ -533,8 +536,8 @@ public class EditorFrame extends JFrame {
 
             JTextArea pane = realizeNewTab(f.getName());
 
-            new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor);
-            new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor);
+            new OpenCommand(f, pane, this, tabPane.getTabCount() - 1).execute(commandDistributor, commandMediator);
+            new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor, commandMediator);
 
             //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
             addListeners(pane);                         //KEY EVENT 4 : Add the listeners (document and other)
@@ -554,11 +557,13 @@ public class EditorFrame extends JFrame {
 
         JTextArea textArea = realizeNewTab(f.getName());
 
-        new OpenCommand(f, textArea, this, tabPane.getTabCount() - 1).execute(commandDistributor);
-        new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor);
+        new OpenCommand(f, textArea, this, tabPane.getTabCount() - 1).execute(commandDistributor, commandMediator);
+        new RefreshLinksCommand(this.getActiveTabFrame(), activePaneIndex).execute(commandDistributor, commandMediator);
         addListeners(textArea);
     }
 
+	//Creates a new tab and runs through each of the key events that are necessary
+	//for setup.  It then associates a close tab button with each new tab.
     private JTextArea realizeNewTab(String name) {
         TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
         JTextArea pane = newTabFrame.getTextPane();
@@ -571,6 +576,7 @@ public class EditorFrame extends JFrame {
         //For the close button on tabs, create JPanel with label for name of
         // file and button for the actual close operation.
         JPanel closePanel = new JPanel(new GridBagLayout());
+		closePanel.setOpaque(false);
         JLabel title = new JLabel(name);
         JButton closeBtn = new JButton("x");
         GridBagConstraints layout = new GridBagConstraints();
@@ -608,7 +614,7 @@ public class EditorFrame extends JFrame {
     private void saveMenuItemActionPerformed() {
         int i = tabPane.getSelectedIndex();
         if (!commandDistributor.getFileManager().needsSaveAsDialog(i)) {
-            new SaveCommand(this, getActivePane(), i).execute(commandDistributor);
+            new SaveCommand(this, getActivePane(), i).execute(commandDistributor, commandMediator);
         } else {
             saveAsMenuItemActionPerformed();
         }
@@ -622,7 +628,7 @@ public class EditorFrame extends JFrame {
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
             JTextArea pane = getActivePane();
-            new SaveAsCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor);
+            new SaveAsCommand(this, f, pane, tabPane.getSelectedIndex()).execute(commandDistributor, commandMediator);
 
             tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
         }
@@ -631,7 +637,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when clicking Validate in File Menu
     private void validateActionPerformed() {
-        new ValidateCommand(getActivePane(), commandDistributor.getFileManager().getPathAt(activePaneIndex), this, true).execute(commandDistributor);
+        new ValidateCommand(getActivePane(), commandDistributor.getFileManager().getPathAt(activePaneIndex), this, true).execute(commandDistributor, commandMediator);
     }
 
 
@@ -640,7 +646,7 @@ public class EditorFrame extends JFrame {
      */
     private void closeTabMenuItemActionPerformed() {
         int index = activePaneIndex;
-        new CloseTabCommand(index, this).execute(commandDistributor);
+        new CloseTabCommand(index, this).execute(commandDistributor, commandMediator);
 
     }
 
@@ -657,7 +663,7 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click on Quit in File Menu
     private void quitMenuItemActionPerformed() {
-        new ShutDownCommand(this).execute(commandDistributor);
+        new ShutDownCommand(this).execute(commandDistributor, commandMediator);
     }
 
     // ******************************************** END ********************************//
@@ -680,7 +686,7 @@ public class EditorFrame extends JFrame {
         x.setVisible(true);
 
         if ((x.getRow() != 0) || (x.getCol() != 0)) { //Making sure 'cancel' wasn't clicked
-            new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor);
+            new InsertTableCommand(x.getRow(), x.getCol(), getActivePane()).execute(commandDistributor, commandMediator);
         }
     }
 
@@ -693,25 +699,25 @@ public class EditorFrame extends JFrame {
 
         if (sizeOfList != 0) { //Making sure 'cancel' wasn't clicked
             if (e.getSource() == insertNumberList) {
-                new InsertListCommand(InsertListCommand.ListType.NUMBERED, sizeOfList, getActivePane()).execute(commandDistributor);
+                new InsertListCommand(InsertListCommand.ListType.NUMBERED, sizeOfList, getActivePane()).execute(commandDistributor, commandMediator);
             } else if (e.getSource() == insertBulletList) {
-                new InsertListCommand(InsertListCommand.ListType.BULLETED, sizeOfList, getActivePane()).execute(commandDistributor);
+                new InsertListCommand(InsertListCommand.ListType.BULLETED, sizeOfList, getActivePane()).execute(commandDistributor, commandMediator);
             } else if (e.getSource() == insertDictionaryList) {
-                new InsertListCommand(InsertListCommand.ListType.DICTIONARY, sizeOfList, getActivePane()).execute(commandDistributor);
+                new InsertListCommand(InsertListCommand.ListType.DICTIONARY, sizeOfList, getActivePane()).execute(commandDistributor, commandMediator);
             }
         }
     }
 
     private void insertH1ActionPerformed() {
-        new InsertConstructCommand(InsertConstructCommand.Construct.H1, getActivePane()).execute(commandDistributor);
+        new InsertConstructCommand(InsertConstructCommand.Construct.H1, getActivePane()).execute(commandDistributor, commandMediator);
     }
 
     private void insertH2ActionPerformed() {
-        new InsertConstructCommand(InsertConstructCommand.Construct.H2, getActivePane()).execute(commandDistributor);
+        new InsertConstructCommand(InsertConstructCommand.Construct.H2, getActivePane()).execute(commandDistributor, commandMediator);
     }
 
     private void insertH3ActionPerformed() {
-        new InsertConstructCommand(InsertConstructCommand.Construct.H3, getActivePane()).execute(commandDistributor);
+        new InsertConstructCommand(InsertConstructCommand.Construct.H3, getActivePane()).execute(commandDistributor, commandMediator);
     }
 
     private void insertImageActionPerformed() {
@@ -720,7 +726,7 @@ public class EditorFrame extends JFrame {
         dialog.setVisible(true);
         String src = dialog.getURL();
         if (src != "") {
-            new InsertImageCommand(src, getActivePane()).execute(commandDistributor);
+            new InsertImageCommand(src, getActivePane()).execute(commandDistributor, commandMediator);
         }
 
     }
@@ -731,14 +737,14 @@ public class EditorFrame extends JFrame {
         dialog.setVisible(true);
         String href = dialog.getURL();
         String name = dialog.getName();
-        if (href != "" && name != "") new InsertATagCommand(href, name, getActivePane()).execute(commandDistributor);
+        if (href != "" && name != "") new InsertATagCommand(href, name, getActivePane()).execute(commandDistributor, commandMediator);
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
         if (e.getSource() == boldMenuItem) {
-            new InsertConstructCommand(InsertConstructCommand.Construct.BOLD, getActivePane()).execute(commandDistributor);
+            new InsertConstructCommand(InsertConstructCommand.Construct.BOLD, getActivePane()).execute(commandDistributor, commandMediator);
         } else if (e.getSource() == italicsMenuItem) {
-            new InsertConstructCommand(InsertConstructCommand.Construct.ITALICS, getActivePane()).execute(commandDistributor);
+            new InsertConstructCommand(InsertConstructCommand.Construct.ITALICS, getActivePane()).execute(commandDistributor, commandMediator);
         }
     }
 
@@ -787,7 +793,7 @@ public class EditorFrame extends JFrame {
      * Calls Render Command that pops up a preview of the HTML on the current file
      */
     private void renderActionPerformed() {
-        new RenderPreviewCommand(this, getActivePane()).execute(commandDistributor);
+        new RenderPreviewCommand(this, getActivePane()).execute(commandDistributor, commandMediator);
     }
 
     /**
@@ -828,14 +834,14 @@ public class EditorFrame extends JFrame {
                 if (keyCode == KeyEvent.VK_ENTER) {
                     try {
                         if (toggleAutoIndentMenuItem.getState()) {
-                            new AutoIndentCommand(getActivePane()).execute(commandDistributor);
+                            new AutoIndentCommand(getActivePane()).execute(commandDistributor, commandMediator);
                         }
                     } catch (ArrayIndexOutOfBoundsException ignored) {
                     }
 
                 } else if (keyCode == KeyEvent.VK_TAB) {
                     if (selected != null) {
-                        new TabSelectedCommand(getActivePane(), selected).execute(commandDistributor);
+                        new TabSelectedCommand(getActivePane(), selected).execute(commandDistributor, commandMediator);
                     }
                 }
             }

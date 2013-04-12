@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 
 import javax.swing.*;
 
@@ -19,7 +20,7 @@ public class InsertATagCommand implements Command {
         this.activePane = activePane;
     }
 
-    public void execute(CommandDistributor c) {
+    public void execute(CommandDistributor c, CommandMediator cmd) {
         String input;
 
         // If there is no active editor window, then do nothing

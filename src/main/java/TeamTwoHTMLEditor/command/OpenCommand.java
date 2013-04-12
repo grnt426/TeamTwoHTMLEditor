@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 import TeamTwoHTMLEditor.GUI.TabFrame;
 
@@ -26,10 +27,10 @@ public class OpenCommand implements Command{
 	}
 
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		c.getFileManager().openFile(f, pane);
 		pane.getDocument().addDocumentListener(c.getFileManager().getFileAt(index));
-		new ValidateCommand(pane, f.getPath(), parent, false).execute(c);
+		cmd.openCommandExecuted(pane, f.getPath(), parent, false, c);
 		c.getFileManager().printStatus();
 	}
 

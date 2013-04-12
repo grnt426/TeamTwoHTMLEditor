@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 
 import javax.swing.*;
 
@@ -35,7 +36,7 @@ public class InsertConstructCommand implements Command{
 	 *          FileManager
 	 */
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 
 		// If there is no active editor window, then do nothing
 		if(activePane == null){

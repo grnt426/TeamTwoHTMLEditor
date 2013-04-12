@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
@@ -17,7 +18,7 @@ public class AutoIndentCommand implements Command{
 	}
 
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		String prevLine = EditorFrame.getPreviousLine(activePane);
 		int numTabs = EditorFrame.getTabCount(prevLine);
 		activePane.insert(EditorFrame.indentTabs(numTabs), activePane.getCaretPosition());

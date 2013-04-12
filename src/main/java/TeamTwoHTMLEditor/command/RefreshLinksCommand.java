@@ -2,7 +2,9 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.GUI.TabFrame;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.Links.Links;
+
 
 import java.util.ArrayList;
 
@@ -19,10 +21,10 @@ public class RefreshLinksCommand implements Command {
     }
 
     @Override
-    public void execute(CommandDistributor c) {
-        Links links = c.getFileManager().getLinksAt(index);
-        links.refresh();
-        System.out.println("LINKS: " + links.toString());
+    public void execute(CommandDistributor c, CommandMediator cmd) {
+		Links links = c.getFileManager().getLinksAt(index);
+		links.refresh();
+		System.out.println("LINKS: " + links.toString());
         f.setList(links.getLinks());
     }
 }

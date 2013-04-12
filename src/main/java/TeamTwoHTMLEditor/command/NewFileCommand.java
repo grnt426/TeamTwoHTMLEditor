@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 
 /**
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 10:41 PM
@@ -20,7 +21,7 @@ public class NewFileCommand implements Command{
 	 *          FileManager
 	 */
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		c.getFileManager().createNewFile(filename);
 		c.getFileManager().printStatus();
 	}

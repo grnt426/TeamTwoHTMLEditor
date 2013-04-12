@@ -13,6 +13,9 @@ public class App{
 		final CommandDistributor distributor =
 				new CommandDistributor(new FileManager());
 
+		final CommandMediator mediator =
+				new CommandMediator();
+
 		// Sets the default look and feel of the UI given OS
 		try{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -36,7 +39,7 @@ public class App{
 			System.out.println("Launching Editor with filename: " + filename);
 			java.awt.EventQueue.invokeLater(new Runnable(){
 				public void run(){
-					EditorFrame j = new EditorFrame(distributor);
+					EditorFrame j = new EditorFrame(distributor, mediator);
 					j.setVisible(true);
 					if(f.exists()){
 						j.openFileWithoutFileChooser(f);
@@ -54,7 +57,7 @@ public class App{
 			System.out.println("Launching Editor");
 			java.awt.EventQueue.invokeLater(new Runnable(){
 				public void run(){
-					JFrame j = new EditorFrame(distributor);
+					JFrame j = new EditorFrame(distributor, mediator);
 					j.setVisible(true);
 				}
 			});

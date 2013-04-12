@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 
 import javax.swing.*;
 
@@ -24,7 +25,7 @@ public class TabSelectedCommand implements Command{
 	 *          FileManager
 	 */
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		String[] split = selectedText.split("\n");
 		String newSelected = "";
 		for(String s : split){

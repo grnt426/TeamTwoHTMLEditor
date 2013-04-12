@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
+import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
@@ -34,7 +35,7 @@ public class InsertListCommand implements Command{
 	 *          FileManager
 	 */
 	@Override
-	public void execute(CommandDistributor c){
+	public void execute(CommandDistributor c, CommandMediator cmd){
 		StringBuilder listElement = new StringBuilder("");
 		int tabCount =
 				EditorFrame.getTabCount(EditorFrame.getCurrentLine(activePane));
