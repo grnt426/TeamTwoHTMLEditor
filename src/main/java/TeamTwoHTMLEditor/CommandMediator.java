@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor;
 
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 import TeamTwoHTMLEditor.command.Command;
+import TeamTwoHTMLEditor.command.RefreshLinksCommand;
 import TeamTwoHTMLEditor.command.ValidateCommand;
 
 import javax.swing.*;
@@ -29,11 +30,13 @@ public class CommandMediator {
 	 * @param parent - The Editor Frame
 	 * @param manuallyClicked - Whether or not the button "Validate" was clicked.
 	 * @param c - The CommandDistributor
+	 * @param index
 	 */
 	public void openCommandExecuted(JTextArea pane, String filePath,
 									EditorFrame parent, boolean manuallyClicked,
-									CommandDistributor c){
+									CommandDistributor c, int index){
 		new ValidateCommand(pane, filePath, parent, manuallyClicked).execute(c, this);
+		new RefreshLinksCommand(parent.getTabFrame(index), index).execute(c, this);
 	}
 
 	/**
@@ -46,8 +49,9 @@ public class CommandMediator {
 	 */
 	public void saveAsCommandExecuted(JTextArea pane, String filePath,
 									  EditorFrame parent, boolean manuallyClicked,
-									  CommandDistributor c){
+									  CommandDistributor c, int index){
 		new ValidateCommand(pane, filePath, parent, manuallyClicked).execute(c, this);
+		new RefreshLinksCommand(parent.getTabFrame(index), index).execute(c, this);
 	}
 
 	/**
@@ -60,8 +64,9 @@ public class CommandMediator {
 	 */
 	public void saveCommandExecuted(JTextArea pane, String filePath,
 									  EditorFrame parent, boolean manuallyClicked,
-									  CommandDistributor c){
+									  CommandDistributor c, int index){
 		new ValidateCommand(pane, filePath, parent, manuallyClicked).execute(c, this);
+		new RefreshLinksCommand(parent.getTabFrame(index), index).execute(c, this);
 	}
 
 }

@@ -66,16 +66,14 @@ public class FileManager {
      *
      */
     public void saveFile(File f, String contents, int indexOfFile) {
-        HTMLFile fileToSave = new HTMLFile(f.getPath(), false);
-        fileToSave.saveFile(contents);
+		HTMLFileArray.get(indexOfFile).setFileContents(contents);
         HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
     }
 
     public void quickSaveFile(String path, String contents, int indexOfFile) {
         System.out.println("Quick Saved file: " + path);
-        HTMLFile fileToSave = new HTMLFile(path, false);
-        fileToSave.saveFile(contents);
+		HTMLFileArray.get(indexOfFile).setFileContents(contents);
         HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
     }

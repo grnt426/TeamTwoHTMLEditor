@@ -30,7 +30,7 @@ public class OpenCommand implements Command{
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		c.getFileManager().openFile(f, pane);
 		pane.getDocument().addDocumentListener(c.getFileManager().getFileAt(index));
-		cmd.openCommandExecuted(pane, f.getPath(), parent, false, c);
+		cmd.openCommandExecuted(pane, f.getPath(), parent, false, c, index);
 		c.getFileManager().printStatus();
 	}
 

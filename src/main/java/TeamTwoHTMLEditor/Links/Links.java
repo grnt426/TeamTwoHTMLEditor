@@ -4,6 +4,8 @@ import TeamTwoHTMLEditor.GUI.LinksListModel;
 import TeamTwoHTMLEditor.HTMLFile;
 
 import java.util.ArrayList;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Maintains a list of HTML links parsed from the HTMLFile this class
@@ -52,16 +54,11 @@ public class Links{
 	 *                 links of
 	 */
 	private void parseContents(String contents){
-		int currIndex = -1;
-		currIndex = contents.indexOf("href");
-		while(currIndex < contents.length()){
-			if(currIndex == -1){
-				break;
-			}
-			currIndex = contents.indexOf("\"", currIndex);
-			links.add(contents.substring(
-					currIndex + 1, contents.indexOf("\"", currIndex + 1)));
-			currIndex = contents.indexOf("href", currIndex + 1);
+		Pattern p = Pattern.compile("href=\"(.*?)\"");
+		Matcher m = p.matcher(contents);
+		String url = null;
+		while(m.find()){
+			links.add(m.group(1));
 		}
 	}
 

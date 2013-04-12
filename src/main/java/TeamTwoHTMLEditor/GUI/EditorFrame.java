@@ -950,5 +950,9 @@ public class EditorFrame extends JFrame {
     public boolean getWordWrapBoolean() {
         return toggleWordWrapMenuItem.getState();
     }
+
+	public TabFrame getTabFrame(int index){
+		return tabFrames.get(index);
+	}
 }
 

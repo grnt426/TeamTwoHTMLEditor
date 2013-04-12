@@ -27,7 +27,7 @@ public class SaveCommand implements Command{
 		String path = c.getFileManager().getPathAt(index);
 		c.getFileManager().quickSaveFile(path, contents, index);
 		c.getFileManager().printStatus();
-		cmd.saveCommandExecuted(pane, path, parent, false, c);
+		cmd.saveCommandExecuted(pane, path, parent, false, c, index);
 		c.getFileManager().printStatus();
 	}
 }

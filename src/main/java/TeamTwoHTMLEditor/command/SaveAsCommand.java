@@ -31,7 +31,7 @@ public class SaveAsCommand implements Command{
 		String contents = pane.getText();
 		c.getFileManager().saveFile(f, contents, index);
 		c.getFileManager().printStatus();
-		cmd.saveAsCommandExecuted(pane, f.getPath(), parent, false, c);
+		cmd.saveAsCommandExecuted(pane, f.getPath(), parent, false, c, index);
 		c.getFileManager().printStatus();
 	}
 }
