@@ -33,16 +33,6 @@ public class URLWithNameDialog extends JDialog {
 
     }
 
-
-    /**
-     * AcceptButton.setText("Accept");
-     * AcceptButton.addActionListener(new java.awt.event.ActionListener()
-     * <p/>
-     * {
-     * public void actionPerformed(java.awt.event.ActionEvent evt) {
-     * AcceptButtonActionPerformed(evt);
-     */
-
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
@@ -71,17 +61,12 @@ public class URLWithNameDialog extends JDialog {
         TitleLabel.setText("Insert Tag With Link");
 
         nameField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        nameField.setText("jTextField1");
-        nameField.setToolTipText("Inser URL here");
+        nameField.setText("Name For <a> Tag");
+        nameField.setToolTipText("Insert URL here");
 
         URLField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-        URLField.setText("jTextField1");
+        URLField.setText("http://");
         URLField.setToolTipText("Insert URL here");
-        URLField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                URLFieldActionPerformed(evt);
-            }
-        });
 
         URLLabel.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
         URLLabel.setHorizontalAlignment(javax.swing.SwingConstants.LEFT);
@@ -180,17 +165,16 @@ public class URLWithNameDialog extends JDialog {
 
     private void CancelButtonActionPerformed(java.awt.event.ActionEvent evt) {
         theURL = "";
+        name = "";
         this.setVisible(false);
         this.dispose();
     }
 
     private void AcceptButtonActionPerformed(java.awt.event.ActionEvent evt) {
         theURL = URLField.getText();
+        name = nameField.getText();
         this.setVisible(false);
         this.dispose();
-    }
-
-    private void URLFieldActionPerformed(java.awt.event.ActionEvent evt) {
     }
 
     public String getURL() {

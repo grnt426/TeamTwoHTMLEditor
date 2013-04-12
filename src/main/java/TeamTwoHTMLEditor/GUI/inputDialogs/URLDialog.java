@@ -23,7 +23,7 @@ public class URLDialog extends JDialog{
 	public URLDialog(java.awt.Frame parent, boolean modal){
 		super(parent, modal);
 		initComponents();
-		URLField.setText("http://");
+
 	}
 
 
@@ -57,7 +57,7 @@ public class URLDialog extends JDialog{
 		jLabel3.setText("Insert Tag With Link");
 
 		URLField.setFont(new java.awt.Font("Tahoma", 0, 12)); // NOI18N
-		URLField.setText("jTextField1");
+        URLField.setText("http://");
 		URLField.setToolTipText("Insert URL here");
 		URLField.addActionListener(new java.awt.event.ActionListener()
 

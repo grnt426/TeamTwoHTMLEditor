@@ -21,6 +21,7 @@ public class InsertATagCommand implements Command {
     }
 
     public void execute(CommandDistributor c, CommandMediator cmd) {
+        System.out.println("HELLO");
         String input;
 
         // If there is no active editor window, then do nothing
@@ -28,7 +29,7 @@ public class InsertATagCommand implements Command {
             return;
         }
 
-        input = "<a href=\"" + href + "\"> " + name + "</a>";
+        input = "<a href=\"" + href + "\">" + name + "</a>";
         StringBuilder insertStr = new StringBuilder("");
         insertStr.append(input);
 

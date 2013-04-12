@@ -10,7 +10,6 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.text.BadLocationException;
-import java.awt.GridBagConstraints;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -27,7 +26,7 @@ import java.util.ArrayList;
 
 public class EditorFrame extends JFrame {
     private CommandDistributor commandDistributor;
-	private CommandMediator commandMediator;
+    private CommandMediator commandMediator;
     private JFileChooser fc;
     private int newFileCount = 1;
     private int activePaneIndex = 0;
@@ -54,7 +53,7 @@ public class EditorFrame extends JFrame {
     public EditorFrame(CommandDistributor cdis, CommandMediator cmdm) {
         initComponents();
         commandDistributor = cdis;
-		commandMediator = cmdm;
+        commandMediator = cmdm;
         fc = new JFileChooser();
         fc.setFileFilter(new FileNameExtensionFilter("HTML Document", "html", "htm"));
         tabFrames = new ArrayList<TabFrame>();
@@ -562,8 +561,8 @@ public class EditorFrame extends JFrame {
         addListeners(textArea);
     }
 
-	//Creates a new tab and runs through each of the key events that are necessary
-	//for setup.  It then associates a close tab button with each new tab.
+    //Creates a new tab and runs through each of the key events that are necessary
+    //for setup.  It then associates a close tab button with each new tab.
     private JTextArea realizeNewTab(String name) {
         TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
         JTextArea pane = newTabFrame.getTextPane();
@@ -576,7 +575,7 @@ public class EditorFrame extends JFrame {
         //For the close button on tabs, create JPanel with label for name of
         // file and button for the actual close operation.
         JPanel closePanel = new JPanel(new GridBagLayout());
-		closePanel.setOpaque(false);
+        closePanel.setOpaque(false);
         JLabel title = new JLabel(name);
         JButton closeBtn = new JButton("x");
         GridBagConstraints layout = new GridBagConstraints();
@@ -593,10 +592,10 @@ public class EditorFrame extends JFrame {
         closeBtn.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-				JButton b = (JButton) e.getSource();
-				JPanel p = (JPanel) b.getParent();
-				int i = tabPane.indexOfTabComponent(p);
-				tabPane.setSelectedIndex(i);
+                JButton b = (JButton) e.getSource();
+                JPanel p = (JPanel) b.getParent();
+                int i = tabPane.indexOfTabComponent(p);
+                tabPane.setSelectedIndex(i);
                 closeTabMenuItemActionPerformed();
             }
         });
@@ -732,12 +731,14 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertATagActionPerformed() {
+        System.out.println("YOLO");
         URLWithNameDialog dialog = new URLWithNameDialog(this, true);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
         String href = dialog.getURL();
         String name = dialog.getName();
-        if (href != "" && name != "") new InsertATagCommand(href, name, getActivePane()).execute(commandDistributor, commandMediator);
+        if (href != "" && name != "")
+            new InsertATagCommand(href, name, getActivePane()).execute(commandDistributor, commandMediator);
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
