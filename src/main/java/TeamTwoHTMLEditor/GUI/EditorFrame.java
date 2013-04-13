@@ -222,7 +222,7 @@ public class EditorFrame extends JFrame {
         redoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK)));
 
         //Adding Icons
-        URL copyMenuItemURL = getClass().getResource("/stock_copy.png");
+        URL copyMenuItemURL = getClass().getResource("/edit_copy.png");
         URL pasteMenuItemURL = getClass().getResource("/stock_paste.png");
         URL undoMenuItemURL = getClass().getResource("/stock_undo.png");
         URL redoMenuItemURL = getClass().getResource("/stock_redo.png");
@@ -527,6 +527,7 @@ public class EditorFrame extends JFrame {
         validateMenuItem.setEnabled(b);
         menuInsert.setEnabled(b);
         menuHTML.setEnabled(b);
+        menuEdit.setEnabled(b);
 
     }
 
