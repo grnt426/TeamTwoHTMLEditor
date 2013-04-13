@@ -251,16 +251,14 @@ public class EditorFrame extends JFrame {
         undoMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
-                //To change body of implemented methods use File | Settings | File Templates.
+                undoMenuItemActionPerformed();
             }
         });
 
         redoMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                //TODO
-                //To change body of implemented methods use File | Settings | File Templates.
+                redoMenuItemActionPerformed();
             }
         });
 
@@ -712,6 +710,16 @@ public class EditorFrame extends JFrame {
 
     private void pasteMenuItemActionPerformed() {
     }
+
+    private void undoMenuItemActionPerformed() {
+
+    }
+
+    private void redoMenuItemActionPerformed() {
+
+    }
+
+
     //******************************** END *******************************************//
 
     //********************** Action Performed for Insert > X *****************************//
