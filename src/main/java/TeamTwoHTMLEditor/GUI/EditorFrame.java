@@ -37,7 +37,8 @@ public class EditorFrame extends JFrame {
 
     private JMenuBar menuBar;
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuHTML, menuAbout;
-    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, copyMenuItem, pasteMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
+    private JMenuItem pasteMenuItem, copyMenuItem, undoMenuItem, redoMenuItem;
     private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem, toggleLinksViewMenuItem;
 
@@ -119,7 +120,6 @@ public class EditorFrame extends JFrame {
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
         //Adding Icons
-
         URL newMenuItemURL = getClass().getResource("/stock_new.png");
         URL openMenuItemURL = getClass().getResource("/stock_open.png");
         URL saveMenuItemURL = getClass().getResource("/stock_data_save.png");
@@ -205,16 +205,33 @@ public class EditorFrame extends JFrame {
 
 
         //Build the second menu - Edit   ************** BEGIN ************************** //
-        //menuEdit.setMnemonic(KeyEvent.VK_E);
+        menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
         ///Adding Edit MenuItems
         copyMenuItem = new JMenuItem("Copy", KeyEvent.VK_C);
         pasteMenuItem = new JMenuItem("Paste", KeyEvent.VK_V);
+        undoMenuItem = new JMenuItem("Undo", KeyEvent.VK_U);
+        redoMenuItem = new JMenuItem("Redo", KeyEvent.VK_R);
+
 
         ///Shortcuts
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+        undoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK)));
+        redoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK)));
+
+        //Adding Icons
+        URL copyMenuItemURL = getClass().getResource("/stock_copy.png");
+        URL pasteMenuItemURL = getClass().getResource("/stock_paste.png");
+        URL undoMenuItemURL = getClass().getResource("/stock_undo.png");
+        URL redoMenuItemURL = getClass().getResource("/stock_redo.png");
+
+        if (copyMenuItemURL != null) copyMenuItem.setIcon(new ImageIcon(copyMenuItemURL));
+        if (pasteMenuItemURL != null) pasteMenuItem.setIcon(new ImageIcon(pasteMenuItemURL));
+        if (undoMenuItemURL != null) undoMenuItem.setIcon(new ImageIcon(undoMenuItemURL));
+        if (redoMenuItemURL != null) redoMenuItem.setIcon(new ImageIcon(redoMenuItemURL));
+
 
         ///Listeners for Menu Items
         copyMenuItem.addActionListener(new ActionListener() {
@@ -231,10 +248,29 @@ public class EditorFrame extends JFrame {
             }
         });
 
+        undoMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
+        redoMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                //TODO
+                //To change body of implemented methods use File | Settings | File Templates.
+            }
+        });
+
         menuEdit.add(copyMenuItem);
         menuEdit.add(pasteMenuItem);
+        menuEdit.addSeparator();
+        menuEdit.add(undoMenuItem);
+        menuEdit.add(redoMenuItem);
 
-        //menuBar.add(menuEdit);
+        menuBar.add(menuEdit);
         // BUILD EDIT **************************************END**************************//
 
 
@@ -951,8 +987,8 @@ public class EditorFrame extends JFrame {
         return toggleWordWrapMenuItem.getState();
     }
 
-	public TabFrame getTabFrame(int index){
-		return tabFrames.get(index);
-	}
+    public TabFrame getTabFrame(int index) {
+        return tabFrames.get(index);
+    }
 }
 
