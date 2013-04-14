@@ -740,8 +740,10 @@ public class EditorFrame extends JFrame {
         dialog.setVisible(true);
         String href = dialog.getURL();
         String name = dialog.getName();
-        if (href != "" && name != "")
+        if (href != "" && name != "") {
+            System.out.println("AEfasedfaef");
             new InsertATagCommand(href, name, getActiveContext()).execute(commandDistributor, commandMediator);
+        }
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
@@ -960,7 +962,7 @@ public class EditorFrame extends JFrame {
 
     public ActiveContext getActiveContext() {
         return new ActiveContext(getActivePaneIndex(),
-                getActivePane(), this, tabFrame);
+                getActivePane(), this, getTabFrame(activePaneIndex));
     }
 }
 

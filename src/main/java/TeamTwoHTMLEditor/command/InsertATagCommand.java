@@ -20,7 +20,6 @@ public class InsertATagCommand implements Command {
     }
 
     public void execute(CommandDistributor c, CommandMediator cmd) {
-        System.out.println("HELLO");
         String input;
 
         // If there is no active editor window, then do nothing
