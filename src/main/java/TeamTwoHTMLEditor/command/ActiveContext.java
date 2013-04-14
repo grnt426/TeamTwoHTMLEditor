@@ -1,6 +1,7 @@
 package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.GUI.EditorFrame;
+import TeamTwoHTMLEditor.GUI.TabFrame;
 
 import javax.swing.*;
 
@@ -11,12 +12,14 @@ public class ActiveContext{
 	private final int index;
 	private final JTextArea activeTextArea;
 	private final EditorFrame parent;
+    private final TabFrame tabFrame;
 
-	public ActiveContext(int index, JTextArea activeTextArea, EditorFrame parent){
+	public ActiveContext(int index, JTextArea activeTextArea, EditorFrame parent, TabFrame tabFrame){
 		this.index = index;
 		this.activeTextArea = activeTextArea;
 		this.parent = parent;
-	}
+        this.tabFrame = tabFrame;
+    }
 
 	public int getIndex(){
 		return index;

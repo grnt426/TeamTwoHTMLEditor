@@ -41,14 +41,14 @@ public class EditorFrame extends JFrame {
     private JMenuItem pasteMenuItem, copyMenuItem, undoMenuItem, redoMenuItem;
     private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem,
-			toggleLinksViewMenuItem;
+            toggleLinksViewMenuItem;
 
 
     // headers, font emphasis (bold, italics), list (numbered, bulleted,
     // dictionary), tables.
     private JMenu insertHeaderMenu;
     private JMenuItem insertH1MenuItem, insertH2MenuItem, insertH3MenuItem,
-			insertTableMenuItem, insertImageMenuItem, insertATagMenuItem;
+            insertTableMenuItem, insertImageMenuItem, insertATagMenuItem;
     private JMenuItem boldMenuItem, italicsMenuItem;
     private JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
     private JMenu fontEmphasisMenu, insertListMenu;
@@ -735,7 +735,6 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertATagActionPerformed() {
-        System.out.println("YOLO");
         URLWithNameDialog dialog = new URLWithNameDialog(this, true);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
@@ -955,13 +954,13 @@ public class EditorFrame extends JFrame {
         return toggleWordWrapMenuItem.getState();
     }
 
-	public TabFrame getTabFrame(int index){
-		return tabFrames.get(index);
-	}
+    public TabFrame getTabFrame(int index) {
+        return tabFrames.get(index);
+    }
 
-	public ActiveContext getActiveContext(){
-		return new ActiveContext(getActivePaneIndex(),
-												  getActivePane(), this);
-	}
+    public ActiveContext getActiveContext() {
+        return new ActiveContext(getActivePaneIndex(),
+                getActivePane(), this, tabFrame);
+    }
 }
 

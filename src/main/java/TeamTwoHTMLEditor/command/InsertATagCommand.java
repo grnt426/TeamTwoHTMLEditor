@@ -38,6 +38,8 @@ public class InsertATagCommand implements Command {
 
         context.getActiveTextArea().insert(insertStr.toString(),
 										   context.getActiveTextArea().getCaretPosition());
+
+        // ADD cmd
     }
 }
 
