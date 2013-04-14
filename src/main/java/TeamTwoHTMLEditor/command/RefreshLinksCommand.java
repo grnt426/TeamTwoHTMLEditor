@@ -21,7 +21,6 @@ public class RefreshLinksCommand implements Command {
     public void execute(CommandDistributor c, CommandMediator cmd) {
         Links links = c.getFileManager().getLinksAt(index);
         links.refresh();
-
         f.setList(links.getLinks());
     }
 }
