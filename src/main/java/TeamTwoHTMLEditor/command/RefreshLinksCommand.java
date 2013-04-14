@@ -17,7 +17,7 @@ public class RefreshLinksCommand implements Command {
     @Override
     public void execute(CommandDistributor c, CommandMediator cmd) {
         Links links = c.getFileManager().getLinksAt(context.getIndex());
-        links.refresh();
+        links.refresh(context.getActiveTextArea().getText());
         context.getTabFrame().setList(links.getLinks());
         System.out.println("REFRESHED!");
     }
