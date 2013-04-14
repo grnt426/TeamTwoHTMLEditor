@@ -194,10 +194,17 @@ public class HTMLFile implements DocumentListener{
 		return filename;
 	}
 
+	/**
+	 * Stores the current state of this file so that an Undo operation can
+	 * be done later.
+	 */
 	public void createMemento(){
 		history.storePrevious(new Memento(fileContents.toString()));
 	}
 
+	/**
+	 * Restores the previous state of this file.
+	 */
 	public void restoreState(){
 		Memento previous = history.retrievePrevious();
 		if(previous == null)

@@ -150,4 +150,11 @@ public class FileManager {
         return HTMLFileArray.get(activePaneIndex);
     }
 
+	public void undoChange(int index){
+		HTMLFileArray.get(index).restoreState();
+	}
+
+	public void createUndoState(int index){
+
+	}
 }

@@ -40,12 +40,15 @@ public class EditorFrame extends JFrame {
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
     private JMenuItem pasteMenuItem, copyMenuItem, undoMenuItem, redoMenuItem;
     private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem;
-    private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem, toggleLinksViewMenuItem;
+    private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem,
+			toggleLinksViewMenuItem;
 
 
-    //headers, font emphasis (bold, italics), list (numbered, bulleted, dictionary), tables.
+    // headers, font emphasis (bold, italics), list (numbered, bulleted,
+    // dictionary), tables.
     private JMenu insertHeaderMenu;
-    private JMenuItem insertH1MenuItem, insertH2MenuItem, insertH3MenuItem, insertTableMenuItem, insertImageMenuItem, insertATagMenuItem;
+    private JMenuItem insertH1MenuItem, insertH2MenuItem, insertH3MenuItem,
+			insertTableMenuItem, insertImageMenuItem, insertATagMenuItem;
     private JMenuItem boldMenuItem, italicsMenuItem;
     private JMenuItem insertNumberList, insertBulletList, insertDictionaryList;
     private JMenu fontEmphasisMenu, insertListMenu;
@@ -120,6 +123,7 @@ public class EditorFrame extends JFrame {
         quitMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F4, ActionEvent.ALT_MASK));
 
         //Adding Icons
+
         URL newMenuItemURL = getClass().getResource("/stock_new.png");
         URL openMenuItemURL = getClass().getResource("/stock_open.png");
         URL saveMenuItemURL = getClass().getResource("/stock_data_save.png");
@@ -205,33 +209,16 @@ public class EditorFrame extends JFrame {
 
 
         //Build the second menu - Edit   ************** BEGIN ************************** //
-        menuEdit.setMnemonic(KeyEvent.VK_E);
+        //menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
         ///Adding Edit MenuItems
         copyMenuItem = new JMenuItem("Copy", KeyEvent.VK_C);
         pasteMenuItem = new JMenuItem("Paste", KeyEvent.VK_V);
-        undoMenuItem = new JMenuItem("Undo", KeyEvent.VK_U);
-        redoMenuItem = new JMenuItem("Redo", KeyEvent.VK_R);
-
 
         ///Shortcuts
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
-        undoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK)));
-        redoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK)));
-
-        //Adding Icons
-        URL copyMenuItemURL = getClass().getResource("/edit_copy.png");
-        URL pasteMenuItemURL = getClass().getResource("/stock_paste.png");
-        URL undoMenuItemURL = getClass().getResource("/stock_undo.png");
-        URL redoMenuItemURL = getClass().getResource("/stock_redo.png");
-
-        if (copyMenuItemURL != null) copyMenuItem.setIcon(new ImageIcon(copyMenuItemURL));
-        if (pasteMenuItemURL != null) pasteMenuItem.setIcon(new ImageIcon(pasteMenuItemURL));
-        if (undoMenuItemURL != null) undoMenuItem.setIcon(new ImageIcon(undoMenuItemURL));
-        if (redoMenuItemURL != null) redoMenuItem.setIcon(new ImageIcon(redoMenuItemURL));
-
 
         ///Listeners for Menu Items
         copyMenuItem.addActionListener(new ActionListener() {
@@ -248,27 +235,10 @@ public class EditorFrame extends JFrame {
             }
         });
 
-        undoMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                undoMenuItemActionPerformed();
-            }
-        });
-
-        redoMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                redoMenuItemActionPerformed();
-            }
-        });
-
         menuEdit.add(copyMenuItem);
         menuEdit.add(pasteMenuItem);
-        menuEdit.addSeparator();
-        menuEdit.add(undoMenuItem);
-        menuEdit.add(redoMenuItem);
 
-        menuBar.add(menuEdit);
+        //menuBar.add(menuEdit);
         // BUILD EDIT **************************************END**************************//
 
 
@@ -527,7 +497,6 @@ public class EditorFrame extends JFrame {
         validateMenuItem.setEnabled(b);
         menuInsert.setEnabled(b);
         menuHTML.setEnabled(b);
-        menuEdit.setEnabled(b);
 
     }
 
@@ -711,16 +680,6 @@ public class EditorFrame extends JFrame {
 
     private void pasteMenuItemActionPerformed() {
     }
-
-    private void undoMenuItemActionPerformed() {
-
-    }
-
-    private void redoMenuItemActionPerformed() {
-
-    }
-
-
     //******************************** END *******************************************//
 
     //********************** Action Performed for Insert > X *****************************//
@@ -772,17 +731,18 @@ public class EditorFrame extends JFrame {
         if (src != "") {
             new InsertImageCommand(src, getActivePane()).execute(commandDistributor, commandMediator);
         }
+
     }
 
     private void insertATagActionPerformed() {
+        System.out.println("YOLO");
         URLWithNameDialog dialog = new URLWithNameDialog(this, true);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
         String href = dialog.getURL();
         String name = dialog.getName();
-        if (href != "" && name == "") JOptionPane.showMessageDialog(this, "Please input a ");
         if (href != "" && name != "")
-            new InsertATagCommand(href, name, this).execute(commandDistributor, commandMediator);
+            new InsertATagCommand(href, name, getActiveContext()).execute(commandDistributor, commandMediator);
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
@@ -846,7 +806,7 @@ public class EditorFrame extends JFrame {
      */
     private void refreshLinksMenuItemActionPerformed() {
         for (int i = 0; i < tabFrames.size(); i++) {
-            new RefreshLinksCommand(tabFrames.get(i), i).execute(commandDistributor, commandMediator);
+            new RefreshLinksCommand(tabFrames.get(i), i);
         }
     }
 
@@ -907,7 +867,7 @@ public class EditorFrame extends JFrame {
 
     }
 
-    public TabFrame getActiveTabFrame() {
+    private TabFrame getActiveTabFrame() {
         if (!(tabFrames.size() <= 0)) {
             return tabFrames.get(activePaneIndex);
         }
@@ -917,6 +877,7 @@ public class EditorFrame extends JFrame {
 
     /**
      * @return The index of the active pane
+     *         Will probably be removed
      */
     public int getActivePaneIndex() {
         return activePaneIndex;
@@ -994,8 +955,13 @@ public class EditorFrame extends JFrame {
         return toggleWordWrapMenuItem.getState();
     }
 
-    public TabFrame getTabFrame(int index) {
-        return tabFrames.get(index);
-    }
+	public TabFrame getTabFrame(int index){
+		return tabFrames.get(index);
+	}
+
+	public ActiveContext getActiveContext(){
+		return new ActiveContext(getActivePaneIndex(),
+												  getActivePane(), this);
+	}
 }
 

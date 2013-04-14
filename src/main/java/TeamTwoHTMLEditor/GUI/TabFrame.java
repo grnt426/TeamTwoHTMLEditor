@@ -118,5 +118,4 @@ public class TabFrame extends JPanel {
     public JTextArea getTextPane() {
         return this.editorTextArea;
     }
-
 }

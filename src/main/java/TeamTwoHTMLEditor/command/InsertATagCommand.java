@@ -3,6 +3,7 @@ package TeamTwoHTMLEditor.command;
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.CommandMediator;
 import TeamTwoHTMLEditor.GUI.EditorFrame;
+import TeamTwoHTMLEditor.GUI.TabFrame;
 
 import javax.swing.*;
 
@@ -11,25 +12,23 @@ import javax.swing.*;
  * change this template use File | Settings | File Templates.
  */
 public class InsertATagCommand implements Command {
-    private final JTextArea activePane;
-    private final EditorFrame parent;
-    private int index;
+	private final ActiveContext context;
+	private int index;
     private String href;
     private String name;
 
-    public InsertATagCommand(String href, String name, EditorFrame parent) {
+    public InsertATagCommand(String href, String name, ActiveContext context) {
         this.href = href;
         this.name = name;
-        this.parent = parent;
-        this.activePane = parent.getActiveTabFrame().getTextPane();
-        index = parent.getActivePaneIndex();
+        this.context = context;
     }
 
     public void execute(CommandDistributor c, CommandMediator cmd) {
+        System.out.println("HELLO");
         String input;
 
         // If there is no active editor window, then do nothing
-        if (activePane == null) {
+        if (context.getActiveTextArea() == null) {
             return;
         }
 
@@ -37,9 +36,8 @@ public class InsertATagCommand implements Command {
         StringBuilder insertStr = new StringBuilder("");
         insertStr.append(input);
 
-        activePane.insert(insertStr.toString(), activePane.getCaretPosition());
-
-        cmd.insertCommandExecuted(parent.getActiveTabFrame(), index);
+        context.getActiveTextArea().insert(insertStr.toString(),
+										   context.getActiveTextArea().getCaretPosition());
     }
 }
 
