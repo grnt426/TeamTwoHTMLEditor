@@ -19,6 +19,5 @@ public class RefreshLinksCommand implements Command {
         Links links = c.getFileManager().getLinksAt(context.getIndex());
         links.refresh(context.getActiveTextArea().getText());
         context.getTabFrame().setList(links.getLinks());
-        System.out.println("REFRESHED!");
     }
 }

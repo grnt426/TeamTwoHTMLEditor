@@ -540,19 +540,9 @@ public class EditorFrame extends JFrame {
     //What to do when they  click New in File Menu
     private void newMenuItemActionPerformed() {
         new NewFileCommand("File" + Integer.toString(newFileCount)).execute(commandDistributor, commandMediator);
-
-//        TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
-//        tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
-//        // ADDING tab to view
-//        tabPane.addTab(                                 //KEY EVENT 3 : Add Tab to view
-//                "File" + Integer.toString(newFileCount), newTabFrame);
-//        tabPane.setSelectedIndex(tabPane.getTabCount() - 1); //Helper, select new tab to be viewed
-
         JTextArea textArea = realizeNewTab("File" + newFileCount);
-
         //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
         addListeners(textArea);   //KEY EVENT 4 : Add the listeners (document and other)
-
         newFileCount++;
 
 
@@ -565,36 +555,17 @@ public class EditorFrame extends JFrame {
         int status = fc.showOpenDialog(this);
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
-
-//            TabFrame newTabFrame = new TabFrame(this); //KEY EVENT 1 : Make new Tab Frame
-//            JTextArea pane = newTabFrame.getTextPane();
-//            tabFrames.add(newTabFrame);                //KEY EVENT 2 : Add the TabFrame to the Array
-//
-//            tabPane.addTab(f.getName(), newTabFrame);  //KEY EVENT 3 : Add to tab view
-//            tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-
             JTextArea pane = realizeNewTab(f.getName());
-
             new OpenCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
             new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
-
             //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
             addListeners(pane);                         //KEY EVENT 4 : Add the listeners (document and other)
-
         }
-
-
     }
 
     public void openFileWithoutFileChooser(File f) {
-//        TabFrame newTabFrame = new TabFrame(this);
-//        tabFrames.add(newTabFrame);
-//
-//        tabPane.addTab(f.getName(), newTabFrame);
-//        tabPane.setSelectedIndex(tabPane.getTabCount() - 1);
-
-
         JTextArea textArea = realizeNewTab(f.getName());
+
 
         new OpenCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
         new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
@@ -614,22 +585,11 @@ public class EditorFrame extends JFrame {
 
         //For the close button on tabs, create JPanel with label for name of
         // file and button for the actual close operation.
-        JPanel closePanel = new JPanel(new GridBagLayout());
-        closePanel.setOpaque(false);
-        JLabel title = new JLabel(name);
-        JButton closeBtn = new JButton("x");
-        GridBagConstraints layout = new GridBagConstraints();
-        layout.gridx = 0;
-        layout.gridy = 0;
-        layout.weightx = 1;
-        closePanel.add(title, layout);
 
-        layout.gridx++;
-        layout.weightx = 0;
-        closePanel.add(closeBtn, layout);
+        CloseTabComponent closePanel = new CloseTabComponent(name);
 
         tabPane.setTabComponentAt(index, closePanel);
-        closeBtn.addActionListener(new ActionListener() {
+        closePanel.getCloseButton().addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 JButton b = (JButton) e.getSource();
@@ -667,15 +627,13 @@ public class EditorFrame extends JFrame {
             File f = fc.getSelectedFile();
             JTextArea pane = getActivePane();
             new SaveAsCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
-			System.out.println("Changing Tabname: " + fc.getName(f));
-            tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
-			System.out.println("New Tabname: " + tabPane.getTitleAt(tabPane.getSelectedIndex()));
-			tabPane.repaint();
+            CloseTabComponent x = (CloseTabComponent) tabPane.getTabComponentAt(tabPane.getSelectedIndex());
+            x.setLabelTitle(fc.getName(f));
         }
 
     }
 
-    //What to do when clicking Validate in File Menu
+    //What to do when clicking Validate in File MenuF
     private void validateActionPerformed() {
         new ValidateCommand(commandDistributor.getFileManager().getPathAt(activePaneIndex), true, getActiveContext()).execute(commandDistributor, commandMediator);
     }
