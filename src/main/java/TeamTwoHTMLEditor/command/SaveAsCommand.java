@@ -24,7 +24,7 @@ public class SaveAsCommand implements Command{
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		String contents = context.getActiveTextArea().getText();
-		c.getFileManager().saveFile(f, contents, context.getIndex());
+		c.getFileManager().saveNewFile(f, contents, context.getIndex());
 		c.getFileManager().printStatus();
 		cmd.saveAsCommandExecuted(f.getPath(), false, c, context);
 		c.getFileManager().printStatus();

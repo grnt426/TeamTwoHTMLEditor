@@ -668,8 +668,10 @@ public class EditorFrame extends JFrame {
             File f = fc.getSelectedFile();
             JTextArea pane = getActivePane();
             new SaveAsCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
-
+			System.out.println("Changing Tabname: " + fc.getName(f));
             tabPane.setTitleAt(tabPane.getSelectedIndex(), fc.getName(f));
+			System.out.println("New Tabname: " + tabPane.getTitleAt(tabPane.getSelectedIndex()));
+			tabPane.repaint();
         }
 
     }

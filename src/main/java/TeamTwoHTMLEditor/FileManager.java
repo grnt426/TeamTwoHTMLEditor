@@ -69,6 +69,7 @@ public class FileManager {
 		HTMLFileArray.get(indexOfFile).setFileContents(contents);
         HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
+		HTMLFileArray.get(indexOfFile).saveFile();
     }
 
     public void quickSaveFile(String path, String contents, int indexOfFile) {
@@ -76,6 +77,7 @@ public class FileManager {
 		HTMLFileArray.get(indexOfFile).setFileContents(contents);
         HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
+		HTMLFileArray.get(indexOfFile).saveFile();
     }
 
 
@@ -156,5 +158,12 @@ public class FileManager {
 
 	public void createUndoState(int index){
 
+	}
+
+	public void saveNewFile(File f, String contents, int index){
+		HTMLFileArray.remove(index);
+		HTMLFileArray.add(index, new HTMLFile(f.getAbsolutePath(), false));
+		HTMLFile file = HTMLFileArray.get(index);
+		file.saveFile(contents);
 	}
 }
