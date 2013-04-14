@@ -772,7 +772,6 @@ public class EditorFrame extends JFrame {
         if (src != "") {
             new InsertImageCommand(src, getActivePane()).execute(commandDistributor, commandMediator);
         }
-
     }
 
     private void insertATagActionPerformed() {
@@ -781,6 +780,7 @@ public class EditorFrame extends JFrame {
         dialog.setVisible(true);
         String href = dialog.getURL();
         String name = dialog.getName();
+        if (href != "" && name == "") JOptionPane.showMessageDialog(this, "Please input a ");
         if (href != "" && name != "")
             new InsertATagCommand(href, name, this).execute(commandDistributor, commandMediator);
     }
