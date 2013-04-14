@@ -9,18 +9,17 @@ import TeamTwoHTMLEditor.Links.Links;
  * Created with IntelliJ IDEA. User: Shannon Date: 4/4/13 Time: 2:40 PM
  */
 public class RefreshLinksCommand implements Command {
-    TabFrame f;
-    int index;
+	private final ActiveContext context;
 
-    public RefreshLinksCommand(TabFrame f, int x) {
-        this.f = f;
-        index = x;
+    public RefreshLinksCommand(ActiveContext context) {
+		this.context = context;
     }
 
     @Override
     public void execute(CommandDistributor c, CommandMediator cmd) {
-        Links links = c.getFileManager().getLinksAt(index);
+        Links links = c.getFileManager().getLinksAt(context.getIndex());
         links.refresh();
-        f.setList(links.getLinks());
+
+		context.getTabFrame().setList(links.getLinks());
     }
 }

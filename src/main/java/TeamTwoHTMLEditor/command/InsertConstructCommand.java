@@ -15,12 +15,12 @@ public class InsertConstructCommand implements Command{
 	}
 
 	private Construct construct;
-	private final JTextArea activePane;
+	private final ActiveContext context;
 
 
-	public InsertConstructCommand(Construct cn, JTextArea activePane){
+	public InsertConstructCommand(Construct cn, ActiveContext context){
 		construct = cn;
-		this.activePane = activePane;
+		this.context = context;
 	}
 
 	/**
@@ -39,7 +39,7 @@ public class InsertConstructCommand implements Command{
 	public void execute(CommandDistributor c, CommandMediator cmd){
 
 		// If there is no active editor window, then do nothing
-		if(activePane == null){
+		if(context.getActiveTextArea() == null){
 			return;
 		}
 
@@ -72,9 +72,9 @@ public class InsertConstructCommand implements Command{
 
 		}
 
-		activePane.insert(insertStr.toString(), activePane.getCaretPosition());
-		activePane.setCaretPosition(
-				activePane.getCaretPosition() - (input.length() / 2) - 1);
+		context.getActiveTextArea().insert(insertStr.toString(), context.getActiveTextArea().getCaretPosition());
+		context.getActiveTextArea().setCaretPosition(
+				context.getActiveTextArea().getCaretPosition() - (input.length() / 2) - 1);
 
 	}
 }

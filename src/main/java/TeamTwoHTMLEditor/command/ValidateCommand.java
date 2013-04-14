@@ -20,9 +20,8 @@ import java.util.Random;
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 9:41 PM
  */
 public class ValidateCommand implements Command{
-	private JTextArea pane;
+	private final ActiveContext context;
 	private String filename;
-	private EditorFrame parent;
 	private static final Random gen = new Random();
 	private boolean manuallyClicked;
 
@@ -35,17 +34,14 @@ public class ValidateCommand implements Command{
 	 * This allows for greater flexibility on the tags that are included within
 	 * the html.
 	 *
-	 * @param pane
 	 * @param filename
-	 * @param parent
 	 * @param manuallyClicked - If the validation was done when saving/opening
 	 *                        or manually
 	 */
-	public ValidateCommand(JTextArea pane, String filename, EditorFrame parent,
-						   boolean manuallyClicked){
-		this.pane = pane;
+	public ValidateCommand(String filename, boolean manuallyClicked,
+						   ActiveContext context){
+		this.context = context;
 		this.filename = filename;
-		this.parent = parent;
 		this.manuallyClicked = manuallyClicked;
 	}
 
@@ -60,7 +56,7 @@ public class ValidateCommand implements Command{
 	private void checkFile(CommandDistributor c){
 		File f = new File(filename);
 		if(!f.exists()
-		   || !c.getFileManager().canQuitAt(parent.getActivePaneIndex())){
+		   || !c.getFileManager().canQuitAt(context.getIndex())){
 			int i = 8;
 			String newFilename = "";
 			while(i-- > 0){
@@ -70,7 +66,7 @@ public class ValidateCommand implements Command{
 				f = File.createTempFile(newFilename, ".tmp");
 				filename = f.getAbsolutePath();
 				BufferedWriter bw = new BufferedWriter(new FileWriter(f));
-				bw.write(pane.getText());
+				bw.write(context.getActiveTextArea().getText());
 				bw.flush();
 				bw.close();
 			}
@@ -78,7 +74,7 @@ public class ValidateCommand implements Command{
 				// TODO can't validate, I guess don't bother?
 				JOptionPane x = new JOptionPane();
 				x.setName("Error while parsing the HTML");
-				JOptionPane.showMessageDialog(parent,
+				JOptionPane.showMessageDialog(context.getParent(),
 											  "Unable to create a temporary " +
 											  "file to validate HTML. No " +
 											  "validation performed");
@@ -99,7 +95,7 @@ public class ValidateCommand implements Command{
 			Document dom = db.parse(filename);
 			// If the validate option was accessed from the menu, give feedback when successful.
 			if(manuallyClicked){
-				JOptionPane.showMessageDialog(parent, "This HTML file is valid.", "Success", JOptionPane.PLAIN_MESSAGE);
+				JOptionPane.showMessageDialog(context.getParent(), "This HTML file is valid.", "Success", JOptionPane.PLAIN_MESSAGE);
 			}
 		}
 		catch(ParserConfigurationException ignored){
@@ -108,7 +104,7 @@ public class ValidateCommand implements Command{
 			dbf.setIgnoringComments(true);
 			JOptionPane x = new JOptionPane();
 			x.setName("Warning while parsing the HTML");
-			JOptionPane.showMessageDialog(parent, e.getMessage(), "Syntax Error with HTML", JOptionPane.INFORMATION_MESSAGE);
+			JOptionPane.showMessageDialog(context.getParent(), e.getMessage(), "Syntax Error with HTML", JOptionPane.INFORMATION_MESSAGE);
 		}
 		catch(IOException ignored){
 		}

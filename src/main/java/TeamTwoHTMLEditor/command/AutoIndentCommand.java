@@ -11,16 +11,16 @@ import javax.swing.*;
  */
 public class AutoIndentCommand implements Command{
 
-	private JTextArea activePane;
+	private final ActiveContext context;
 
-	public AutoIndentCommand(JTextArea activePane){
-		this.activePane = activePane;
+	public AutoIndentCommand(ActiveContext context){
+		this.context = context;
 	}
 
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		String prevLine = EditorFrame.getPreviousLine(activePane);
+		String prevLine = EditorFrame.getPreviousLine(context.getActiveTextArea());
 		int numTabs = EditorFrame.getTabCount(prevLine);
-		activePane.insert(EditorFrame.indentTabs(numTabs), activePane.getCaretPosition());
+		context.getActiveTextArea().insert(EditorFrame.indentTabs(numTabs), context.getActiveTextArea().getCaretPosition());
 	}
 }

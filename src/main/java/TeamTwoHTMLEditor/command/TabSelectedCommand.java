@@ -9,12 +9,12 @@ import javax.swing.*;
  * @author Keegan Parrotte - kmp3325@rit.edu
  */
 public class TabSelectedCommand implements Command{
-	private JTextArea activePane;
 	private String selectedText;
+	private final ActiveContext context;
 
-	public TabSelectedCommand(JTextArea activePane, String selectedText){
-		this.activePane = activePane;
+	public TabSelectedCommand(String selectedText, ActiveContext context){
 		this.selectedText = selectedText;
+		this.context = context;
 	}
 
 	/**
@@ -34,7 +34,7 @@ public class TabSelectedCommand implements Command{
 		// Substring gets rid of the first tab that is still
 		// registered for the original tab keyPress and
 		// the last extra newline
-		activePane.replaceSelection(newSelected.substring(1
+		context.getActiveTextArea().replaceSelection(newSelected.substring(1
 				, newSelected.length() - 1));
 	}
 

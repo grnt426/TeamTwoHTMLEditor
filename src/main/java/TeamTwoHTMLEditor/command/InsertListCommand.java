@@ -11,18 +11,16 @@ import javax.swing.*;
  */
 public class InsertListCommand implements Command{
 
-	private final JTextArea activePane;
-
 	public enum ListType{NUMBERED, BULLETED, DICTIONARY}
-
 	int size;
 	ListType type;
+	private final ActiveContext context;
 
 
-	public InsertListCommand(ListType l, int size, JTextArea activePane){
+	public InsertListCommand(ListType l, int size, ActiveContext context){
 		this.size = size;
 		type = l;
-		this.activePane = activePane;
+		this.context = context;
 	}
 
 	/**
@@ -38,7 +36,7 @@ public class InsertListCommand implements Command{
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		StringBuilder listElement = new StringBuilder("");
 		int tabCount =
-				EditorFrame.getTabCount(EditorFrame.getCurrentLine(activePane));
+				EditorFrame.getTabCount(EditorFrame.getCurrentLine(context.getActiveTextArea()));
 		String tabs = EditorFrame.indentTabs(tabCount);
 		System.out.println(tabCount);
 
@@ -69,7 +67,8 @@ public class InsertListCommand implements Command{
 				break;
 		}
 		System.out.println(listElement.toString());
-		activePane.insert(listElement.toString(), activePane.getCaretPosition());
+		context.getActiveTextArea().insert(listElement.toString(),
+										   context.getActiveTextArea().getCaretPosition());
 	}
 
 }

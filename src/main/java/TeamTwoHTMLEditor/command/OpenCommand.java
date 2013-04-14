@@ -15,29 +15,19 @@ import java.io.File;
  */
 public class OpenCommand implements Command{
 	private File f;
-	private int index;
-	private JTextArea pane;
-	private final EditorFrame parent;
+	private final ActiveContext context;
 
-	public OpenCommand(File openFile, JTextArea pane, EditorFrame parent,
-					   int i){
+	public OpenCommand(File openFile, ActiveContext context){
 		f = openFile;
-		this.pane = pane;
-		this.parent = parent;
-		index = i;
-	}
-
-	public OpenCommand(File f, ActiveContext active){
-		this(f, active.getActiveTextArea(), active.getParent(),
-			 active.getIndex());
+		this.context = context;
 	}
 
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		c.getFileManager().openFile(f, pane);
-		pane.getDocument().addDocumentListener(
-				c.getFileManager().getFileAt(index));
-		cmd.openCommandExecuted(pane, f.getPath(), parent, false, c, index);
+		c.getFileManager().openFile(f, context.getActiveTextArea());
+		context.getActiveTextArea().getDocument().addDocumentListener(
+				c.getFileManager().getFileAt(context.getIndex()));
+		cmd.openCommandExecuted(f.getPath(), false, c, context);
 		c.getFileManager().printStatus();
 	}
 

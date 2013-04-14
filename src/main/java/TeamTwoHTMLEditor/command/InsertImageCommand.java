@@ -15,25 +15,25 @@ import javax.swing.*;
 
 public class InsertImageCommand implements Command {
 
-    private final JTextArea activePane;
     private String src;
+	private final ActiveContext context;
 
-    public InsertImageCommand(String src, JTextArea activePane) {
+	public InsertImageCommand(String src, ActiveContext context) {
         this.src = src;
-        this.activePane = activePane;
+		this.context = context;
     }
 
     public void execute(CommandDistributor c, CommandMediator cmd) {
         String input;
 
         // If there is no active editor window, then do nothing
-        if (activePane == null) {
+        if (context.getActiveTextArea() == null) {
             return;
         }
         input = "<img src=\"" + src + "\">";
         StringBuilder insertStr = new StringBuilder("");
         insertStr.append(input);
 
-        activePane.insert(insertStr.toString(), activePane.getCaretPosition());
+		context.getActiveTextArea().insert(insertStr.toString(), context.getActiveTextArea().getCaretPosition());
     }
 }

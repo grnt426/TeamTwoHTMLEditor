@@ -12,12 +12,10 @@ import javax.swing.*;
  */
 public class CloseTabCommand implements Command{
 
-	private final int index;
-	private final EditorFrame parent;
+	private final ActiveContext context;
 
-	public CloseTabCommand(int index, EditorFrame p){
-		this.index = index;
-		parent = p;
+	public CloseTabCommand(ActiveContext context){
+		this.context = context;
 	}
 
 	/**
@@ -33,19 +31,19 @@ public class CloseTabCommand implements Command{
 	 */
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		if(c.getFileManager().canQuitAt(index)){
-			parent.closeTab();
-			c.getFileManager().closeFile(index);
+		if(c.getFileManager().canQuitAt(context.getIndex())){
+			context.getParent().closeTab();
+			c.getFileManager().closeFile(context.getIndex());
 		}
 		else{
 			int n = JOptionPane.showConfirmDialog(
-					parent,
+					context.getParent(),
 					"This Tab has not been saved, would you like to quit anyway?",
 					"Unsaved Tab",
 					JOptionPane.YES_NO_OPTION);
 			if(n == JOptionPane.YES_OPTION){
-				parent.closeTab();
-				c.getFileManager().closeFile(index);
+				context.getParent().closeTab();
+				c.getFileManager().closeFile(context.getIndex());
 			}
 			else{
 

@@ -11,18 +11,15 @@ import javax.swing.*;
  */
 public class UndoCommand implements Command{
 
-	private JTextArea pane;
-	private EditorFrame parent;
-	private int index;
 
-	public UndoCommand(JTextArea pane, EditorFrame parent, int index){
-		this.pane = pane;
-		this.parent = parent;
-		this.index = index;
+	private final ActiveContext context;
+
+	public UndoCommand(ActiveContext context){
+		this.context = context;
 	}
 
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		c.getFileManager().undoChange(index);
+		c.getFileManager().undoChange(context.getIndex());
 	}
 }

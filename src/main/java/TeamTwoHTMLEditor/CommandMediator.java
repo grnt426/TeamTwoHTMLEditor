@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor;
 
 import TeamTwoHTMLEditor.GUI.EditorFrame;
 import TeamTwoHTMLEditor.GUI.TabFrame;
+import TeamTwoHTMLEditor.command.ActiveContext;
 import TeamTwoHTMLEditor.command.RefreshLinksCommand;
 import TeamTwoHTMLEditor.command.ValidateCommand;
 
@@ -26,54 +27,44 @@ public class CommandMediator {
     /**
      * Called whenever an open Command is successfully called.
      *
-     * @param pane            - The JTextArea
      * @param filePath        - The path of the file.
-     * @param parent          - The Editor Frame
      * @param manuallyClicked - Whether or not the button "Validate" was clicked.
      * @param c               - The CommandDistributor
-     * @param index
      */
-    public void openCommandExecuted(JTextArea pane, String filePath,
-                                    EditorFrame parent, boolean manuallyClicked,
-                                    CommandDistributor c, int index) {
-        new ValidateCommand(pane, filePath, parent, manuallyClicked).execute(c, this);
-        new RefreshLinksCommand(parent.getTabFrame(index), index).execute(c, this);
+    public void openCommandExecuted(String filePath, boolean manuallyClicked,
+                                    CommandDistributor c, ActiveContext context) {
+        new ValidateCommand(filePath, manuallyClicked, context).execute(c, this);
+        new RefreshLinksCommand(context).execute(c, this);
     }
 
     /**
      * Called whenever a save as Command is successfully called.
      *
-     * @param pane            - The JTextArea
      * @param filePath        - The path of the file.
-     * @param parent          - The Editor Frame
      * @param manuallyClicked - Whether or not the button "Validate" was clicked.
      * @param c               - The CommandDistributor
      */
-    public void saveAsCommandExecuted(JTextArea pane, String filePath,
-                                      EditorFrame parent, boolean manuallyClicked,
-                                      CommandDistributor c, int index) {
-        new ValidateCommand(pane, filePath, parent, manuallyClicked).execute(c, this);
-        new RefreshLinksCommand(parent.getTabFrame(index), index).execute(c, this);
+    public void saveAsCommandExecuted(String filePath, boolean manuallyClicked,
+                                      CommandDistributor c, ActiveContext context) {
+        new ValidateCommand(filePath, manuallyClicked, context).execute(c, this);
+        new RefreshLinksCommand(context).execute(c, this);
     }
 
     /**
      * Called whenever a save Command is successfully called.
      *
-     * @param pane            - The JTextArea
      * @param filePath        - The path of the file.
-     * @param parent          - The Editor Frame
      * @param manuallyClicked - Whether or not the button "Validate" was clicked.
      * @param c               - The CommandDistributor
      */
-    public void saveCommandExecuted(JTextArea pane, String filePath,
-                                    EditorFrame parent, boolean manuallyClicked,
-                                    CommandDistributor c, int index) {
-        new ValidateCommand(pane, filePath, parent, manuallyClicked).execute(c, this);
-        new RefreshLinksCommand(parent.getTabFrame(index), index).execute(c, this);
+    public void saveCommandExecuted(String filePath, boolean manuallyClicked,
+                                    CommandDistributor c, ActiveContext context) {
+        new ValidateCommand(filePath, manuallyClicked, context).execute(c, this);
+        new RefreshLinksCommand(context).execute(c, this);
     }
 
-    public void insertCommandExecuted(TabFrame f, int i) {
-        new RefreshLinksCommand(f, i);
+    public void insertCommandExecuted(ActiveContext context) {
+        new RefreshLinksCommand(context);
     }
 
 }

@@ -34,7 +34,7 @@ public class InsertATagCommand implements Command {
         context.getActiveTextArea().insert(insertStr.toString(),
                 context.getActiveTextArea().getCaretPosition());
 
-        cmd.insertCommandExecuted(context.getTabFrame(), context.getIndex());
+        cmd.insertCommandExecuted(context);
     }
 }
 

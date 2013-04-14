@@ -11,23 +11,19 @@ import javax.swing.*;
  */
 public class SaveCommand implements Command{
 
-	private JTextArea pane;
-	private EditorFrame parent;
-	private int index;
+	private final ActiveContext context;
 
-	public SaveCommand(EditorFrame editorFrame, JTextArea pane, int i){
-		this.pane = pane;
-		parent = editorFrame;
-		index = i;
+	public SaveCommand(ActiveContext context){
+		this.context = context;
 	}
 
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		String contents = pane.getText();
-		String path = c.getFileManager().getPathAt(index);
-		c.getFileManager().quickSaveFile(path, contents, index);
+		String contents = context.getActiveTextArea().getText();
+		String path = c.getFileManager().getPathAt(context.getIndex());
+		c.getFileManager().quickSaveFile(path, contents, context.getIndex());
 		c.getFileManager().printStatus();
-		cmd.saveCommandExecuted(pane, path, parent, false, c, index);
+		cmd.saveCommandExecuted(path, false, c, context);
 		c.getFileManager().printStatus();
 	}
 }

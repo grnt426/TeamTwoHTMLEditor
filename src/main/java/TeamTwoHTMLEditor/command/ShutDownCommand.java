@@ -10,11 +10,10 @@ import javax.swing.*;
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/22/13 Time: 2:16 PM
  */
 public class ShutDownCommand implements Command{
-	private EditorFrame eFrame;
+	private final ActiveContext context;
 
-	public ShutDownCommand(EditorFrame frame){
-		eFrame = frame;
-
+	public ShutDownCommand(ActiveContext context){
+		this.context = context;
 	}
 
 	/**
@@ -28,17 +27,17 @@ public class ShutDownCommand implements Command{
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		if(c.getFileManager().canQuit()){
-			eFrame.dispose();
+			context.getParent().dispose();
 			System.out.println("Shutting Down System");
 		}
 		else{
 			int n = JOptionPane.showConfirmDialog(
-					eFrame,
+					context.getParent(),
 					"There are some unsaved files, would you like to quit anyway?",
 					"Unsaved Files",
 					JOptionPane.YES_NO_OPTION);
 			if(n == JOptionPane.YES_OPTION){
-				eFrame.dispose();
+				context.getParent().dispose();
 				System.out.println("Shutting Down System");
 			}
 			else{

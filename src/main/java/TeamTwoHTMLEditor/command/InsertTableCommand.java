@@ -12,13 +12,14 @@ import javax.swing.*;
  */
 public class InsertTableCommand implements Command{
 
-	int row, col;
-	private final JTextArea activePane;
+	int row;
+	int col;
+	private final ActiveContext context;
 
-	public InsertTableCommand(int r, int c, JTextArea activePane){
+	public InsertTableCommand(int r, int c, ActiveContext context){
 		row = r;
 		col = c;
-		this.activePane = activePane;
+		this.context = context;
 	}
 
 	/**
@@ -32,7 +33,8 @@ public class InsertTableCommand implements Command{
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		StringBuilder listElement = new StringBuilder("");
 		int tabCount =
-				EditorFrame.getTabCount(EditorFrame.getCurrentLine(activePane));
+				EditorFrame.getTabCount(EditorFrame.getCurrentLine(
+						context.getActiveTextArea()));
 		String tabs = EditorFrame.indentTabs(tabCount);
 		System.out.println(tabCount);
 
@@ -46,6 +48,7 @@ public class InsertTableCommand implements Command{
 			listElement.append(tabs).append("\t</tr>\n");
 		}
 		listElement.append(tabs).append("</table>");
-		activePane.insert(listElement.toString(), activePane.getCaretPosition());
+		context.getActiveTextArea().insert(listElement.toString(),
+										   context.getActiveTextArea().getCaretPosition());
 	}
 }

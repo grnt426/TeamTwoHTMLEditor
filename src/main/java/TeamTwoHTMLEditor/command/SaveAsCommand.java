@@ -14,24 +14,19 @@ import java.io.File;
  */
 public class SaveAsCommand implements Command{
 	private File f;
-	private JTextArea pane;
-	private EditorFrame parent;
-	private int index;
+	private final ActiveContext context;
 
-	public SaveAsCommand(EditorFrame editorFrame, File saveFile, JTextArea pane,
-						 int i){
+	public SaveAsCommand(File saveFile, ActiveContext context){
 		f = saveFile;
-		this.pane = pane;
-		parent = editorFrame;
-		index = i;
+		this.context = context;
 	}
 
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		String contents = pane.getText();
-		c.getFileManager().saveFile(f, contents, index);
+		String contents = context.getActiveTextArea().getText();
+		c.getFileManager().saveFile(f, contents, context.getIndex());
 		c.getFileManager().printStatus();
-		cmd.saveAsCommandExecuted(pane, f.getPath(), parent, false, c, index);
+		cmd.saveAsCommandExecuted(f.getPath(), false, c, context);
 		c.getFileManager().printStatus();
 	}
 }
