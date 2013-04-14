@@ -209,16 +209,32 @@ public class EditorFrame extends JFrame {
 
 
         //Build the second menu - Edit   ************** BEGIN ************************** //
-        //menuEdit.setMnemonic(KeyEvent.VK_E);
+        menuEdit.setMnemonic(KeyEvent.VK_E);
         menuEdit.getAccessibleContext().setAccessibleDescription("This menu allows you to edit the file content");
 
         ///Adding Edit MenuItems
         copyMenuItem = new JMenuItem("Copy", KeyEvent.VK_C);
         pasteMenuItem = new JMenuItem("Paste", KeyEvent.VK_V);
+        undoMenuItem = new JMenuItem("Undo", KeyEvent.VK_U);
+        redoMenuItem = new JMenuItem("Redo", KeyEvent.VK_R);
 
         ///Shortcuts
         copyMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_C, ActionEvent.CTRL_MASK));
         pasteMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_V, ActionEvent.CTRL_MASK));
+        undoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Z, ActionEvent.CTRL_MASK)));
+        redoMenuItem.setAccelerator((KeyStroke.getKeyStroke(KeyEvent.VK_Y, ActionEvent.CTRL_MASK)));
+
+        //Adding Icons
+        URL copyMenuItemURL = getClass().getResource("/stock_copy.png");
+        URL pasteMenuItemURL = getClass().getResource("/stock_paste.png");
+        URL undoMenuItemURL = getClass().getResource("/stock_undo.png");
+        URL redoMenuItemURL = getClass().getResource("/stock_redo.png");
+
+        if (copyMenuItemURL != null) copyMenuItem.setIcon(new ImageIcon(copyMenuItemURL));
+        if (pasteMenuItemURL != null) pasteMenuItem.setIcon(new ImageIcon(pasteMenuItemURL));
+        if (undoMenuItemURL != null) undoMenuItem.setIcon(new ImageIcon(undoMenuItemURL));
+        if (redoMenuItemURL != null) redoMenuItem.setIcon(new ImageIcon(redoMenuItemURL));
+
 
         ///Listeners for Menu Items
         copyMenuItem.addActionListener(new ActionListener() {
@@ -235,10 +251,28 @@ public class EditorFrame extends JFrame {
             }
         });
 
+        undoMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                undoMenuItemActionPerformed();
+            }
+        });
+
+        redoMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                redoMenuItemActionPerformed();
+            }
+        });
+
+
         menuEdit.add(copyMenuItem);
         menuEdit.add(pasteMenuItem);
+        menuEdit.addSeparator();
+        menuEdit.add(undoMenuItem);
+        menuEdit.add(redoMenuItem);
 
-        //menuBar.add(menuEdit);
+        menuBar.add(menuEdit);
         // BUILD EDIT **************************************END**************************//
 
 
@@ -490,6 +524,7 @@ public class EditorFrame extends JFrame {
         }
     }
 
+
     private void setEverythingFileDependantEnabled(boolean b) {
         closeTabMenuItem.setEnabled(b);
         saveMenuItem.setEnabled(b);
@@ -680,6 +715,15 @@ public class EditorFrame extends JFrame {
 
     private void pasteMenuItemActionPerformed() {
     }
+
+    private void undoMenuItemActionPerformed() {
+
+    }
+
+    private void redoMenuItemActionPerformed() {
+
+    }
+
     //******************************** END *******************************************//
 
     //********************** Action Performed for Insert > X *****************************//
@@ -716,16 +760,16 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertH2ActionPerformed() {
-		insertHActionPerformed(InsertConstructCommand.Construct.H2);
+        insertHActionPerformed(InsertConstructCommand.Construct.H2);
     }
 
     private void insertH3ActionPerformed() {
-		insertHActionPerformed(InsertConstructCommand.Construct.H3);
+        insertHActionPerformed(InsertConstructCommand.Construct.H3);
     }
 
-	private void insertHActionPerformed(InsertConstructCommand.Construct h){
-		new InsertConstructCommand(h, getActiveContext()).execute(commandDistributor, commandMediator);
-	}
+    private void insertHActionPerformed(InsertConstructCommand.Construct h) {
+        new InsertConstructCommand(h, getActiveContext()).execute(commandDistributor, commandMediator);
+    }
 
     private void insertImageActionPerformed() {
         URLDialog dialog = new URLDialog(this, true);
@@ -961,8 +1005,8 @@ public class EditorFrame extends JFrame {
     }
 
     public TabFrame getTabFrame(int index) {
-		if(tabFrames == null || tabFrames.size() == 0)
-			return null;
+        if (tabFrames == null || tabFrames.size() == 0)
+            return null;
         return tabFrames.get(index);
     }
 
