@@ -532,6 +532,7 @@ public class EditorFrame extends JFrame {
         validateMenuItem.setEnabled(b);
         menuInsert.setEnabled(b);
         menuHTML.setEnabled(b);
+        menuEdit.setEnabled(b);
 
     }
 
