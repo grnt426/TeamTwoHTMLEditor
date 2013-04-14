@@ -790,7 +790,6 @@ public class EditorFrame extends JFrame {
         String href = dialog.getURL();
         String name = dialog.getName();
         if (href != "" && name != "") {
-            System.out.println("AEfasedfaef");
             new InsertATagCommand(href, name, getActiveContext()).execute(commandDistributor, commandMediator);
         }
     }

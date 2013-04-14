@@ -9,7 +9,6 @@ import TeamTwoHTMLEditor.CommandMediator;
  */
 public class InsertATagCommand implements Command {
     private final ActiveContext context;
-    private int index;
     private String href;
     private String name;
 
@@ -34,7 +33,7 @@ public class InsertATagCommand implements Command {
         context.getActiveTextArea().insert(insertStr.toString(),
                 context.getActiveTextArea().getCaretPosition());
 
-        cmd.insertCommandExecuted(context);
+        cmd.insertCommandExecuted(context, c);
     }
 }
 

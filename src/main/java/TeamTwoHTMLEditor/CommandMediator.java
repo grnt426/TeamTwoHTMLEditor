@@ -1,12 +1,8 @@
 package TeamTwoHTMLEditor;
 
-import TeamTwoHTMLEditor.GUI.EditorFrame;
-import TeamTwoHTMLEditor.GUI.TabFrame;
 import TeamTwoHTMLEditor.command.ActiveContext;
 import TeamTwoHTMLEditor.command.RefreshLinksCommand;
 import TeamTwoHTMLEditor.command.ValidateCommand;
-
-import javax.swing.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -63,8 +59,8 @@ public class CommandMediator {
         new RefreshLinksCommand(context).execute(c, this);
     }
 
-    public void insertCommandExecuted(ActiveContext context) {
-        new RefreshLinksCommand(context);
+    public void insertCommandExecuted(ActiveContext context, CommandDistributor c) {
+        new RefreshLinksCommand(context).execute(c, this);
     }
 
 }
