@@ -2,6 +2,7 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.CommandMediator;
+import TeamTwoHTMLEditor.GUI.EditorFrame;
 
 import javax.swing.*;
 
@@ -11,17 +12,20 @@ import javax.swing.*;
  */
 public class InsertATagCommand implements Command {
     private final JTextArea activePane;
+    private final EditorFrame parent;
+    private int index;
     private String href;
     private String name;
 
-    public InsertATagCommand(String href, String name, JTextArea activePane) {
+    public InsertATagCommand(String href, String name, EditorFrame parent) {
         this.href = href;
         this.name = name;
-        this.activePane = activePane;
+        this.parent = parent;
+        this.activePane = parent.getActiveTabFrame().getTextPane();
+        index = parent.getActivePaneIndex();
     }
 
     public void execute(CommandDistributor c, CommandMediator cmd) {
-        System.out.println("HELLO");
         String input;
 
         // If there is no active editor window, then do nothing
@@ -34,6 +38,8 @@ public class InsertATagCommand implements Command {
         insertStr.append(input);
 
         activePane.insert(insertStr.toString(), activePane.getCaretPosition());
+
+        cmd.insertCommandExecuted(parent.getActiveTabFrame(), index);
     }
 }
 

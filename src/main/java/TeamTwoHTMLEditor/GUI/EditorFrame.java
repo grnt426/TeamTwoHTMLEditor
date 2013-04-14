@@ -776,14 +776,13 @@ public class EditorFrame extends JFrame {
     }
 
     private void insertATagActionPerformed() {
-        System.out.println("YOLO");
         URLWithNameDialog dialog = new URLWithNameDialog(this, true);
         dialog.setLocationRelativeTo(this);
         dialog.setVisible(true);
         String href = dialog.getURL();
         String name = dialog.getName();
         if (href != "" && name != "")
-            new InsertATagCommand(href, name, getActivePane()).execute(commandDistributor, commandMediator);
+            new InsertATagCommand(href, name, this).execute(commandDistributor, commandMediator);
     }
 
     private void fontEmphasisActionPerformed(ActionEvent e) {
@@ -847,7 +846,7 @@ public class EditorFrame extends JFrame {
      */
     private void refreshLinksMenuItemActionPerformed() {
         for (int i = 0; i < tabFrames.size(); i++) {
-            new RefreshLinksCommand(tabFrames.get(i), i);
+            new RefreshLinksCommand(tabFrames.get(i), i).execute(commandDistributor, commandMediator);
         }
     }
 
@@ -908,7 +907,7 @@ public class EditorFrame extends JFrame {
 
     }
 
-    private TabFrame getActiveTabFrame() {
+    public TabFrame getActiveTabFrame() {
         if (!(tabFrames.size() <= 0)) {
             return tabFrames.get(activePaneIndex);
         }
@@ -918,7 +917,6 @@ public class EditorFrame extends JFrame {
 
     /**
      * @return The index of the active pane
-     *         Will probably be removed
      */
     public int getActivePaneIndex() {
         return activePaneIndex;
