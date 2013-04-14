@@ -660,7 +660,6 @@ public class EditorFrame extends JFrame {
 
     }
 
-
     private void saveAsMenuItemActionPerformed() {
         System.out.println("Opening Save File Chooser");
         int status = fc.showSaveDialog(this);
