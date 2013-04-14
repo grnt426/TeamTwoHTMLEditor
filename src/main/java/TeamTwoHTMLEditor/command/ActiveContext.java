@@ -32,4 +32,8 @@ public class ActiveContext{
 	public EditorFrame getParent(){
 		return parent;
 	}
+
+    public TabFrame getTabFrame() {
+        return tabFrame;
+    }
 }
