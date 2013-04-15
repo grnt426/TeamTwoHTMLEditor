@@ -1,6 +1,5 @@
 package TeamTwoHTMLEditor;
 
-import TeamTwoHTMLEditor.GUI.TabFrame;
 import TeamTwoHTMLEditor.Links.Links;
 
 import javax.swing.*;
@@ -59,25 +58,24 @@ public class FileManager {
     public void closeFile(int index) {
         HTMLFileArray.remove(index);
         numOpenFiles = HTMLFileArray.size();
-
     }
 
     /**
      *
      */
     public void saveFile(File f, String contents, int indexOfFile) {
-		HTMLFileArray.get(indexOfFile).setFileContents(contents);
+        HTMLFileArray.get(indexOfFile).setFileContents(contents);
         HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
-		HTMLFileArray.get(indexOfFile).saveFile();
+        HTMLFileArray.get(indexOfFile).saveFile();
     }
 
     public void quickSaveFile(String path, String contents, int indexOfFile) {
         System.out.println("Quick Saved file: " + path);
-		HTMLFileArray.get(indexOfFile).setFileContents(contents);
+        HTMLFileArray.get(indexOfFile).setFileContents(contents);
         HTMLFileArray.get(indexOfFile).setNeedToSave(false);
         HTMLFileArray.get(indexOfFile).setNeedSaveAs(false);
-		HTMLFileArray.get(indexOfFile).saveFile();
+        HTMLFileArray.get(indexOfFile).saveFile();
     }
 
 
@@ -152,18 +150,18 @@ public class FileManager {
         return HTMLFileArray.get(activePaneIndex);
     }
 
-	public void undoChange(int index){
-		HTMLFileArray.get(index).restoreState();
-	}
+    public void undoChange(int index) {
+        HTMLFileArray.get(index).restoreState();
+    }
 
-	public void createUndoState(int index){
+    public void createUndoState(int index) {
 
-	}
+    }
 
-	public void saveNewFile(File f, String contents, int index){
-		HTMLFileArray.remove(index);
-		HTMLFileArray.add(index, new HTMLFile(f.getAbsolutePath(), false));
-		HTMLFile file = HTMLFileArray.get(index);
-		file.saveFile(contents);
-	}
+    public void saveNewFile(File f, String contents, int index) {
+        HTMLFileArray.remove(index);
+        HTMLFileArray.add(index, new HTMLFile(f.getAbsolutePath(), false));
+        HTMLFile file = HTMLFileArray.get(index);
+        file.saveFile(contents);
+    }
 }

@@ -90,8 +90,6 @@ public class EditorFrame extends JFrame {
                 changeTabFocus();
                 if (tabPane.getTabCount() <= 0) {
                     setEverythingFileDependantEnabled(false);
-                } else {
-                    setEverythingFileDependantEnabled(true);
                 }
             }
         });
@@ -867,6 +865,11 @@ public class EditorFrame extends JFrame {
      */
     private void refreshLinkList() {
         new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+        if (SelectedListType == ListType.ALPHABETICAL) {
+            alphabeticalRadioButton.setEnabled(true);
+        } else {
+            inOrderRadioButton.setEnabled(true);
+        }
     }
     //******************************** END *******************************************//
 
