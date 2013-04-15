@@ -488,8 +488,12 @@ public class EditorFrame extends JFrame {
         renderPreviewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
         refreshLinksMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
 
-        renderPreviewMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_preview.png ")));
-        refreshLinksMenuItem.setIcon(new ImageIcon(getClass().getResource("/stock_refresh.png")));
+        //Linking icons
+        URL renderURL = getClass().getResource("/stock_preview.png");
+        URL refreshURl = getClass().getResource("/stock_refresh.png");
+
+        if (renderURL != null) renderPreviewMenuItem.setIcon(new ImageIcon(renderURL));
+        if (refreshURl != null) refreshLinksMenuItem.setIcon(new ImageIcon(refreshURl));
 
         menuHTML.add(renderPreviewMenuItem);
         menuHTML.add(refreshLinksMenuItem);
