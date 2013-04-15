@@ -90,6 +90,8 @@ public class EditorFrame extends JFrame {
                 changeTabFocus();
                 if (tabPane.getTabCount() <= 0) {
                     setEverythingFileDependantEnabled(false);
+                } else {
+                    setEverythingFileDependantEnabled(true);
                 }
             }
         });

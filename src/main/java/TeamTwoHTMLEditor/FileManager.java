@@ -161,6 +161,7 @@ public class FileManager {
     public void saveNewFile(File f, String contents, int index) {
         HTMLFileArray.remove(index);
         HTMLFileArray.add(index, new HTMLFile(f.getAbsolutePath(), false));
+        HTMLFileArray.get(index).setNeedSaveAs(false);
         HTMLFile file = HTMLFileArray.get(index);
         file.saveFile(contents);
     }
