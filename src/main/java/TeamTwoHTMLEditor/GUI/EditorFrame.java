@@ -591,7 +591,6 @@ public class EditorFrame extends JFrame {
             File f = fc.getSelectedFile();
             JTextArea pane = realizeNewTab(f.getName());
             new OpenCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
-            new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
             //PRECONDITION FOR THIS: ADD FILE IN BACKEND + ADD TAB
             addListeners(pane);                         //KEY EVENT 4 : Add the listeners (document and other)
         }
@@ -602,7 +601,6 @@ public class EditorFrame extends JFrame {
 
 
         new OpenCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
-        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
         addListeners(textArea);
     }
 
@@ -835,13 +833,13 @@ public class EditorFrame extends JFrame {
     private void alphabeticalRadioButtonActionPerformed() {
         System.out.println("Click radio button");
         this.SelectedListType = ListType.ALPHABETICAL;
-        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+        refreshLinkList();
     }
 
 
     private void inOrderRadioButtonActionPerformed() {
         this.SelectedListType = ListType.INORDER;
-        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+        refreshLinkList();
     }
 
 
@@ -860,11 +858,16 @@ public class EditorFrame extends JFrame {
      * Refreshes the view of the List
      */
     private void refreshLinksMenuItemActionPerformed() {
-        for (int i = 0; i < tabFrames.size(); i++) {
-            new RefreshLinksCommand(getActiveContext());
-        }
+        refreshLinkList();
     }
 
+    /**
+     * Helper method to refresh the link list at the bottom.
+     * Called by multiple methods and after many commands to keep it updated.
+     */
+    private void refreshLinkList() {
+        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+    }
     //******************************** END *******************************************//
 
 
