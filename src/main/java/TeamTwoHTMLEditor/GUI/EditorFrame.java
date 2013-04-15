@@ -32,6 +32,11 @@ public class EditorFrame extends JFrame {
     private int activePaneIndex = 0;
     private int globalTabSize = 4;
     private JTabbedPane tabPane;
+    private ListType SelectedListType;
+
+    public enum ListType {
+        ALPHABETICAL, INORDER
+    }
 
     private ArrayList<TabFrame> tabFrames;
 
@@ -42,6 +47,9 @@ public class EditorFrame extends JFrame {
     private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem,
             toggleLinksViewMenuItem;
+    private ButtonGroup radioButtonGroup = new ButtonGroup();
+    private JRadioButtonMenuItem alphabeticalRadioButton;
+    private JRadioButtonMenuItem inOrderRadioButton;
 
 
     // headers, font emphasis (bold, italics), list (numbered, bulleted,
@@ -415,6 +423,11 @@ public class EditorFrame extends JFrame {
         toggleWordWrapMenuItem = new JCheckBoxMenuItem("Wrap Text", true);
         toggleAutoIndentMenuItem = new JCheckBoxMenuItem("Auto Indent", true);
         toggleLinksViewMenuItem = new JCheckBoxMenuItem("View Links", true);
+        alphabeticalRadioButton = new JRadioButtonMenuItem("Alphabetical", false);
+        inOrderRadioButton = new JRadioButtonMenuItem("In Order", true);
+        radioButtonGroup.add(alphabeticalRadioButton);
+        radioButtonGroup.add(inOrderRadioButton);
+        this.SelectedListType = ListType.INORDER;
 
 
         tabWidthMenuItem.addActionListener(new ActionListener() {
@@ -437,10 +450,31 @@ public class EditorFrame extends JFrame {
                 toggleLinksViewActionPerformed();
             }
         });
+
+        alphabeticalRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                alphabeticalRadioButtonActionPerformed();
+            }
+        });
+
+        inOrderRadioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                inOrderRadioButtonActionPerformed();
+            }
+        });
+
+
         menuOptions.add(tabWidthMenuItem);
         menuOptions.add(toggleWordWrapMenuItem);
         menuOptions.add(toggleAutoIndentMenuItem);
         menuOptions.add(toggleLinksViewMenuItem);
+        menuOptions.addSeparator();
+        menuOptions.add(new JLabel("Links View Options"));
+        menuOptions.add(alphabeticalRadioButton);
+        menuOptions.add(inOrderRadioButton);
+
         menuBar.add(menuOptions);
         // ********************************** END ************************************//
 
@@ -798,6 +832,19 @@ public class EditorFrame extends JFrame {
         }
     }
 
+    private void alphabeticalRadioButtonActionPerformed() {
+        System.out.println("Click radio button");
+        this.SelectedListType = ListType.ALPHABETICAL;
+        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+    }
+
+
+    private void inOrderRadioButtonActionPerformed() {
+        this.SelectedListType = ListType.INORDER;
+        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+    }
+
+
     //******************************** END *******************************************//
 
     //******************************* Action Performed for HTML > X *****************//
@@ -971,7 +1018,9 @@ public class EditorFrame extends JFrame {
 
     public ActiveContext getActiveContext() {
         return new ActiveContext(getActivePaneIndex(),
-                getActivePane(), this, getTabFrame(activePaneIndex));
+                getActivePane(), this, getTabFrame(activePaneIndex), SelectedListType);
     }
+
+
 }
 
