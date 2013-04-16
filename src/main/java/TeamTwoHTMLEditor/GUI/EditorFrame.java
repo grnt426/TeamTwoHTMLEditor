@@ -429,6 +429,8 @@ public class EditorFrame extends JFrame {
         radioButtonGroup.add(inOrderRadioButton);
         this.SelectedListType = ListType.INORDER;
 
+        URL tabIconURL = getClass().getResource("/stock_table_fixed_proportional.png");
+        if (tabIconURL != null) tabWidthMenuItem.setIcon(new ImageIcon(tabIconURL));
 
         tabWidthMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -870,11 +872,12 @@ public class EditorFrame extends JFrame {
      * Called by multiple methods and after many commands to keep it updated.
      */
     private void refreshLinkList() {
-        new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
         if (SelectedListType == ListType.ALPHABETICAL) {
             alphabeticalRadioButton.setEnabled(true);
+            new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
         } else {
             inOrderRadioButton.setEnabled(true);
+            new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
         }
     }
     //******************************** END *******************************************//
