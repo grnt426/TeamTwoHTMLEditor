@@ -4,6 +4,8 @@ import TeamTwoHTMLEditor.Links.Links;
 
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
 import java.io.*;
 import java.util.Scanner;
 
@@ -171,8 +173,7 @@ public class HTMLFile implements DocumentListener{
 	/**
 	 * Setter for needSaveAs
 	 *
-	 * @param b - true if the document has not ever been saved. false
-	 *          otherwise.
+	 * @param b - true if the document has not ever been saved. false otherwise.
 	 */
 	public void setNeedSaveAs(boolean b){
 		this.needSaveAs = b;
@@ -195,14 +196,16 @@ public class HTMLFile implements DocumentListener{
 	}
 
 	/**
-	 * Stores the current state of this file so that an Undo operation can
-	 * be done later.
+	 * Stores the current state of this file so that an Undo operation can be done
+	 * later.
 	 */
 	public void createMemento(){
-		if(fileContents == null)
+		if(fileContents == null){
 			history.storePrevious(new Memento(""));
-		else
+		}
+		else{
 			history.storePrevious(new Memento(fileContents.toString()));
+		}
 	}
 
 	/**
@@ -210,32 +213,43 @@ public class HTMLFile implements DocumentListener{
 	 */
 	public void restoreState(){
 		Memento previous = history.retrievePrevious();
-		if(previous == null)
+		if(previous == null){
 			return;
+		}
 		setFileContents(previous.getPreviousState());
 	}
 
 	/**
 	 * All the overriding methods below are methods that are implemented by the
 	 * DocumentListener. They all trigger when the document has been altered in
-	 * any of the following ways. Insertion Deletion Or change (copy/paste) This
-	 * ensures that whenever the document has been changed, the state of the
-	 * document changes to being unsaved
+	 * any of the following ways. Insertion Deletion Or change (copy/paste)
+	 * This ensures that whenever the document has been changed, the state of
+	 * the document changes to being unsaved
 	 *
 	 * @param e - The event that triggers the methods . Is unused
 	 */
 	@Override
 	public void insertUpdate(DocumentEvent e){
+		// Type of e.getDocument() is Javax.swing.text.PlainDocument
+		Document doc = e.getDocument();
+		try{
+			System.out.println(doc.getText(0, doc.getLength()));
+		}
+		catch(BadLocationException e1){
+		}
+		System.out.println("yolo1");
 		this.needToSave = true;
 	}
 
 	@Override
 	public void removeUpdate(DocumentEvent e){
+		System.out.println("yolo2");
 		this.needToSave = true;
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e){
+		System.out.println("yolo3");
 		this.needToSave = true;
 	}
 }
