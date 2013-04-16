@@ -138,10 +138,9 @@ public class TabFrame extends JPanel {
     }
 
     /**
-     *  Switches the main view to the outline view.
+     * Switches the main view to the outline view.
      */
     public void toOutlineView() {
-        System.out.println("Yolo1");
         outlineTextArea = setupOutlineArea();
         outlineViewScrollPane = new JScrollPane(outlineTextArea);
         mainPanel.removeAll();
@@ -153,8 +152,8 @@ public class TabFrame extends JPanel {
      * Switches the main view to the normal text editting view.
      */
     public void toNormalView() {
-        System.out.println("Yolo2");
         mainPanel.removeAll();
+        mainPanel.revalidate();
         mainPanel.add(editorScrollPane);
         mainPanel.revalidate();
     }
