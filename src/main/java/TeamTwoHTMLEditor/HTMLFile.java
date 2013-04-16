@@ -212,11 +212,17 @@ public class HTMLFile implements DocumentListener{
 	 * Restores the previous state of this file.
 	 */
 	public void restoreState(){
+		if(history.topOfStack()){
+			if(fileContents == null)
+				history.storeCurrent(new Memento(""));
+			else
+				history.storeCurrent(new Memento(fileContents.toString()));
+		}
 		Memento previous = history.retrievePrevious();
 		if(previous == null){
 			return;
 		}
-		setFileContents(previous.getPreviousState());
+		setFileContents(previous.getState());
 	}
 
 	/**
@@ -266,5 +272,13 @@ public class HTMLFile implements DocumentListener{
 		catch(BadLocationException e1){
 		}
 		this.needToSave = true;
+	}
+
+	public void restoreNextState(){
+		Memento next = history.retrieveNext();
+		if(next == null){
+			return;
+		}
+		setFileContents(next.getState());
 	}
 }

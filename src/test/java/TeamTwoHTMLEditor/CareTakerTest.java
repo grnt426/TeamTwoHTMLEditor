@@ -11,6 +11,7 @@ public class CareTakerTest extends TestCase{
 	private final Memento FIRST = new Memento("FIRST");
 	private final Memento SECOND = new Memento("SECOND");
 	private final Memento THIRD = new Memento("THIRD");
+	private final Memento FOURTH = new Memento("FOURTH");
 
 	public void testRetrievePrevious() throws Exception{
 		CareTaker careTaker = new CareTaker();
@@ -28,13 +29,41 @@ public class CareTakerTest extends TestCase{
 		Assert.assertNull(careTaker.retrievePrevious());
 	}
 
-	public void testRetrievePreviousThree() throws Exception{
+	public void testRetrievePreviousAndRedo() throws Exception{
+		CareTaker careTaker = new CareTaker();
+		careTaker.storePrevious(FIRST);
+		careTaker.storePrevious(SECOND);
+		careTaker.retrievePrevious();
+		Assert.assertEquals(SECOND, careTaker.retrieveNext());
+		Assert.assertEquals(null, careTaker.retrieveNext());
+		Assert.assertEquals(SECOND, careTaker.retrievePrevious());
+		Assert.assertEquals(FIRST, careTaker.retrievePrevious());
+		Assert.assertEquals(null, careTaker.retrievePrevious());
+		Assert.assertEquals(FIRST, careTaker.retrieveNext());
+		Assert.assertEquals(SECOND, careTaker.retrieveNext());
+		Assert.assertEquals(null, careTaker.retrieveNext());
+	}
+
+	public void testInsertNewUndoStateInMiddleOfStack() throws Exception{
 		CareTaker careTaker = new CareTaker();
 		careTaker.storePrevious(FIRST);
 		careTaker.storePrevious(SECOND);
 		careTaker.storePrevious(THIRD);
-		Assert.assertEquals(THIRD, careTaker.retrievePrevious());
+		careTaker.retrievePrevious();
+		careTaker.storePrevious(FOURTH);
+		Assert.assertEquals(FOURTH, careTaker.retrievePrevious());
 		Assert.assertEquals(SECOND, careTaker.retrievePrevious());
-		Assert.assertNull(careTaker.retrievePrevious());
+		Assert.assertEquals(FIRST, careTaker.retrievePrevious());
+		Assert.assertEquals(FIRST, careTaker.retrieveNext());
+		Assert.assertEquals(SECOND, careTaker.retrieveNext());
+		Assert.assertEquals(FOURTH, careTaker.retrieveNext());
+		Assert.assertEquals(null, careTaker.retrieveNext());
+	}
+
+	public void testRetrieveRedo() throws Exception{
+		CareTaker careTaker = new CareTaker();
+		careTaker.storePrevious(FIRST);
+		careTaker.storePrevious(SECOND);
+		Assert.assertEquals(null, careTaker.retrieveNext());
 	}
 }

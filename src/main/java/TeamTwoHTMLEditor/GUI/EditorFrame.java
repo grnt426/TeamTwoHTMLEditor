@@ -718,7 +718,7 @@ public class EditorFrame extends JFrame {
     }
 
     private void redoMenuItemActionPerformed() {
-
+		new RedoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
     }
 
     //******************************** END *******************************************//
