@@ -2,7 +2,7 @@ package TeamTwoHTMLEditor.OutlineEditorKit;
 
 import javax.swing.text.*;
 
-class OutlineLViewFactory implements ViewFactory {
+class OutlineViewFactory implements ViewFactory {
     public View create(Element elem) {
         String kind = elem.getName();
         if (kind != null) {

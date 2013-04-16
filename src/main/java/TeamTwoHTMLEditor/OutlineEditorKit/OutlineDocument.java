@@ -17,12 +17,12 @@ public class OutlineDocument extends DefaultStyledDocument {
 
     static {
         StyleConstants.setBold(TAGNAME_ATTRIBUTES, true);
-        StyleConstants.setForeground(TAGNAME_ATTRIBUTES, Color.GREEN.darker());
+        StyleConstants.setForeground(TAGNAME_ATTRIBUTES, Color.BLUE);
 
         StyleConstants.setBold(ATTRIBUTENAME_ATTRIBUTES, true);
 
         StyleConstants.setItalic(ATTRIBUTEVALUE_ATTRIBUTES, true);
-        StyleConstants.setForeground(ATTRIBUTEVALUE_ATTRIBUTES, Color.BLUE);
+        StyleConstants.setForeground(ATTRIBUTEVALUE_ATTRIBUTES, Color.ORANGE);
 
         StyleConstants.setFontSize(PLAIN_ATTRIBUTES, StyleConstants.getFontSize(PLAIN_ATTRIBUTES) - 1);
         StyleConstants.setForeground(PLAIN_ATTRIBUTES, Color.DARK_GRAY);

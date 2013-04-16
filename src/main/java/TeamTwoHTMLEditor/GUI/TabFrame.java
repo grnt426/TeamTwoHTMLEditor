@@ -40,8 +40,7 @@ public class TabFrame extends JPanel {
      * Initializes the GUI components of the tabFrame.
      */
     private void initComponents() {
-        //outlineTextArea = setupOutlineArea();
-        //outlineViewScrollPane = new JScrollPane(outlineTextArea);
+
 
         editorTextArea = setupTextArea();
         editorScrollPane = new JScrollPane(editorTextArea);
@@ -49,8 +48,12 @@ public class TabFrame extends JPanel {
         linkList = new JList();
         linkListScrollPane = new JScrollPane(linkList);
 
+        outlineTextArea = setupOutlineArea();
+        outlineViewScrollPane = new JScrollPane(outlineTextArea);
+
         mainPanel = new JPanel(new CardLayout());
         mainPanel.add(editorScrollPane, 0);
+        mainPanel.add(outlineViewScrollPane, 1);
 
 
         GroupLayout layout = new GroupLayout(this);
@@ -142,12 +145,10 @@ public class TabFrame extends JPanel {
      * Switches the main view to the outline view.
      */
     public void toggleOutlineView() {
-        outlineTextArea = setupOutlineArea();
-        outlineViewScrollPane = new JScrollPane(outlineTextArea);
-        outlineViewScrollPane.setName("outlineViewScrollPane");
-        mainPanel.add(outlineViewScrollPane, 1);
+        outlineTextArea.setText(editorTextArea.getText());
         ((CardLayout) mainPanel.getLayout()).next(mainPanel);
         mainPanel.revalidate();
+        System.out.println(mainPanel.getComponents().length);
     }
 
     /**
