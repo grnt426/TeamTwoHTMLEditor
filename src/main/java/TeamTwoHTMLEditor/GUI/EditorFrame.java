@@ -44,7 +44,7 @@ public class EditorFrame extends JFrame {
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuHTML, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
     private JMenuItem pasteMenuItem, copyMenuItem, undoMenuItem, redoMenuItem;
-    private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem, toOutlineMenuItem, toNormalMenuItem;
+    private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem, toggleOutlineMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem,
             toggleLinksViewMenuItem;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
@@ -486,24 +486,25 @@ public class EditorFrame extends JFrame {
         //adding Menu Items
         renderPreviewMenuItem = new JMenuItem("Preview");
         refreshLinksMenuItem = new JMenuItem("Refresh Links");
-        toOutlineMenuItem = new JMenuItem("Go to Outline View");
-        toNormalMenuItem = new JMenuItem("Back to Editable View ");
+        toggleOutlineMenuItem = new JMenuItem("Toggle Outline View", KeyEvent.VK_E);
 
         renderPreviewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
         refreshLinksMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
+        toggleOutlineMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_F6, ActionEvent.CTRL_MASK));
 
         //Linking icons
         URL renderURL = getClass().getResource("/stock_preview.png");
         URL refreshURl = getClass().getResource("/stock_refresh.png");
+        URL toggleURL = getClass().getResource("/stock_goto_outline.png");
 
         if (renderURL != null) renderPreviewMenuItem.setIcon(new ImageIcon(renderURL));
         if (refreshURl != null) refreshLinksMenuItem.setIcon(new ImageIcon(refreshURl));
+        if (toggleURL != null) toggleOutlineMenuItem.setIcon(new ImageIcon(toggleURL));
 
         menuHTML.add(renderPreviewMenuItem);
         menuHTML.add(refreshLinksMenuItem);
         menuHTML.addSeparator();
-        menuHTML.add(toOutlineMenuItem);
-        menuHTML.add(toNormalMenuItem);
+        menuHTML.add(toggleOutlineMenuItem);
 
         renderPreviewMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -519,19 +520,13 @@ public class EditorFrame extends JFrame {
             }
         });
 
-        toOutlineMenuItem.addActionListener(new ActionListener() {
+        toggleOutlineMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                toOutlineActionPerformed();
+                toggleOutlineActionPerformed();
             }
         });
 
-        toNormalMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                toNormalActionPerformed();
-            }
-        });
         menuBar.add(menuHTML);
         // ********************************** END ************************************//
 
@@ -753,7 +748,7 @@ public class EditorFrame extends JFrame {
     }
 
     private void redoMenuItemActionPerformed() {
-		new RedoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+        new RedoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
     }
 
     //******************************** END *******************************************//
@@ -915,13 +910,10 @@ public class EditorFrame extends JFrame {
         }
     }
 
-    private void toNormalActionPerformed() {
-        getActiveTabFrame().toNormalView();
+    private void toggleOutlineActionPerformed() {
+        getActiveTabFrame().toggleOutlineView();
     }
 
-    private void toOutlineActionPerformed() {
-        getActiveTabFrame().toOutlineView();
-    }
 
     //******************************** END *******************************************//
 

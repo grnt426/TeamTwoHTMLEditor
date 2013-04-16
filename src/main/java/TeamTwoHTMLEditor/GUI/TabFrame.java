@@ -141,7 +141,7 @@ public class TabFrame extends JPanel {
     /**
      * Switches the main view to the outline view.
      */
-    public void toOutlineView() {
+    public void toggleOutlineView() {
         outlineTextArea = setupOutlineArea();
         outlineViewScrollPane = new JScrollPane(outlineTextArea);
         outlineViewScrollPane.setName("outlineViewScrollPane");
