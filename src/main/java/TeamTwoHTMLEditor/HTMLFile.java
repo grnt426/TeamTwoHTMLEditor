@@ -221,10 +221,10 @@ public class HTMLFile implements DocumentListener{
 
 	/**
 	 * All the overriding methods below are methods that are implemented by the
-	 * DocumentListener. They all trigger when the document has been altered in
-	 * any of the following ways. Insertion Deletion Or change (copy/paste)
-	 * This ensures that whenever the document has been changed, the state of
-	 * the document changes to being unsaved
+	 * DocumentListener. They all trigger when the document has been altered in any
+	 * of the following ways. Insertion Deletion Or change (copy/paste) This
+	 * ensures that whenever the document has been changed, the state of the
+	 * document changes to being unsaved
 	 *
 	 * @param e - The event that triggers the methods . Is unused
 	 */
@@ -234,6 +234,7 @@ public class HTMLFile implements DocumentListener{
 		Document doc = e.getDocument();
 		try{
 			System.out.println(doc.getText(0, doc.getLength()));
+			setFileContents(doc.getText(0, doc.getLength()));
 		}
 		catch(BadLocationException e1){
 		}
@@ -244,12 +245,26 @@ public class HTMLFile implements DocumentListener{
 	@Override
 	public void removeUpdate(DocumentEvent e){
 		System.out.println("yolo2");
+		Document doc = e.getDocument();
+		try{
+			System.out.println(doc.getText(0, doc.getLength()));
+			setFileContents(doc.getText(0, doc.getLength()));
+		}
+		catch(BadLocationException e1){
+		}
 		this.needToSave = true;
 	}
 
 	@Override
 	public void changedUpdate(DocumentEvent e){
 		System.out.println("yolo3");
+		Document doc = e.getDocument();
+		try{
+			System.out.println(doc.getText(0, doc.getLength()));
+			setFileContents(doc.getText(0, doc.getLength()));
+		}
+		catch(BadLocationException e1){
+		}
 		this.needToSave = true;
 	}
 }
