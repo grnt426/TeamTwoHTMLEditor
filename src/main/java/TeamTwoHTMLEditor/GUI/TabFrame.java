@@ -3,6 +3,7 @@ package TeamTwoHTMLEditor.GUI;
 import TeamTwoHTMLEditor.XMLEditorKit.XMLEditorKit;
 
 import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 
 /**
@@ -39,8 +40,8 @@ public class TabFrame extends JPanel {
      * Initializes the GUI components of the tabFrame.
      */
     private void initComponents() {
-        outlineTextArea = setupOutlineArea();
-        outlineViewScrollPane = new JScrollPane(outlineTextArea);
+        //outlineTextArea = setupOutlineArea();
+        //outlineViewScrollPane = new JScrollPane(outlineTextArea);
 
         editorTextArea = setupTextArea();
         editorScrollPane = new JScrollPane(editorTextArea);
@@ -48,7 +49,7 @@ public class TabFrame extends JPanel {
         linkList = new JList();
         linkListScrollPane = new JScrollPane(linkList);
 
-        mainPanel = new JPanel();
+        mainPanel = new JPanel(new CardLayout());
         mainPanel.add(editorScrollPane);
 
         GroupLayout layout = new GroupLayout(this);
@@ -74,6 +75,7 @@ public class TabFrame extends JPanel {
 
         setLayout(layout);
 
+        mainPanel.setMaximumSize(mainPanel.getPreferredSize());
 
     }
 
@@ -129,24 +131,31 @@ public class TabFrame extends JPanel {
     /**
      * Returns the text pane from the TabFrame Object
      *
-     * @return
+     * @return - The text area of the editor
      */
     public JTextArea getTextPane() {
         return this.editorTextArea;
     }
 
+    /**
+     *  Switches the main view to the outline view.
+     */
     public void toOutlineView() {
-        mainPanel.remove(editorScrollPane);
+        System.out.println("Yolo1");
         outlineTextArea = setupOutlineArea();
         outlineViewScrollPane = new JScrollPane(outlineTextArea);
+        mainPanel.removeAll();
         mainPanel.add(outlineViewScrollPane);
         mainPanel.revalidate();
     }
 
+    /**
+     * Switches the main view to the normal text editting view.
+     */
     public void toNormalView() {
-        mainPanel.remove(outlineViewScrollPane);
+        System.out.println("Yolo2");
+        mainPanel.removeAll();
         mainPanel.add(editorScrollPane);
         mainPanel.revalidate();
-
     }
 }

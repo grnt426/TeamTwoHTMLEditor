@@ -44,7 +44,7 @@ public class EditorFrame extends JFrame {
     private JMenu menuFile, menuEdit, menuInsert, menuOptions, menuHTML, menuAbout;
     private JMenuItem newMenuItem, openMenuItem, saveMenuItem, saveAsMenuItem, closeTabMenuItem, validateMenuItem, quitMenuItem, tabWidthMenuItem, aboutUsMenuItem, helpMenuItem;
     private JMenuItem pasteMenuItem, copyMenuItem, undoMenuItem, redoMenuItem;
-    private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem;
+    private JMenuItem renderPreviewMenuItem, refreshLinksMenuItem, toOutlineMenuItem, toNormalMenuItem;
     private JCheckBoxMenuItem toggleWordWrapMenuItem, toggleAutoIndentMenuItem,
             toggleLinksViewMenuItem;
     private ButtonGroup radioButtonGroup = new ButtonGroup();
@@ -486,6 +486,8 @@ public class EditorFrame extends JFrame {
         //adding Menu Items
         renderPreviewMenuItem = new JMenuItem("Preview");
         refreshLinksMenuItem = new JMenuItem("Refresh Links");
+        toOutlineMenuItem = new JMenuItem("Go to Outline View");
+        toNormalMenuItem = new JMenuItem("Back to Editable View ");
 
         renderPreviewMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_P, ActionEvent.CTRL_MASK));
         refreshLinksMenuItem.setAccelerator(KeyStroke.getKeyStroke(KeyEvent.VK_L, ActionEvent.CTRL_MASK));
@@ -499,6 +501,9 @@ public class EditorFrame extends JFrame {
 
         menuHTML.add(renderPreviewMenuItem);
         menuHTML.add(refreshLinksMenuItem);
+        menuHTML.addSeparator();
+        menuHTML.add(toOutlineMenuItem);
+        menuHTML.add(toNormalMenuItem);
 
         renderPreviewMenuItem.addActionListener(new ActionListener() {
             @Override
@@ -514,6 +519,19 @@ public class EditorFrame extends JFrame {
             }
         });
 
+        toOutlineMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toOutlineActionPerformed();
+            }
+        });
+
+        toNormalMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                toNormalActionPerformed();
+            }
+        });
         menuBar.add(menuHTML);
         // ********************************** END ************************************//
 
@@ -707,31 +725,31 @@ public class EditorFrame extends JFrame {
     //********************** Action Performed for Edit > X *****************************//
     //What to do when copy or paste
     private void copyMenuItemActionPerformed() {
-		try {
-			Robot robot = new Robot();
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_C);
-			robot.keyRelease(KeyEvent.VK_C);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_C);
+            robot.keyRelease(KeyEvent.VK_C);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
     }
 
     private void pasteMenuItemActionPerformed() {
-		try {
-			Robot robot = new Robot();
-			robot.keyPress(KeyEvent.VK_CONTROL);
-			robot.keyPress(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_V);
-			robot.keyRelease(KeyEvent.VK_CONTROL);
-		} catch (AWTException e) {
-			e.printStackTrace();
-		}
+        try {
+            Robot robot = new Robot();
+            robot.keyPress(KeyEvent.VK_CONTROL);
+            robot.keyPress(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_V);
+            robot.keyRelease(KeyEvent.VK_CONTROL);
+        } catch (AWTException e) {
+            e.printStackTrace();
+        }
     }
 
     private void undoMenuItemActionPerformed() {
-		new UndoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
+        new UndoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
     }
 
     private void redoMenuItemActionPerformed() {
@@ -896,6 +914,15 @@ public class EditorFrame extends JFrame {
             new RefreshLinksCommand(getActiveContext()).execute(commandDistributor, commandMediator);
         }
     }
+
+    private void toNormalActionPerformed() {
+        getActiveTabFrame().toNormalView();
+    }
+
+    private void toOutlineActionPerformed() {
+        getActiveTabFrame().toOutlineView();
+    }
+
     //******************************** END *******************************************//
 
 
