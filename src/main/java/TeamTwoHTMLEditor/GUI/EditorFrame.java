@@ -537,7 +537,7 @@ public class EditorFrame extends JFrame {
                 JOptionPane.showMessageDialog(helpMenuItem, "To start, open a" +
                         " file or create a new file through the File menu.\nTo" +
                         " contact the authors choose the About Authors option " +
-                        "in the About menu.\nCopy - Ctrl+C\nPaste - Ctrl+V");
+                        "in the About menu.");
             }
         });
 
