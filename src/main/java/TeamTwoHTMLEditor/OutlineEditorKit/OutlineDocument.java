@@ -22,7 +22,7 @@ public class OutlineDocument extends DefaultStyledDocument {
         StyleConstants.setBold(ATTRIBUTENAME_ATTRIBUTES, true);
 
         StyleConstants.setItalic(ATTRIBUTEVALUE_ATTRIBUTES, true);
-        StyleConstants.setForeground(ATTRIBUTEVALUE_ATTRIBUTES, Color.ORANGE);
+        StyleConstants.setForeground(ATTRIBUTEVALUE_ATTRIBUTES, Color.GREEN.darker());
 
         StyleConstants.setFontSize(PLAIN_ATTRIBUTES, StyleConstants.getFontSize(PLAIN_ATTRIBUTES) - 1);
         StyleConstants.setForeground(PLAIN_ATTRIBUTES, Color.DARK_GRAY);
