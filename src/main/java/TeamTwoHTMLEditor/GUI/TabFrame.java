@@ -50,7 +50,8 @@ public class TabFrame extends JPanel {
         linkListScrollPane = new JScrollPane(linkList);
 
         mainPanel = new JPanel(new CardLayout());
-        mainPanel.add(editorScrollPane);
+        mainPanel.add(editorScrollPane, 0);
+
 
         GroupLayout layout = new GroupLayout(this);
 
@@ -143,8 +144,9 @@ public class TabFrame extends JPanel {
     public void toOutlineView() {
         outlineTextArea = setupOutlineArea();
         outlineViewScrollPane = new JScrollPane(outlineTextArea);
-        mainPanel.removeAll();
-        mainPanel.add(outlineViewScrollPane);
+        outlineViewScrollPane.setName("outlineViewScrollPane");
+        mainPanel.add(outlineViewScrollPane, 1);
+        ((CardLayout) mainPanel.getLayout()).next(mainPanel);
         mainPanel.revalidate();
     }
 
@@ -152,9 +154,8 @@ public class TabFrame extends JPanel {
      * Switches the main view to the normal text editting view.
      */
     public void toNormalView() {
-        mainPanel.removeAll();
-        mainPanel.revalidate();
-        mainPanel.add(editorScrollPane);
+        ((CardLayout) mainPanel.getLayout()).next(mainPanel);
+        editorScrollPane.revalidate();
         mainPanel.revalidate();
     }
 }
