@@ -31,7 +31,7 @@ public class InsertImageCommand implements Command {
         if (context.getActiveTextArea() == null) {
             return;
         }
-        input = "<img src=\"" + src + "\">";
+        input = "<img src=\"" + src + "\"></img>";
         StringBuilder insertStr = new StringBuilder("");
         insertStr.append(input);
 
