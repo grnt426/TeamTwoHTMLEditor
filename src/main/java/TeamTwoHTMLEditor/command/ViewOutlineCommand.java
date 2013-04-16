@@ -24,20 +24,20 @@ public class ViewOutlineCommand implements Command{
 
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
-		JDialog previewFrame = new JDialog(context.getParent(), true);
-		previewFrame.setSize(context.getParent().getSize());
-		previewFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		previewFrame.setTitle("Outline mode for HTML File");
+		JDialog outlineFrame = new JDialog(context.getParent(), true);
+		outlineFrame.setSize(context.getParent().getSize());
+		outlineFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+		outlineFrame.setTitle("Outline mode for HTML File");
 
-		JEditorPane preview = new JEditorPane();
-		preview.setEditorKit(new XMLEditorKit());
-		preview.setText(context.getActiveTextArea().getText());
-		preview.setEditable(false);
+		JEditorPane outlinePreview = new JEditorPane();
+		outlinePreview.setEditorKit(new XMLEditorKit());
+        outlinePreview.setText(context.getActiveTextArea().getText());
+        outlinePreview.setEditable(false);
 
-		previewFrame.add(new JScrollPane(preview));
-		previewFrame.setLocationRelativeTo(context.getParent());
+		outlineFrame.add(new JScrollPane(outlinePreview));
+		outlineFrame.setLocationRelativeTo(context.getParent());
 
-		previewFrame.setVisible(true);
+		outlineFrame.setVisible(true);
 
 	}
 }
