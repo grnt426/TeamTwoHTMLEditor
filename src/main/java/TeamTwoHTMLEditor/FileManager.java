@@ -5,6 +5,7 @@ import TeamTwoHTMLEditor.Links.Links;
 
 import javax.swing.*;
 import javax.swing.event.DocumentListener;
+import javax.swing.text.html.HTML;
 import java.io.File;
 import java.util.ArrayList;
 
@@ -174,5 +175,9 @@ public class FileManager {
 
 	public void updateFileContents(String contents, int index){
 		HTMLFileArray.get(index).setFileContents(contents);
+	}
+
+	public void redoChange(int index){
+		HTMLFileArray.get(index).restoreNextState();
 	}
 }

@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Stack;
 
 /**
@@ -9,25 +11,57 @@ import java.util.Stack;
  */
 public class CareTaker{
 
-	private final Stack<Memento> undoStack;
+	private List<Memento> undoStack;
+	private int pointer;
 
 	public CareTaker(){
-		undoStack = new Stack<Memento>();
+		undoStack = new LinkedList<Memento>();
+		pointer = 0;
 	}
 
 	public void storePrevious(Memento previous){
 
-		// We only need to store two previous states, so remove the bottom of
-		// the Stack (element 0) to maintain a max size of two.
-		if(undoStack.size() == 2)
-			undoStack.remove(0);
-		undoStack.push(previous);
+		// If our pointer is currently in the middle of the undo stack, then
+		// we need to invalidate all future redos to allow this undo state
+		// to maintain a proper undo/redo mechanism.
+		if(pointer != undoStack.size()){
+			undoStack = undoStack.subList(0, pointer + 1);
+		}
+		undoStack.add(previous);
+		pointer = undoStack.size() - 1;
 	}
 
+
+	/**
+	 * The Undo Operation.
+	 * @return
+	 */
 	public Memento retrievePrevious(){
-		// We don't want an exception thrown, so instead we will return null
-		if(undoStack.size() == 0)
-			return null;
-		return undoStack.pop();
+		Memento previous = null;
+		if(undoStack.size() != 0 && pointer != -1)
+			previous = undoStack.get(--pointer);
+		return previous;
+	}
+
+	/**
+	 * The Redo Opeartion
+	 * @return
+	 */
+	public Memento retrieveNext(){
+		Memento next = null;
+		if(undoStack.size() != 0 && pointer != undoStack.size() - 1)
+			next = undoStack.get(++pointer);
+		return next;
+	}
+
+	public boolean topOfStack(){
+		return pointer == undoStack.size() - 1;
+	}
+
+	public void storeCurrent(Memento memento){
+		if(!undoStack.get(pointer).equals(memento)){
+			undoStack.add(memento);
+			pointer = undoStack.size() - 1;
+		}
 	}
 }
