@@ -4,7 +4,7 @@ import javax.swing.text.*;
 import java.util.ArrayList;
 import java.awt.*;
 
-public class XMLDocument extends DefaultStyledDocument {
+public class IntelliHTMLDocument extends DefaultStyledDocument {
     public static String TAG_ELEMENT="tag_element";
     public static String TAG_ROW_START_ELEMENT="tag_row_start_element";
     public static String TAG_ROW_END_ELEMENT="tag_row_end_element";
@@ -34,7 +34,7 @@ public class XMLDocument extends DefaultStyledDocument {
     
     private boolean isUserChanges=true;
     
-    public XMLDocument() {
+    public IntelliHTMLDocument() {
 
     }
 

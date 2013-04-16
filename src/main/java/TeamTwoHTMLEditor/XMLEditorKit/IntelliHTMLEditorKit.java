@@ -6,14 +6,14 @@ import java.io.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class XMLEditorKit extends StyledEditorKit {
-    ViewFactory defaultFactory = new XMLViewFactory();
+public class IntelliHTMLEditorKit extends StyledEditorKit {
+    ViewFactory defaultFactory = new IntelliHTMLViewFactory();
     public ViewFactory getViewFactory() {
         return defaultFactory;
     }
 
     public Document createDefaultDocument() {
-        return new XMLDocument();
+        return new IntelliHTMLDocument();
     }
 
     public String getContentType() {
@@ -30,12 +30,12 @@ public class XMLEditorKit extends StyledEditorKit {
         }
 
         int p=getInsertPosition(pos, doc);
-        XMLReader.getInstance().read(new ByteArrayInputStream(buff.toString().getBytes()), doc, p);
+        IntelliHTMLReader.getInstance().read(new ByteArrayInputStream(buff.toString().getBytes()), doc, p);
     }
     
     public void read(InputStream in, Document doc, int pos) throws IOException, BadLocationException {
         int p=getInsertPosition(pos, doc);
-        XMLReader.getInstance().read(in, doc, p);
+        IntelliHTMLReader.getInstance().read(in, doc, p);
     }
     public void write(OutputStream out, Document doc, int pos, int len) throws IOException, BadLocationException {
         int[] sel=new int[2];
@@ -57,12 +57,12 @@ public class XMLEditorKit extends StyledEditorKit {
     }
 
     public static void correctSelectionBounds(int[] selection, Document d) {
-        if (d instanceof XMLDocument && d.getLength()>0) {
-            XMLDocument doc=(XMLDocument)d;
+        if (d instanceof IntelliHTMLDocument && d.getLength()>0) {
+            IntelliHTMLDocument doc=(IntelliHTMLDocument)d;
             int start=selection[0];
             Element root=doc.getDefaultRootElement();
             int i=root.getElementIndex(start);
-            while (i>=0 && root.getElement(i).getName().equals(XMLDocument.TAG_ELEMENT)) {
+            while (i>=0 && root.getElement(i).getName().equals(IntelliHTMLDocument.TAG_ELEMENT)) {
                 root=root.getElement(i);
                 i=root.getElementIndex(start);
             }
@@ -72,7 +72,7 @@ public class XMLEditorKit extends StyledEditorKit {
             int end=selection[0];
             root=doc.getDefaultRootElement();
             i=root.getElementIndex(end);
-            while (i>=0 && root.getElement(i).getName().equals(XMLDocument.TAG_ELEMENT)) {
+            while (i>=0 && root.getElement(i).getName().equals(IntelliHTMLDocument.TAG_ELEMENT)) {
                 root=root.getElement(i);
                 i=root.getElementIndex(end);
             }
@@ -93,11 +93,11 @@ public class XMLEditorKit extends StyledEditorKit {
     }
 
     protected int getInsertPosition(int pos, Document d) {
-        if (d instanceof XMLDocument && d.getLength()>0) {
-            XMLDocument doc=(XMLDocument)d;
+        if (d instanceof IntelliHTMLDocument && d.getLength()>0) {
+            IntelliHTMLDocument doc=(IntelliHTMLDocument)d;
             Element root=doc.getDefaultRootElement();
             int i=root.getElementIndex(pos);
-            while (i>=0 && root.getElement(i).getName().equals(XMLDocument.TAG_ELEMENT)) {
+            while (i>=0 && root.getElement(i).getName().equals(IntelliHTMLDocument.TAG_ELEMENT)) {
                 root=root.getElement(i);
                 i=root.getElementIndex(pos);
             }
@@ -140,7 +140,7 @@ public class XMLEditorKit extends StyledEditorKit {
                     if (r.contains(e.getPoint())) {
                         deepest.setExpanded(!deepest.isExpanded());
 
-                        XMLDocument doc= (XMLDocument)src.getDocument();
+                        IntelliHTMLDocument doc= (IntelliHTMLDocument)src.getDocument();
                         try {
                             doc.setUserChanges(false);
                             pos++;
@@ -264,7 +264,7 @@ public class XMLEditorKit extends StyledEditorKit {
                     int[] sel=new int[2];
                     sel[0]=start;
                     sel[1]=end;
-                    XMLEditorKit.correctSelectionBounds(sel, target.getDocument());
+                    IntelliHTMLEditorKit.correctSelectionBounds(sel, target.getDocument());
                     target.setSelectionStart(sel[0]);
                     target.setSelectionEnd(sel[1]);
                 }
