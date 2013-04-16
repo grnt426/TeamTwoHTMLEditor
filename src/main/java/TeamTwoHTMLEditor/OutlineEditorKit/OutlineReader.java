@@ -1,4 +1,4 @@
-package TeamTwoHTMLEditor.XMLEditorKit;
+package TeamTwoHTMLEditor.OutlineEditorKit;
 
 import org.w3c.dom.*;
 import org.w3c.dom.Element;
@@ -11,24 +11,24 @@ import java.io.*;
 import java.util.ArrayList;
 
 
-public class IntelliHTMLReader {
-    static IntelliHTMLReader instance = new IntelliHTMLReader();
+public class OutlineReader {
+    static OutlineReader instance = new OutlineReader();
 
-    private IntelliHTMLReader() {
+    private OutlineReader() {
 
     }
 
-    public static IntelliHTMLReader getInstance() {
+    public static OutlineReader getInstance() {
         return instance;
     }
 
     public void read(InputStream is, Document d, int pos) throws IOException, BadLocationException {
-        if (!(d instanceof IntelliHTMLDocument)) {
+        if (!(d instanceof OutlineDocument)) {
             return;
         }
 
 
-        IntelliHTMLDocument doc = (IntelliHTMLDocument) d;
+        OutlineDocument doc = (OutlineDocument) d;
         doc.setUserChanges(false);
         DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
         dbf.setCoalescing(true);
@@ -74,11 +74,11 @@ public class IntelliHTMLReader {
 
     public int writeNode(Document doc, Node node, int pos, ArrayList<DefaultStyledDocument.ElementSpec> specs) throws BadLocationException {
         SimpleAttributeSet tagAttrs = new SimpleAttributeSet();
-        tagAttrs.addAttribute(AbstractDocument.ElementNameAttribute, IntelliHTMLDocument.TAG_ELEMENT);
+        tagAttrs.addAttribute(AbstractDocument.ElementNameAttribute, OutlineDocument.TAG_ELEMENT);
         SimpleAttributeSet tagRowStartAttrs = new SimpleAttributeSet();
-        tagRowStartAttrs.addAttribute(AbstractDocument.ElementNameAttribute, IntelliHTMLDocument.TAG_ROW_START_ELEMENT);
+        tagRowStartAttrs.addAttribute(AbstractDocument.ElementNameAttribute, OutlineDocument.TAG_ROW_START_ELEMENT);
         SimpleAttributeSet tagRowEndAttrs = new SimpleAttributeSet();
-        tagRowEndAttrs.addAttribute(AbstractDocument.ElementNameAttribute, IntelliHTMLDocument.TAG_ROW_END_ELEMENT);
+        tagRowEndAttrs.addAttribute(AbstractDocument.ElementNameAttribute, OutlineDocument.TAG_ROW_END_ELEMENT);
 
         DefaultStyledDocument.ElementSpec spec;
         spec = new DefaultStyledDocument.ElementSpec(tagAttrs, DefaultStyledDocument.ElementSpec.StartTagType);
@@ -88,7 +88,7 @@ public class IntelliHTMLReader {
 
         int offs = pos;
 //        <
-        spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "<".toCharArray(), 0, 1);
+        spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "<".toCharArray(), 0, 1);
         specs.add(spec);
 
 //        tag name
@@ -96,11 +96,11 @@ public class IntelliHTMLReader {
             org.w3c.dom.Document dd = (org.w3c.dom.Document) node;
             String nodeStr = "HTML";
 
-            spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.TAGNAME_ATTRIBUTES,
+            spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.TAGNAME_ATTRIBUTES,
                     DefaultStyledDocument.ElementSpec.ContentType,
                     nodeStr.toCharArray(), 0, nodeStr.length());
         } else {
-            spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.TAGNAME_ATTRIBUTES,
+            spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.TAGNAME_ATTRIBUTES,
                     DefaultStyledDocument.ElementSpec.ContentType,
                     node.getNodeName().toCharArray(), 0, node.getNodeName().length());
         }
@@ -113,19 +113,19 @@ public class IntelliHTMLReader {
                 String name = attr.getNodeName();
                 String value = attr.getNodeValue();
 //                " "
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, " ".toCharArray(), 0, 1);
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, " ".toCharArray(), 0, 1);
                 specs.add(spec);
 //                attr name
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.ATTRIBUTENAME_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, name.toCharArray(), 0, name.length());
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.ATTRIBUTENAME_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, name.toCharArray(), 0, name.length());
                 specs.add(spec);
 //                ="
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "=\"".toCharArray(), 0, 2);
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "=\"".toCharArray(), 0, 2);
                 specs.add(spec);
 //                attr value
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.ATTRIBUTEVALUE_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, value.toCharArray(), 0, value.length());
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.ATTRIBUTEVALUE_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, value.toCharArray(), 0, value.length());
                 specs.add(spec);
 //                "
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\"".toCharArray(), 0, 1);
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\"".toCharArray(), 0, 1);
                 specs.add(spec);
             }
         }
@@ -133,7 +133,7 @@ public class IntelliHTMLReader {
         NodeList list = node.getChildNodes();
         if (list != null && list.getLength() > 0) {
 //            >
-            spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, ">\n".toCharArray(), 0, 2);
+            spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, ">\n".toCharArray(), 0, 2);
             specs.add(spec);
             spec = new DefaultStyledDocument.ElementSpec(tagRowStartAttrs, DefaultStyledDocument.ElementSpec.EndTagType);
             specs.add(spec);
@@ -152,9 +152,9 @@ public class IntelliHTMLReader {
                         specs.add(spec);
 
                         String value = str.substring(0, ii);
-                        spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, value.toCharArray(), 0, value.length());
+                        spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, value.toCharArray(), 0, value.length());
                         specs.add(spec);
-                        spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\n".toCharArray(), 0, 1);
+                        spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\n".toCharArray(), 0, 1);
                         specs.add(spec);
 
                         spec = new DefaultStyledDocument.ElementSpec(tagRowStartAttrs, DefaultStyledDocument.ElementSpec.EndTagType);
@@ -166,9 +166,9 @@ public class IntelliHTMLReader {
                     spec = new DefaultStyledDocument.ElementSpec(tagRowStartAttrs, DefaultStyledDocument.ElementSpec.StartTagType);
                     specs.add(spec);
 
-                    spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, str.toCharArray(), 0, str.length());
+                    spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, str.toCharArray(), 0, str.length());
                     specs.add(spec);
-                    spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\n".toCharArray(), 0, 1);
+                    spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.COMMENT_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\n".toCharArray(), 0, 1);
                     specs.add(spec);
 
                     spec = new DefaultStyledDocument.ElementSpec(tagRowStartAttrs, DefaultStyledDocument.ElementSpec.EndTagType);
@@ -178,9 +178,9 @@ public class IntelliHTMLReader {
                     spec = new DefaultStyledDocument.ElementSpec(tagRowStartAttrs, DefaultStyledDocument.ElementSpec.StartTagType);
                     specs.add(spec);
 
-                    spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.PLAIN_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, n.getNodeValue().toCharArray(), 0, n.getNodeValue().length());
+                    spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.PLAIN_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, n.getNodeValue().toCharArray(), 0, n.getNodeValue().length());
                     specs.add(spec);
-                    spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.PLAIN_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\n".toCharArray(), 0, 1);
+                    spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.PLAIN_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "\n".toCharArray(), 0, 1);
                     specs.add(spec);
 
                     spec = new DefaultStyledDocument.ElementSpec(tagRowStartAttrs, DefaultStyledDocument.ElementSpec.EndTagType);
@@ -190,24 +190,24 @@ public class IntelliHTMLReader {
             spec = new DefaultStyledDocument.ElementSpec(tagRowEndAttrs, DefaultStyledDocument.ElementSpec.StartTagType);
             specs.add(spec);
             if (node instanceof org.w3c.dom.Document) {
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.TAGNAME_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, " ".toCharArray(), 0, 1);
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.TAGNAME_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, " ".toCharArray(), 0, 1);
                 specs.add(spec);
             } else {
                 //            </
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "</".toCharArray(), 0, 2);
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "</".toCharArray(), 0, 2);
                 specs.add(spec);
                 //            tag name
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.TAGNAME_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, node.getNodeName().toCharArray(), 0, node.getNodeName().length());
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.TAGNAME_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, node.getNodeName().toCharArray(), 0, node.getNodeName().length());
                 specs.add(spec);
                 //            />
-                spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, ">\n".toCharArray(), 0, 2);
+                spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, ">\n".toCharArray(), 0, 2);
                 specs.add(spec);
             }
             spec = new DefaultStyledDocument.ElementSpec(tagRowEndAttrs, DefaultStyledDocument.ElementSpec.EndTagType);
             specs.add(spec);
         } else {
 //            />
-            spec = new DefaultStyledDocument.ElementSpec(IntelliHTMLDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "/>\n".toCharArray(), 0, 3);
+            spec = new DefaultStyledDocument.ElementSpec(OutlineDocument.BRACKET_ATTRIBUTES, DefaultStyledDocument.ElementSpec.ContentType, "/>\n".toCharArray(), 0, 3);
             specs.add(spec);
 
             spec = new DefaultStyledDocument.ElementSpec(new SimpleAttributeSet(), DefaultStyledDocument.ElementSpec.EndTagType);
@@ -219,61 +219,5 @@ public class IntelliHTMLReader {
 
         return offs - pos;
     }
-
-    public int writeNodeOld(Document doc, Element node, int pos) throws BadLocationException {
-        int offs = pos;
-        doc.insertString(offs, "<", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-        offs++;
-        doc.insertString(offs, node.getNodeName(), IntelliHTMLDocument.TAGNAME_ATTRIBUTES);
-        offs += node.getNodeName().length();
-
-        NamedNodeMap attrs = node.getAttributes();
-        if (attrs != null && attrs.getLength() > 0) {
-            for (int i = 0; i < attrs.getLength(); i++) {
-                Node attr = attrs.item(i);
-                String name = attr.getNodeName();
-                String value = attr.getNodeValue();
-                doc.insertString(offs, " ", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-                offs++;
-                doc.insertString(offs, name, IntelliHTMLDocument.ATTRIBUTENAME_ATTRIBUTES);
-                offs += name.length();
-                doc.insertString(offs, "=\"", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-                offs += 2;
-                doc.insertString(offs, value, IntelliHTMLDocument.ATTRIBUTEVALUE_ATTRIBUTES);
-                offs += value.length();
-                doc.insertString(offs, "\"", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-                offs += 1;
-            }
-        }
-
-        NodeList list = node.getChildNodes();
-        if (list != null && list.getLength() > 0) {
-            doc.insertString(offs, ">\n", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-            offs += 2;
-            for (int i = 0; i < list.getLength(); i++) {
-                Node n = list.item(i);
-                if (n instanceof Element) {
-                    Element child = (Element) n;
-                    offs += writeNodeOld(doc, child, offs);
-                } else {
-                    //plain text
-                    doc.insertString(offs, n.getNodeValue() + "\n", IntelliHTMLDocument.PLAIN_ATTRIBUTES);
-                    offs += n.getNodeValue().length() + 1;
-                }
-            }
-            doc.insertString(offs, "<", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-            offs++;
-            doc.insertString(offs, node.getNodeName(), IntelliHTMLDocument.TAGNAME_ATTRIBUTES);
-            offs += node.getNodeName().length();
-            doc.insertString(offs, "/>\n", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-            offs += 3;
-        } else {
-            doc.insertString(offs, "/>\n", IntelliHTMLDocument.BRACKET_ATTRIBUTES);
-            offs += 3;
-        }
-
-        return offs - pos;
-    }
-
 
 }

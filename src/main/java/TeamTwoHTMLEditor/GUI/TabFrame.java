@@ -1,6 +1,6 @@
 package TeamTwoHTMLEditor.GUI;
 
-import TeamTwoHTMLEditor.XMLEditorKit.IntelliHTMLEditorKit;
+import TeamTwoHTMLEditor.OutlineEditorKit.OutlineEditorKit;
 
 import javax.swing.*;
 import java.awt.*;
@@ -96,7 +96,7 @@ public class TabFrame extends JPanel {
 
     private JEditorPane setupOutlineArea() {
         JEditorPane outlinePreview = new JEditorPane();
-        outlinePreview.setEditorKit(new IntelliHTMLEditorKit());
+        outlinePreview.setEditorKit(new OutlineEditorKit());
         outlinePreview.setText(editorTextArea.getText());
         outlinePreview.setEditable(false);
         return outlinePreview;

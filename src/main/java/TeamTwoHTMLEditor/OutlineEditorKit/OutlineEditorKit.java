@@ -1,4 +1,4 @@
-package TeamTwoHTMLEditor.XMLEditorKit;
+package TeamTwoHTMLEditor.OutlineEditorKit;
 
 import javax.swing.text.*;
 import javax.swing.*;
@@ -6,14 +6,15 @@ import java.io.*;
 import java.awt.event.*;
 import java.awt.*;
 
-public class IntelliHTMLEditorKit extends StyledEditorKit {
-    ViewFactory defaultFactory = new IntelliHTMLViewFactory();
+public class OutlineEditorKit extends StyledEditorKit {
+    ViewFactory defaultFactory = new OutlineLViewFactory();
+
     public ViewFactory getViewFactory() {
         return defaultFactory;
     }
 
     public Document createDefaultDocument() {
-        return new IntelliHTMLDocument();
+        return new OutlineDocument();
     }
 
     public String getContentType() {
@@ -30,12 +31,12 @@ public class IntelliHTMLEditorKit extends StyledEditorKit {
         }
 
         int p=getInsertPosition(pos, doc);
-        IntelliHTMLReader.getInstance().read(new ByteArrayInputStream(buff.toString().getBytes()), doc, p);
+        OutlineReader.getInstance().read(new ByteArrayInputStream(buff.toString().getBytes()), doc, p);
     }
     
     public void read(InputStream in, Document doc, int pos) throws IOException, BadLocationException {
         int p=getInsertPosition(pos, doc);
-        IntelliHTMLReader.getInstance().read(in, doc, p);
+        OutlineReader.getInstance().read(in, doc, p);
     }
     public void write(OutputStream out, Document doc, int pos, int len) throws IOException, BadLocationException {
         int[] sel=new int[2];
@@ -57,12 +58,12 @@ public class IntelliHTMLEditorKit extends StyledEditorKit {
     }
 
     public static void correctSelectionBounds(int[] selection, Document d) {
-        if (d instanceof IntelliHTMLDocument && d.getLength()>0) {
-            IntelliHTMLDocument doc=(IntelliHTMLDocument)d;
+        if (d instanceof OutlineDocument && d.getLength()>0) {
+            OutlineDocument doc=(OutlineDocument)d;
             int start=selection[0];
             Element root=doc.getDefaultRootElement();
             int i=root.getElementIndex(start);
-            while (i>=0 && root.getElement(i).getName().equals(IntelliHTMLDocument.TAG_ELEMENT)) {
+            while (i>=0 && root.getElement(i).getName().equals(OutlineDocument.TAG_ELEMENT)) {
                 root=root.getElement(i);
                 i=root.getElementIndex(start);
             }
@@ -72,7 +73,7 @@ public class IntelliHTMLEditorKit extends StyledEditorKit {
             int end=selection[0];
             root=doc.getDefaultRootElement();
             i=root.getElementIndex(end);
-            while (i>=0 && root.getElement(i).getName().equals(IntelliHTMLDocument.TAG_ELEMENT)) {
+            while (i>=0 && root.getElement(i).getName().equals(OutlineDocument.TAG_ELEMENT)) {
                 root=root.getElement(i);
                 i=root.getElementIndex(end);
             }
@@ -93,11 +94,11 @@ public class IntelliHTMLEditorKit extends StyledEditorKit {
     }
 
     protected int getInsertPosition(int pos, Document d) {
-        if (d instanceof IntelliHTMLDocument && d.getLength()>0) {
-            IntelliHTMLDocument doc=(IntelliHTMLDocument)d;
+        if (d instanceof OutlineDocument && d.getLength()>0) {
+            OutlineDocument doc=(OutlineDocument)d;
             Element root=doc.getDefaultRootElement();
             int i=root.getElementIndex(pos);
-            while (i>=0 && root.getElement(i).getName().equals(IntelliHTMLDocument.TAG_ELEMENT)) {
+            while (i>=0 && root.getElement(i).getName().equals(OutlineDocument.TAG_ELEMENT)) {
                 root=root.getElement(i);
                 i=root.getElementIndex(pos);
             }
@@ -140,7 +141,7 @@ public class IntelliHTMLEditorKit extends StyledEditorKit {
                     if (r.contains(e.getPoint())) {
                         deepest.setExpanded(!deepest.isExpanded());
 
-                        IntelliHTMLDocument doc= (IntelliHTMLDocument)src.getDocument();
+                        OutlineDocument doc= (OutlineDocument)src.getDocument();
                         try {
                             doc.setUserChanges(false);
                             pos++;
@@ -264,7 +265,7 @@ public class IntelliHTMLEditorKit extends StyledEditorKit {
                     int[] sel=new int[2];
                     sel[0]=start;
                     sel[1]=end;
-                    IntelliHTMLEditorKit.correctSelectionBounds(sel, target.getDocument());
+                    OutlineEditorKit.correctSelectionBounds(sel, target.getDocument());
                     target.setSelectionStart(sel[0]);
                     target.setSelectionEnd(sel[1]);
                 }

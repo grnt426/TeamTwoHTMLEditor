@@ -2,7 +2,7 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.CommandMediator;
-import TeamTwoHTMLEditor.XMLEditorKit.IntelliHTMLEditorKit;
+import TeamTwoHTMLEditor.OutlineEditorKit.OutlineEditorKit;
 
 import javax.swing.*;
 
@@ -30,7 +30,7 @@ public class ViewOutlineCommand implements Command{
 		outlineFrame.setTitle("Outline mode for HTML File");
 
 		JEditorPane outlinePreview = new JEditorPane();
-		outlinePreview.setEditorKit(new IntelliHTMLEditorKit());
+		outlinePreview.setEditorKit(new OutlineEditorKit());
         outlinePreview.setText(context.getActiveTextArea().getText());
         outlinePreview.setEditable(false);
 
