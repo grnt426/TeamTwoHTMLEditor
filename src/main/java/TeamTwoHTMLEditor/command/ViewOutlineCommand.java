@@ -2,20 +2,22 @@ package TeamTwoHTMLEditor.command;
 
 import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.CommandMediator;
-import TeamTwoHTMLEditor.GUI.EditorFrame;
 import TeamTwoHTMLEditor.XMLEditorKit.XMLEditorKit;
 
 import javax.swing.*;
-import javax.swing.text.html.HTMLEditorKit;
 
 /**
- * Created with IntelliJ IDEA. User: Shannon Date: 4/4/13 Time: 2:43 PM
+ * Created with IntelliJ IDEA.
+ * User: Keegan
+ * Date: 4/16/13
+ * Time: 2:56 PM
+ * To change this template use File | Settings | File Templates.
  */
-public class RenderPreviewCommand implements Command{
+public class ViewOutlineCommand implements Command{
 
 	private final ActiveContext context;
 
-	public RenderPreviewCommand(ActiveContext context){
+	public ViewOutlineCommand(ActiveContext context){
 		this.context = context;
 
 	}
@@ -25,12 +27,11 @@ public class RenderPreviewCommand implements Command{
 		JDialog previewFrame = new JDialog(context.getParent(), true);
 		previewFrame.setSize(context.getParent().getSize());
 		previewFrame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-		previewFrame.setTitle("Preview of HTML File");
+		previewFrame.setTitle("Outline mode for HTML File");
 
 		JEditorPane preview = new JEditorPane();
-		preview.setEditorKit(new HTMLEditorKit());
+		preview.setEditorKit(new XMLEditorKit());
 		preview.setText(context.getActiveTextArea().getText());
-		preview.setContentType("text/html");
 		preview.setEditable(false);
 
 		previewFrame.add(new JScrollPane(preview));
