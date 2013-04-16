@@ -31,6 +31,7 @@ public class InsertTableCommand implements Command{
 	 */
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
+		cmd.createUndoState(c, context);
 		StringBuilder listElement = new StringBuilder("");
 		int tabCount =
 				EditorFrame.getTabCount(EditorFrame.getCurrentLine(

@@ -21,5 +21,6 @@ public class UndoCommand implements Command{
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		c.getFileManager().undoChange(context.getIndex());
+		context.getActiveTextArea().setText(c.getFileManager().getContentsOf(context.getIndex()));
 	}
 }

@@ -24,6 +24,7 @@ public class InsertImageCommand implements Command {
     }
 
     public void execute(CommandDistributor c, CommandMediator cmd) {
+		cmd.createUndoState(c, context);
         String input;
 
         // If there is no active editor window, then do nothing

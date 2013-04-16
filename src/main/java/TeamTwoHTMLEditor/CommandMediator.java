@@ -60,7 +60,11 @@ public class CommandMediator {
     }
 
     public void insertCommandExecuted(ActiveContext context, CommandDistributor c) {
+		c.getFileManager().updateFileContents(context.getActiveTextArea().getText(), context.getIndex());
         new RefreshLinksCommand(context).execute(c, this);
     }
 
+	public void createUndoState(CommandDistributor c, ActiveContext context){
+		c.getFileManager().createUndoState(context.getIndex());
+	}
 }

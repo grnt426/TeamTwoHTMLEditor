@@ -663,7 +663,6 @@ public class EditorFrame extends JFrame {
         int status = fc.showSaveDialog(this);
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
-            JTextArea pane = getActivePane();
             new SaveAsCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
             CloseTabComponent x = (CloseTabComponent) tabPane.getTabComponentAt(tabPane.getSelectedIndex());
             x.setLabelTitle(fc.getName(f));
@@ -715,7 +714,7 @@ public class EditorFrame extends JFrame {
     }
 
     private void undoMenuItemActionPerformed() {
-
+		new UndoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
     }
 
     private void redoMenuItemActionPerformed() {
