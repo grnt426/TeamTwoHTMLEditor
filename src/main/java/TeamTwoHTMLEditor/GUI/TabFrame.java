@@ -1,5 +1,7 @@
 package TeamTwoHTMLEditor.GUI;
 
+import TeamTwoHTMLEditor.XMLEditorKit.XMLEditorKit;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -11,9 +13,11 @@ public class TabFrame extends JPanel {
 
     private boolean wordWrap;
     private int tabSize;
-    private JScrollPane linkListScrollPane, editorScrollPane;
+    private JScrollPane linkListScrollPane, editorScrollPane, outlineViewScrollPane;
     private JTextArea editorTextArea;
+    private JEditorPane outlineTextArea;
     private JList linkList;
+    private JPanel mainPanel;
 
 
     /**
@@ -23,7 +27,6 @@ public class TabFrame extends JPanel {
      */
 
     public TabFrame(EditorFrame editorFrame) {
-
         this.wordWrap = editorFrame.getWordWrapBoolean();
         tabSize = editorFrame.getGlobalTabSize();
         initComponents();
@@ -36,10 +39,17 @@ public class TabFrame extends JPanel {
      * Initializes the GUI components of the tabFrame.
      */
     private void initComponents() {
+        outlineTextArea = setupOutlineArea();
+        outlineViewScrollPane = new JScrollPane(outlineTextArea);
+
         editorTextArea = setupTextArea();
         editorScrollPane = new JScrollPane(editorTextArea);
+
         linkList = new JList();
         linkListScrollPane = new JScrollPane(linkList);
+
+        mainPanel = new JPanel();
+        mainPanel.add(editorScrollPane);
 
         GroupLayout layout = new GroupLayout(this);
 
@@ -48,7 +58,7 @@ public class TabFrame extends JPanel {
                 .addGroup(layout.createSequentialGroup()
                         .addContainerGap()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(editorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
+                                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 380, Short.MAX_VALUE)
                                 .addComponent(linkListScrollPane))
                         .addContainerGap()));
 
@@ -56,7 +66,7 @@ public class TabFrame extends JPanel {
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
-                                .addComponent(editorScrollPane, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                                .addComponent(mainPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addComponent(linkListScrollPane, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap()));
@@ -78,9 +88,15 @@ public class TabFrame extends JPanel {
         JTextArea newEditorPane = new JTextArea();
         newEditorPane.setLineWrap(wordWrap);
         newEditorPane.setTabSize(tabSize);
-        //TODO REMINDER TO add new tabFrame to the tabFrames array in EditorFrame
-
         return newEditorPane;
+    }
+
+    private JEditorPane setupOutlineArea() {
+        JEditorPane outlinePreview = new JEditorPane();
+        outlinePreview.setEditorKit(new XMLEditorKit());
+        outlinePreview.setText(editorTextArea.getText());
+        outlinePreview.setEditable(false);
+        return outlinePreview;
     }
 
     /**
@@ -117,5 +133,20 @@ public class TabFrame extends JPanel {
      */
     public JTextArea getTextPane() {
         return this.editorTextArea;
+    }
+
+    public void toOutlineView() {
+        mainPanel.remove(editorScrollPane);
+        outlineTextArea = setupOutlineArea();
+        outlineViewScrollPane = new JScrollPane(outlineTextArea);
+        mainPanel.add(outlineViewScrollPane);
+        mainPanel.revalidate();
+    }
+
+    public void toNormalView() {
+        mainPanel.remove(outlineViewScrollPane);
+        mainPanel.add(editorScrollPane);
+        mainPanel.revalidate();
+
     }
 }

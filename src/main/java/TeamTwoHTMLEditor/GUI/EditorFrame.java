@@ -537,7 +537,7 @@ public class EditorFrame extends JFrame {
                 JOptionPane.showMessageDialog(helpMenuItem, "To start, open a" +
                         " file or create a new file through the File menu.\nTo" +
                         " contact the authors choose the About Authors option " +
-                        "in the About menu.\nCopy - Ctrl+C\nPaste - Ctrl+V");
+                        "in the About menu.");
             }
         });
 
@@ -707,10 +707,27 @@ public class EditorFrame extends JFrame {
     //********************** Action Performed for Edit > X *****************************//
     //What to do when copy or paste
     private void copyMenuItemActionPerformed() {
-        //Grab current file edited
+		try {
+			Robot robot = new Robot();
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_C);
+			robot.keyRelease(KeyEvent.VK_C);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
     }
 
     private void pasteMenuItemActionPerformed() {
+		try {
+			Robot robot = new Robot();
+			robot.keyPress(KeyEvent.VK_CONTROL);
+			robot.keyPress(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_V);
+			robot.keyRelease(KeyEvent.VK_CONTROL);
+		} catch (AWTException e) {
+			e.printStackTrace();
+		}
     }
 
     private void undoMenuItemActionPerformed() {
