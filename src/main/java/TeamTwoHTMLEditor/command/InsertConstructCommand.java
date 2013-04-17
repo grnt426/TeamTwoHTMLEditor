@@ -6,7 +6,8 @@ import TeamTwoHTMLEditor.CommandMediator;
 import javax.swing.*;
 
 /**
- * The class that inserts all the different Constructs
+ * The class that inserts all of the different Constructs.
+ * Currently the supported constructs are H1, H2, H3, BOLD, and ITALICS
  */
 public class InsertConstructCommand implements Command{
 

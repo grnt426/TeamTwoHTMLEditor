@@ -7,6 +7,8 @@ import javax.swing.*;
 
 /**
  * @author Keegan Parrotte - kmp3325@rit.edu
+ * When text is highlighted, the user may press the TAB key and tab the selected
+ * block of text rather than replace it with a TAB character.
  */
 public class TabSelectedCommand implements Command{
 	private String selectedText;
@@ -18,7 +20,7 @@ public class TabSelectedCommand implements Command{
 	}
 
 	/**
-	 * This execute method is used for when pressing the tab key when text is
+	 * This execute method is used when pressing the tab key when text is
 	 * highlighted.
 	 *
 	 * @param c - Command distributor who has a reference access to the

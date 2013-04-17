@@ -17,6 +17,11 @@ public class AutoIndentCommand implements Command{
 		this.context = context;
 	}
 
+	/**
+	 * Executing this command forces the active text area to auto-indent with each newline.
+	 * @param c - Command distributor who has a reference access to the FileManager.
+	 * @param cmd - Command Mediator references other commands as necessary.
+	 */
 	@Override
 	public void execute(CommandDistributor c, CommandMediator cmd){
 		String prevLine = EditorFrame.getPreviousLine(context.getActiveTextArea());
