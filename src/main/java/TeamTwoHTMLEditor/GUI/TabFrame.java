@@ -19,6 +19,7 @@ public class TabFrame extends JPanel {
     private JEditorPane outlineTextArea;
     private JList linkList;
     private JPanel mainPanel;
+    private boolean inOutline;
 
 
     /**
@@ -40,7 +41,7 @@ public class TabFrame extends JPanel {
      * Initializes the GUI components of the tabFrame.
      */
     private void initComponents() {
-
+        inOutline = false;
 
         editorTextArea = setupTextArea();
         editorScrollPane = new JScrollPane(editorTextArea);
@@ -145,9 +146,24 @@ public class TabFrame extends JPanel {
      * Switches the main view to the outline view.
      */
     public void toggleOutlineView() {
-        outlineTextArea.setText(editorTextArea.getText());
-        ((CardLayout) mainPanel.getLayout()).next(mainPanel);
-        mainPanel.revalidate();
+        if (!inOutline) {
+            System.out.println("yolo1");
+            mainPanel.remove(1);
+
+            outlineTextArea = setupOutlineArea();
+            outlineViewScrollPane = new JScrollPane(outlineTextArea);
+
+            mainPanel.add(outlineViewScrollPane, 1);
+
+            ((CardLayout) mainPanel.getLayout()).next(mainPanel);
+            mainPanel.revalidate();
+            inOutline = true;
+        } else {
+            System.out.println("yolo2");
+            ((CardLayout) mainPanel.getLayout()).next(mainPanel);
+            mainPanel.revalidate();
+            inOutline = false;
+        }
         System.out.println(mainPanel.getComponents().length);
     }
 
