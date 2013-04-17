@@ -64,7 +64,8 @@ public class CommandMediator {
         new RefreshLinksCommand(context).execute(c, this);
     }
 
+	@Deprecated
 	public void createUndoState(CommandDistributor c, ActiveContext context){
-		c.getFileManager().createUndoState(context.getIndex());
+//		c.getFileManager().createUndoState(context.getIndex());
 	}
 }
