@@ -935,6 +935,7 @@ public class EditorFrame extends JFrame {
      * toggle the outline view
      */
     private void toggleOutlineActionPerformed() {
+        //new ValidateCommand(commandDistributor.getFileManager().getPathAt(activePaneIndex), false, getActiveContext()).execute(commandDistributor, commandMediator);
         getActiveTabFrame().toggleOutlineView();
     }
 

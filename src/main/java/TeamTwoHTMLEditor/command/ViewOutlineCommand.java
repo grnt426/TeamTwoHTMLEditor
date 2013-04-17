@@ -11,7 +11,9 @@ import javax.swing.*;
  * User: Keegan
  * Date: 4/16/13
  * Time: 2:56 PM
- * To change this template use File | Settings | File Templates.
+ * Accesses the third party app that allows us to view the HTML in an outlined
+ * form.  This outline has limited capabilities and does not allow edits while
+ * it is being displayed.
  */
 public class ViewOutlineCommand implements Command{
 

@@ -19,9 +19,9 @@ public class CloseTabCommand implements Command{
 	}
 
 	/**
-	 * This is the execute command and it checks wheather you can close a file
+	 * This is the execute command and it checks whether you can close a file
 	 * (which is simply if the file has been saved) And then if you can close
-	 * the file then it will close the tab and then call filemanager to close
+	 * the file then it will close the tab and then call FileManager to close
 	 * the file. Otherwise, if the file is not saved, an option pane is shown
 	 * from the editor frame, in which the user can chose to close the file or
 	 * to interrupt the close to save manually.

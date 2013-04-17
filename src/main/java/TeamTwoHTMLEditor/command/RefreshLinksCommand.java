@@ -11,6 +11,8 @@ import java.util.ArrayList;
 
 /**
  * Created with IntelliJ IDEA. User: Shannon Date: 4/4/13 Time: 2:40 PM
+ * This command is necessary in order to correctly display the links in case
+ * of a change.  It can be called manually through the GUI.
  */
 public class RefreshLinksCommand implements Command {
     private final ActiveContext context;

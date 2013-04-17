@@ -7,8 +7,7 @@ import TeamTwoHTMLEditor.GUI.EditorFrame;
 import javax.swing.*;
 
 /**
- * Created with IntelliJ IDEA. User: Kocsen Date: 3/25/13 Time: 11:28 PM To
- * change this template use File | Settings | File Templates.
+ * Created with IntelliJ IDEA. User: Kocsen Date: 3/25/13 Time: 11:28 PM
  */
 public class InsertTableCommand implements Command{
 
