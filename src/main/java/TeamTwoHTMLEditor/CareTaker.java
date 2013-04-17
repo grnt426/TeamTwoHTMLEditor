@@ -38,7 +38,7 @@ public class CareTaker{
 	 */
 	public Memento retrievePrevious(){
 		Memento previous = null;
-		if(undoStack.size() != 0 && pointer != -1)
+		if(undoStack.size() != 0 && pointer != 0)
 			previous = undoStack.get(--pointer);
 		return previous;
 	}
