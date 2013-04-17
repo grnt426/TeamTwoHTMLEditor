@@ -693,7 +693,6 @@ public class EditorFrame extends JFrame {
      * Call the CloseTab command which goes through all the checks that must happen before closing a file/tab
      */
     private void closeTabMenuItemActionPerformed() {
-        int index = activePaneIndex;
         new CloseTabCommand(getActiveContext()).execute(commandDistributor, commandMediator);
 
     }
