@@ -10,7 +10,7 @@ import java.io.File;
 
 /**
  * Created with IntelliJ IDEA. User: Kocsen Date: 3/21/13 Time: 9:39 PM Command
- * Class for opning a class. During the execute, the command adds a document
+ * Class for opening a class. During the execute, the command adds a document
  * observer to be notified of this documents change
  */
 public class OpenCommand implements Command{

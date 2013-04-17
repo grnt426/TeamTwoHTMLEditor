@@ -4,8 +4,8 @@ import TeamTwoHTMLEditor.CommandDistributor;
 import TeamTwoHTMLEditor.CommandMediator;
 
 /**
- * Created with IntelliJ IDEA. User: Shannon Date: 4/6/13 Time: 11:28 PM To
- * change this template use File | Settings | File Templates.
+ * Created with IntelliJ IDEA. User: Shannon Date: 4/6/13 Time: 11:28 PM
+ * Command to insert HREF.
  */
 public class InsertATagCommand implements Command {
     private final ActiveContext context;

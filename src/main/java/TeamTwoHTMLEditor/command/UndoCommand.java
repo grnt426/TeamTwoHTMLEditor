@@ -7,7 +7,7 @@ import TeamTwoHTMLEditor.GUI.EditorFrame;
 import javax.swing.*;
 
 /**
- *
+ * The undo command accesses the memento in order to revert to the last state.
  */
 public class UndoCommand implements Command{
 

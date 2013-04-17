@@ -8,6 +8,7 @@ import javax.swing.text.html.HTMLEditorKit;
 
 /**
  * Created with IntelliJ IDEA. User: Shannon Date: 4/4/13 Time: 2:43 PM
+ * This command parses the HTML file and renders it.
  */
 public class RenderPreviewCommand implements Command{
 
