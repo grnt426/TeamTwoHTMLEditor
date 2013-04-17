@@ -1,13 +1,16 @@
 package TeamTwoHTMLEditor.OutlineEditorKit;
 
-import org.w3c.dom.*;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-import javax.xml.parsers.*;
 import javax.swing.text.*;
-import javax.swing.text.Document;
-import java.io.*;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 
@@ -61,14 +64,9 @@ public class OutlineReader {
 
             doc.setUserChanges(true);
         } catch (SAXException pce) {
-            pce.printStackTrace();
-            throw new IOException(pce.getMessage());
-        } catch (ParserConfigurationException pce) {
-            pce.printStackTrace();
-            throw new IOException(pce.getMessage());
         } catch (IOException pce) {
-            pce.printStackTrace();
-            throw new IOException(pce.getMessage());
+        } catch (Exception blank) {
+
         }
     }
 
