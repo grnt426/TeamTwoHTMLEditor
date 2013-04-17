@@ -153,14 +153,14 @@ public class TabFrame extends JPanel {
             outlineTextArea = setupOutlineArea();
             outlineViewScrollPane = new JScrollPane(outlineTextArea);
 
-            //mainPanel.add(outlineViewScrollPane, 1);
+            //INCOMPATIBLE WITH jre <= 1.6 mainPanel.add(outlineViewScrollPane, 1);
             mainPanel.add(outlineViewScrollPane, "outlineScrollPane");
 
             ((CardLayout) mainPanel.getLayout()).next(mainPanel);
             outlineViewScrollPane.revalidate();
             mainPanel.revalidate();
-            this.revalidate();
             inOutline = true;
+            this.revalidate();
         } else {
             ((CardLayout) mainPanel.getLayout()).next(mainPanel);
             mainPanel.revalidate();
