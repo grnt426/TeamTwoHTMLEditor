@@ -935,8 +935,14 @@ public class EditorFrame extends JFrame {
      * toggle the outline view
      */
     private void toggleOutlineActionPerformed() {
-        //new ValidateCommand(commandDistributor.getFileManager().getPathAt(activePaneIndex), false, getActiveContext()).execute(commandDistributor, commandMediator);
+        new ValidateCommand(commandDistributor.getFileManager().getPathAt(activePaneIndex), false, getActiveContext()).execute(commandDistributor, commandMediator);
         getActiveTabFrame().toggleOutlineView();
+        CloseTabComponent x = (CloseTabComponent) tabPane.getTabComponentAt(tabPane.getSelectedIndex());
+        if (getActiveTabFrame().isInOutline()) {
+            x.setLabelTitle(x.getName() + " [outline mode]");
+        } else {
+            x.setLabelTitle(x.getName());
+        }
     }
 
 
@@ -1085,7 +1091,6 @@ public class EditorFrame extends JFrame {
     }
 
     /**
-     *
      * @return - what the global tab size is.
      */
     public int getGlobalTabSize() {
@@ -1093,7 +1098,6 @@ public class EditorFrame extends JFrame {
     }
 
     /**
-     *
      * @return - if word wrap is set or not.
      */
     public boolean getWordWrapBoolean() {

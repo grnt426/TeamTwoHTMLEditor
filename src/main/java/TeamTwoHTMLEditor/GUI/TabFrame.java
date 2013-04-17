@@ -171,11 +171,10 @@ public class TabFrame extends JPanel {
     }
 
     /**
-     * Switches the main view to the normal text editting view.
+     *
+     * @return boolean wheather the window is in outline mode.
      */
-    public void toNormalView() {
-        ((CardLayout) mainPanel.getLayout()).next(mainPanel);
-        editorScrollPane.revalidate();
-        mainPanel.revalidate();
+    public boolean isInOutline() {
+        return inOutline;
     }
 }
