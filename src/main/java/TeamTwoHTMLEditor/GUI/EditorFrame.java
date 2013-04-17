@@ -562,13 +562,10 @@ public class EditorFrame extends JFrame {
                         "it.edu\nKeegan Parrotte - kmp3325@rit.edu\nGrant Kurts - " +
                         "grk2929@rit.edu\nShannon Trudeau - smt9020@rit.edu\nCalvin " +
                         "DRosario - cbd2562@rit.edu");
-                System.out.println("We are the best EVER!");
             }
         });
 
         menuBar.add(menuAbout);
-        // BUILD ABOUT **************************************END**************************//
-
 
         setJMenuBar(menuBar);
         add(tabPane, BorderLayout.CENTER);
@@ -576,8 +573,15 @@ public class EditorFrame extends JFrame {
             setEverythingFileDependantEnabled(false);
         }
     }
+    // BUILD ABOUT **************************************END**************************//
 
 
+    /**
+     * This method is called whenever there are no files open. This is because many of the menu items cannot be enabled
+     * if there is no file open.
+     *
+     * @param b - Boolean to set enabled to all the items that depend on open file
+     */
     private void setEverythingFileDependantEnabled(boolean b) {
         closeTabMenuItem.setEnabled(b);
         saveMenuItem.setEnabled(b);
@@ -603,8 +607,6 @@ public class EditorFrame extends JFrame {
 
     //What to do when they click Open in File Menu
     private void openMenuItemActionPerformed() {
-        System.out.println("Opening Open File Chooser");
-
         int status = fc.showOpenDialog(this);
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
@@ -615,10 +617,13 @@ public class EditorFrame extends JFrame {
         }
     }
 
+    /**
+     * Simply opens the file without the file chooser.
+     *
+     * @param f - The file to open
+     */
     public void openFileWithoutFileChooser(File f) {
         JTextArea textArea = realizeNewTab(f.getName());
-
-
         new OpenCommand(f, getActiveContext()).execute(commandDistributor, commandMediator);
         addListeners(textArea);
     }
@@ -635,10 +640,7 @@ public class EditorFrame extends JFrame {
         tabPane.setSelectedIndex(index);
 
         //For the close button on tabs, create JPanel with label for name of
-        // file and button for the actual close operation.
-
         CloseTabComponent closePanel = new CloseTabComponent(name);
-
         tabPane.setTabComponentAt(index, closePanel);
         closePanel.getCloseButton().addActionListener(new ActionListener() {
             @Override
@@ -650,7 +652,6 @@ public class EditorFrame extends JFrame {
                 closeTabMenuItemActionPerformed();
             }
         });
-
         return pane;
     }
 
@@ -671,8 +672,8 @@ public class EditorFrame extends JFrame {
 
     }
 
+    //What to do when they click Save As in file menu
     private void saveAsMenuItemActionPerformed() {
-        System.out.println("Opening Save File Chooser");
         int status = fc.showSaveDialog(this);
         if (status == JFileChooser.APPROVE_OPTION) {
             File f = fc.getSelectedFile();
@@ -726,7 +727,6 @@ public class EditorFrame extends JFrame {
             robot.keyRelease(KeyEvent.VK_C);
             robot.keyRelease(KeyEvent.VK_CONTROL);
         } catch (AWTException e) {
-            e.printStackTrace();
         }
     }
 
@@ -738,10 +738,10 @@ public class EditorFrame extends JFrame {
             robot.keyRelease(KeyEvent.VK_V);
             robot.keyRelease(KeyEvent.VK_CONTROL);
         } catch (AWTException e) {
-            e.printStackTrace();
         }
     }
 
+    //Undo Menu and redo action performed
     private void undoMenuItemActionPerformed() {
         new UndoCommand(getActiveContext()).execute(commandDistributor, commandMediator);
     }
@@ -763,7 +763,11 @@ public class EditorFrame extends JFrame {
         }
     }
 
-
+    /**
+     * Shows the dialog requesting input for the list, and then
+     *
+     * @param e
+     */
     private void insertListActionPerformed(ActionEvent e) {
         SizeOfListDialog x = new SizeOfListDialog(this, true);
         x.setLocationRelativeTo(this);
@@ -781,6 +785,9 @@ public class EditorFrame extends JFrame {
         }
     }
 
+    /**
+     * Insert various headers
+     */
     private void insertH1ActionPerformed() {
         insertHActionPerformed(InsertConstructCommand.Construct.H1);
     }
@@ -797,6 +804,9 @@ public class EditorFrame extends JFrame {
         new InsertConstructCommand(h, getActiveContext()).execute(commandDistributor, commandMediator);
     }
 
+    /**
+     * prompts for image source and inserts image tag in HTML Editor
+     */
     private void insertImageActionPerformed() {
         URLDialog dialog = new URLDialog(this, true);
         dialog.setLocationRelativeTo(this);
@@ -808,6 +818,9 @@ public class EditorFrame extends JFrame {
 
     }
 
+    /**
+     * prompts for tag href and name and inserts it in editor
+     */
     private void insertATagActionPerformed() {
         URLWithNameDialog dialog = new URLWithNameDialog(this, true);
         dialog.setLocationRelativeTo(this);
@@ -819,6 +832,11 @@ public class EditorFrame extends JFrame {
         }
     }
 
+    /**
+     * inserts font emphasis "<b> tag for example </b>"
+     *
+     * @param e - Action event that has a source for either bold or italics
+     */
     private void fontEmphasisActionPerformed(ActionEvent e) {
         if (e.getSource() == boldMenuItem) {
             new InsertConstructCommand(InsertConstructCommand.Construct.BOLD, getActiveContext()).execute(commandDistributor, commandMediator);
@@ -864,13 +882,17 @@ public class EditorFrame extends JFrame {
         }
     }
 
+    /**
+     * Arranges the list in alphabetical order
+     */
     private void alphabeticalRadioButtonActionPerformed() {
-        System.out.println("Click radio button");
         this.SelectedListType = ListType.ALPHABETICAL;
         refreshLinkList();
     }
 
-
+    /**
+     * Arranges the list in alphabetical order
+     */
     private void inOrderRadioButtonActionPerformed() {
         this.SelectedListType = ListType.INORDER;
         refreshLinkList();
@@ -909,6 +931,9 @@ public class EditorFrame extends JFrame {
         }
     }
 
+    /**
+     * toggle the outline view
+     */
     private void toggleOutlineActionPerformed() {
         //new ValidateCommand(commandDistributor.getFileManager().getPathAt(activePaneIndex), false, getActiveContext()).execute(commandDistributor, commandMediator);
         getActiveTabFrame().toggleOutlineView();
@@ -917,7 +942,12 @@ public class EditorFrame extends JFrame {
 
     //******************************** END *******************************************//
 
-
+    /**
+     * This methods adds the listeners to the text area to do things like auto indenting
+     * and also adds the backend document listener to its respective JTextArea
+     *
+     * @param newEditorPane - The new text area,
+     */
     private void addListeners(JTextArea newEditorPane) {
         // Attach a keylistener to allow for auto-indentation
         newEditorPane.addKeyListener(new KeyListener() {
@@ -940,7 +970,6 @@ public class EditorFrame extends JFrame {
             @Override
             public void keyReleased(KeyEvent e) {
                 int keyCode = e.getKeyCode();
-                //System.out.println(keyCode + " " + KeyEvent.VK_ENTER);
                 if (keyCode == KeyEvent.VK_ENTER) {
                     try {
                         if (toggleAutoIndentMenuItem.getState()) {
@@ -972,6 +1001,9 @@ public class EditorFrame extends JFrame {
 
     }
 
+    /**
+     * @return - The currently showing tab frame object.
+     */
     private TabFrame getActiveTabFrame() {
         if (!(tabFrames.size() <= 0)) {
             return tabFrames.get(activePaneIndex);
@@ -1052,14 +1084,28 @@ public class EditorFrame extends JFrame {
         return tabs;
     }
 
+    /**
+     *
+     * @return - what the global tab size is.
+     */
     public int getGlobalTabSize() {
         return globalTabSize;
     }
 
+    /**
+     *
+     * @return - if word wrap is set or not.
+     */
     public boolean getWordWrapBoolean() {
         return toggleWordWrapMenuItem.getState();
     }
 
+    /**
+     * Get tab frame
+     *
+     * @param index
+     * @return
+     */
     public TabFrame getTabFrame(int index) {
         if (tabFrames == null || tabFrames.size() == 0)
             return null;

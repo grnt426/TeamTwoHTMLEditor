@@ -159,6 +159,7 @@ public class TabFrame extends JPanel {
             ((CardLayout) mainPanel.getLayout()).next(mainPanel);
             outlineViewScrollPane.revalidate();
             mainPanel.revalidate();
+
             inOutline = true;
             this.revalidate();
         } else {
