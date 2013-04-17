@@ -20,12 +20,16 @@ public class CareTaker {
 
     public void storePrevious(Memento previous) {
 
+
         // If our pointer is currently in the middle of the undo stack, then
         // we need to invalidate all future redos to allow this undo state
         // to maintain a proper undo/redo mechanism.
         if (pointer != undoStack.size()) {
             undoStack = undoStack.subList(0, pointer + 1);
         }
+		else if(undoStack.size() > 20){
+			undoStack.remove(0);
+		}
         undoStack.add(previous);
         pointer = undoStack.size() - 1;
     }
