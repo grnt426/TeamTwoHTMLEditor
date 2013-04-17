@@ -167,7 +167,6 @@ public class TabFrame extends JPanel {
             inOutline = false;
             this.revalidate();
         }
-        System.out.println(mainPanel.getComponents().length);
     }
 
     /**

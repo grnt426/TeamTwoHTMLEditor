@@ -200,7 +200,6 @@ public class InsertTableDialog extends JDialog{
 		col = (Integer) colSpinner.getValue();
 		this.setVisible(false);
 		this.dispose();
-		System.out.println("You ACCEPT");
 	}
 
 

@@ -910,6 +910,8 @@ public class EditorFrame extends JFrame {
     }
 
     private void toggleOutlineActionPerformed() {
+        //new ValidateCommand(commandDistributor.getFileManager().getPathAt(activePaneIndex), false, getActiveContext()).execute(commandDistributor, commandMediator);
+
         getActiveTabFrame().toggleOutlineView();
     }
 

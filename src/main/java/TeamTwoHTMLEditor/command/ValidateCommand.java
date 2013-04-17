@@ -71,7 +71,6 @@ public class ValidateCommand implements Command{
 				bw.close();
 			}
 			catch(IOException e){
-				// TODO can't validate, I guess don't bother?
 				JOptionPane x = new JOptionPane();
 				x.setName("Error while parsing the HTML");
 				JOptionPane.showMessageDialog(context.getParent(),
