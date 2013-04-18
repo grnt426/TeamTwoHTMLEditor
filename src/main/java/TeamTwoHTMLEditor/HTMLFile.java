@@ -262,6 +262,9 @@ public class HTMLFile implements DocumentListener{
 		this.needToSave = true;
 	}
 
+    /**
+     * Makes an undo state using the memento.
+     */
 	private void scheduleUndo(){
 		typedUndo.cancel();
 		if(ignoreTimedUndo > 0)
@@ -290,6 +293,10 @@ public class HTMLFile implements DocumentListener{
 		this.needToSave = true;
 	}
 
+    /**
+     *
+     * @param e - event that changes the document
+     */
 	@Override
 	public void changedUpdate(DocumentEvent e){
 		Document doc = e.getDocument();
@@ -301,6 +308,9 @@ public class HTMLFile implements DocumentListener{
 		this.needToSave = true;
 	}
 
+    /**
+     * Redo to future state
+     */
 	public void restoreNextState(){
 		typedUndo.cancel();
 		ignoreTimedUndo = 3;
