@@ -54,7 +54,7 @@ public class ActiveContext {
     }
 
 	/**
-	 * @return ListType - Either ALPHABETICAL or INORDER.
+	 * @return ListType - Either ALPHABETICAL or IN ORDER.
 	 */
     public EditorFrame.ListType getListType() {
         return this.SelectedListType;
