@@ -80,9 +80,6 @@ public class HTMLFile implements DocumentListener{
 			}
 		}
 		catch(FileNotFoundException e){
-			// TODO: Report error to user?
-			//e.printStackTrace();
-			//System.out.print("YOLO: NEW FILE");
 		}
 		finally{
 			if(reader != null){
@@ -107,7 +104,6 @@ public class HTMLFile implements DocumentListener{
 	 */
 	void saveFile(){
 		this.needToSave = false;
-		System.out.println("SAVED FILE: " + filename);
 		try{
 			// BufferedWriter will automatically clear the contents of the
 			// file for us.
@@ -270,11 +266,9 @@ public class HTMLFile implements DocumentListener{
 		if(ignoreTimedUndo > 0)
 			return;
 		typedUndo = new Timer();
-		System.out.println("Scheduling Undo....");
 		typedUndo.schedule(new TimerTask(){
 			@Override
 			public void run(){
-				System.out.println("Creating Undo!");
 				createMemento();
 			}
 		}, 1000);
